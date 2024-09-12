@@ -1,14 +1,10 @@
 package com.must.atm.mustatm.Controller;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-
-;
 
 /**
  * @author 13318
@@ -20,8 +16,8 @@ public class MainPageController {
         AnchorPane anchorPane = new AnchorPane();
         
         // 创建图片对象
-
-        Image image = new Image("src/main/resources/com/must/atm/mustatm/images/title.png");
+        String imagePath = "title.png";
+        Image image = new Image(imagePath);
 
 
         // 创建ImageView并设置图片

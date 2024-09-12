@@ -15,7 +15,7 @@ repositories {
 
 
 dependencies {
-  implementation 'io.github.mkpaz:atlantafx-base:2.0.0'
+  implementation 'io.github.mkpaz:atlantafx-base:2.0.1'
   implementation 'org.kordamp.ikonli:ikonli-javafx:12.3.1'
   implementation 'org.kordamp.ikonli:ikonli-materialdesign2-pack:12.3.1'
 }
@@ -23,11 +23,7 @@ dependencies {
 ext {
   junitVersion = '5.9.2'
 }
-
-sourceCompatibility = '22'
-targetCompatibility = '22'
-
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
   options.encoding = 'UTF-8'
 }
 
