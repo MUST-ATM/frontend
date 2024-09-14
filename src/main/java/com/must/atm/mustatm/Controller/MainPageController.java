@@ -68,16 +68,16 @@ public class MainPageController {
         rectangle.setFill(Color.rgb(5,80,174));
 
         anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double Y = newVal.doubleValue()*0.9;
-            double Height = newVal.doubleValue()*0.15;
-            rectangle.setY(Y);
-            rectangle.setHeight(Height);
+            double y = newVal.doubleValue()*0.9;
+            double height = newVal.doubleValue()*0.15;
+            rectangle.setY(y);
+            rectangle.setHeight(height);
         });
         anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double X = newVal.doubleValue()*0.6 ;
-            double Width=newVal.doubleValue()*4;
-            rectangle.setX(X);
-            rectangle.setWidth(Width);
+            double x = newVal.doubleValue()*0.6 ;
+            double width=newVal.doubleValue()*4;
+            rectangle.setX(x);
+            rectangle.setWidth(width);
         });
         anchorPane.getChildren().add(rectangle);
 
@@ -124,9 +124,7 @@ public class MainPageController {
         normalBtn.setMnemonicParsing(true);
 
 
-
-//here
-
+        // 创建按钮action
         main main = new main();
         normalBtn.setOnAction(e ->main.showVerScene(primaryStage));
 
