@@ -61,7 +61,7 @@ public class MainPageController {
         });
 
 
-
+        //buttonbar
         Rectangle rectangle = new Rectangle();
         rectangle.setArcWidth(0);
         rectangle.setArcHeight(0);
@@ -112,7 +112,6 @@ public class MainPageController {
 
 
 
-
         // 创建Label，设置宽高
 //        Label content = new Label("Content");
 //        content.prefWidthProperty().bind(anchorPane.widthProperty().multiply(1));
@@ -127,8 +126,6 @@ public class MainPageController {
         // 创建按钮action
         main main = new main();
         normalBtn.setOnAction(e ->main.showVerScene(primaryStage));
-
-
 
 
         // 设置按钮的大小
@@ -146,10 +143,8 @@ public class MainPageController {
         });
         anchorPane.getChildren().add(normalBtn);
 
+
         return anchorPane;
     }
-
-
-
 
 }
