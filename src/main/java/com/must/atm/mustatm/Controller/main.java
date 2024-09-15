@@ -5,8 +5,9 @@ import atlantafx.base.theme.PrimerLight;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -70,7 +71,45 @@ public class main extends Application {
         });
     }
 
+    void showFunctionPage(Stage primaryStage){
+
+
+        var functionPage = new FunctionPageController();
+        var functionScene = new Scene(functionPage.createFunctionPagePane(primaryStage));
+        primaryStage.setScene(functionScene);
+        primaryStage.setOnCloseRequest(t -> Platform.exit());
+        primaryStage.setMaxWidth(1800);
+        primaryStage.setMaxHeight(900);
+        Platform.runLater(() -> {
+            primaryStage.show();
+            primaryStage.requestFocus();
+        });
+    }
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public Rectangle setRectangle(AnchorPane anchorPane,Rectangle rectangle,Double timesY,Double timesX,Double timesHeight,Double timesWidth){
+        anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+            double rectangleY = newVal.doubleValue()*timesY;
+            double height = newVal.doubleValue()*timesHeight;
+            rectangle.setY(rectangleY);
+            rectangle.setHeight(height);
+        });
+        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            double rectangleX = newVal.doubleValue()*timesX ;
+            double width=newVal.doubleValue()*timesWidth;
+            rectangle.setX(rectangleX);
+            rectangle.setWidth(width);
+        });
+        return rectangle;
+    }
+
+    public Rectangle createRectangle(double arcWidth, double arcHeight, int colorR, int colorG,int colorB) {
+        Rectangle rectangle = new Rectangle();
+        rectangle.setArcWidth(arcWidth);
+        rectangle.setArcHeight(arcHeight);
+        rectangle.setFill(Color.rgb(colorR,colorG,colorB));
+        return rectangle;
     }
 }

@@ -6,9 +6,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * @author DOVAKIIN
+ */
 public class FunctionPageController {
 
-    public Pane createMainPagePane(Stage primaryStage)
+    public Pane createFunctionPagePane(Stage primaryStage)
     {
         AnchorPane anchorPane = new AnchorPane();
 

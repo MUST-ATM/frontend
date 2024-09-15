@@ -8,6 +8,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
@@ -25,6 +28,7 @@ public class MainPageController {
 
 
 
+        main main = new main();
 
         // 创建must对象
         String mustPath = "pictureOfMust.png";
@@ -62,23 +66,8 @@ public class MainPageController {
 
 
         //buttonbar
-        Rectangle rectangle = new Rectangle();
-        rectangle.setArcWidth(0);
-        rectangle.setArcHeight(0);
-        rectangle.setFill(Color.rgb(5,80,174));
-
-        anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double y = newVal.doubleValue()*0.9;
-            double height = newVal.doubleValue()*0.15;
-            rectangle.setY(y);
-            rectangle.setHeight(height);
-        });
-        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double x = newVal.doubleValue()*0.6 ;
-            double width=newVal.doubleValue()*4;
-            rectangle.setX(x);
-            rectangle.setWidth(width);
-        });
+        Rectangle rectangle = main.createRectangle(0,0,5,80,174);
+        main.setRectangle(anchorPane,rectangle,0.9,0.6,0.15,4.0);
         anchorPane.getChildren().add(rectangle);
 
 
@@ -124,12 +113,17 @@ public class MainPageController {
 
 
         // 创建按钮action
-        main main = new main();
+
         normalBtn.setOnAction(e ->main.showVerScene(primaryStage));
 
 
         // 设置按钮的大小
         normalBtn.setPrefSize(300, 60);
+
+        // 设置按钮内字体样式颜色
+        normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
+        normalBtn.setStyle("-fx-text-fill: #033D8B;");
+
 
         // 计算按钮的位置
         anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {

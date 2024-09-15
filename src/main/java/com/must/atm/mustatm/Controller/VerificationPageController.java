@@ -1,5 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
+import javafx.application.Application;
 import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
 import javafx.scene.control.Button;
@@ -17,14 +18,25 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * @author DOVAKIIN
+ */
+
+
 public class VerificationPageController {
     ScheduledService<Double> sche ;
     public Pane createVerificationPagePane(Stage primaryStage)
     {
         AnchorPane anchorPane = new AnchorPane();
 
+        //识别结果变量
+        Boolean verficationResult = true;
+
         //创建背景
         anchorPane.setStyle("-fx-background-color:linear-gradient(to bottom,#0550AE,#0969DA,#B6E3FF,#6E7781) ;");
+
+        main main = new main();
+
 
 
 
@@ -69,18 +81,39 @@ public class VerificationPageController {
 
 
         // 创建 Text 对象
-        Text text = new Text("Styled Text");
+        Text text = new Text("Face recognition ...");
+
+        double faceRecognitionSize = 0.0;
+
+        //计算字体大小
+//        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+//            double faceRecognitionSize = newVal.doubleValue()/2;
+//        });
+//        anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+//            double faceRecognitionSize = newVal.doubleValue()/2;
+//        });
+
+
+        // 计算字体位置
+        anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+            double topAnchor = (newVal.doubleValue() )*0.25;
+            AnchorPane.setTopAnchor(text, topAnchor);
+        });
+
+        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            double leftAnchor = (newVal.doubleValue() )*0.25;
+            AnchorPane.setLeftAnchor(text, leftAnchor);
+        });
 
         // 设置字体样式（字体，字体加粗，字体斜体，字体大小）
-        text.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC, 30));
+        text.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.ITALIC, faceRecognitionSize));
 
-        // 设置字体颜色
-        text.setFill(Color.BLUE);
 
-        //计算字体位置
-        double x = 0.0;
-        double y = 0.0;
 
+
+
+//        double x = 0.0;
+//        double y = 0.0;
         //test
 //        for (int i = 1; i < 100; i++)
 //        {
@@ -124,15 +157,15 @@ public class VerificationPageController {
 
 
 
-
-
         //创建bar
         var bar1 = new ProgressBar(0);
         bar1.setPrefWidth(200);
 
 
         sche = new ScheduledService<Double>() {
+
             double i =0;
+            double number =0;
             @Override
             protected Task<Double> createTask() {
                 Task <Double> task = new Task<Double>() {
@@ -144,12 +177,56 @@ public class VerificationPageController {
 
                     @Override
                     protected void updateValue(Double value) {
+                        System.out.println(value);
                         bar1.setProgress(value);
 
-                        if(value>=1){
-                            sche.cancel();
+                        if(value>=1&&number<2){
+                            bar1.setProgress(0);
+                            number = number+1;
+
+                            i=0;
+
+                            sche.restart();
+                            System.out.println("end");
 
                         }
+                        if(number>=2){
+
+                            sche.cancel();
+                            anchorPane.getChildren().remove(bar1);
+                            if(verficationResult){
+                                Rectangle rectangle = main.createRectangle(40,40,45,164,78);
+                                main.setRectangle(anchorPane,rectangle,0.15,0.15,0.7,0.7);
+//                                anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+//                                    double y = newVal.doubleValue()*0.15;
+//                                    double height = newVal.doubleValue()*0.7;
+//                                    rectangle.setY(y);
+//                                    rectangle.setHeight(height);
+//                                });
+//                                anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+//                                    double x = newVal.doubleValue()*0.15 ;
+//                                    double width=newVal.doubleValue()*0.7;
+//                                    rectangle.setX(x);
+//                                    rectangle.setWidth(width);
+//                                });
+                                anchorPane.getChildren().add(rectangle);
+                                primaryStage.hide();
+                                primaryStage.show();
+
+                                try {
+                                    Thread.sleep(6000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                main.showFunctionPage(primaryStage);
+
+
+                                System.out.println("OK");
+
+                            }
+                        }
+
+
                     }
                 };
                 return  task;
@@ -158,6 +235,10 @@ public class VerificationPageController {
         sche.setDelay(Duration.millis(0));
         sche.setPeriod(Duration.millis(500));
         sche.start();
+
+
+
+
         //bar位置
         anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = (newVal.doubleValue()*0.5 );
@@ -175,10 +256,6 @@ public class VerificationPageController {
 
         return anchorPane;
     }
-
-
-
-
 
 
 
