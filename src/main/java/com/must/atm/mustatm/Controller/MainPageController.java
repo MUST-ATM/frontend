@@ -1,60 +1,54 @@
 
 package com.must.atm.mustatm.Controller;
 
+import com.must.atm.mustatm.Template.BaseRectangle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
+ * MainPageController is a class which can generate main page
  * @author 13318
  */
 public class MainPageController {
 
-
     public  Pane createMainPagePane(Stage primaryStage)
     {
         AnchorPane anchorPane = new AnchorPane();
-
-        //创建背景
+        //set background
         anchorPane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
-
-
-
-        main main = new main();
-
-        // 创建must对象
+        //instantiate a controller
+        Controller controller = new Controller();
+        // instantiate an image which is the picture of MUST
         String mustPath = "pictureOfMust.png";
         Image must = new Image(mustPath);
-
-        // 创建ImageView并设置图片
+        // set the image
         ImageView mustView = new ImageView(must);
         anchorPane.getChildren().add(mustView);
-
-        // 设置must大小
+        // set the default size of image
         mustView.setFitWidth(1000);
         mustView.setFitHeight(1000);
         mustView.setPreserveRatio(true);
-
-         // 设置must位置
+        //set the position of the image
         anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = newVal.doubleValue() * 0.35;
             AnchorPane.setTopAnchor(mustView, topAnchor);
         });
-
         anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double leftAnchor = (newVal.doubleValue()) * 0.45;
             AnchorPane.setLeftAnchor(mustView, leftAnchor);
         });
-
-        //计算must大小
+        //set the size of image
         anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = newVal.doubleValue()*0.45;
             mustView.setFitWidth (topAnchor);
@@ -63,34 +57,29 @@ public class MainPageController {
             double topAnchor = newVal.doubleValue()*0.45;
             mustView.setFitHeight (topAnchor);
         });
-
-
-        //buttonbar
-
-        Rectangle rectangle = main.createRectangle(0,0,5,80,174);
-        main.setRectangle(anchorPane,rectangle,0.9,0.6,0.15,4.0);
+        //add a buttonbar
+        //input the data of bar in the list
+        ArrayList<Integer>recColor = new ArrayList<>(Arrays.asList(5,80,174));
+        ArrayList<Double>recPosition = new ArrayList<>(Arrays.asList(0.9,0.6,0.15,4.0));
+        //instantiate a BaseRectangle which can encapsulate the data
+        BaseRectangle rec =new BaseRectangle(0.0,0.0,recColor,recPosition);
+        Rectangle rectangle = controller.createRectangle(rec);
+        controller.setRectangle(anchorPane,rectangle,rec);
         anchorPane.getChildren().add(rectangle);
-
-
-
-        // 创建topbar对象
+        // instantiate a topbar
         String topbarPath = "topbar.png";
         Image topbar = new Image(topbarPath);
-
-        // 创建ImageView并设置图片
+        // set topbar
         ImageView topbarView = new ImageView(topbar);
         anchorPane.getChildren().add(topbarView);
-
-        // 设置title大小
+        //set the size of title
         topbarView.setFitWidth(1000);
         topbarView.setFitHeight(1000);
         topbarView.setPreserveRatio(true);
-
-        // 计算title位置
+        // set position of title
         AnchorPane.setTopAnchor(topbarView, 0.0);
         AnchorPane.setLeftAnchor(topbarView, 0.0);
-
-        //计算title大小
+        //set size of title
         anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = newVal.doubleValue();
             topbarView.setFitWidth (topAnchor);
@@ -99,45 +88,26 @@ public class MainPageController {
             double topAnchor = newVal.doubleValue();
             topbarView.setFitHeight (topAnchor);
         });
-
-
-
-        // 创建Label，设置宽高
-//        Label content = new Label("Content");
-//        content.prefWidthProperty().bind(anchorPane.widthProperty().multiply(1));
-//        content.prefHeightProperty().bind(anchorPane.heightProperty().multiply(1));
-//        anchorPane.getChildren().add(content);
-
-        // 创建按钮
+        // set button
         var normalBtn = new Button("SERVICE");
         normalBtn.setMnemonicParsing(true);
-
-
-        // 创建按钮action
-
-        normalBtn.setOnAction(e ->main.showVerScene(primaryStage));
-
-
-        // 设置按钮的大小
+        // set button action
+        normalBtn.setOnAction(e ->controller.showVerScene(primaryStage));
+        // set button default size
         normalBtn.setPrefSize(300, 60);
-
-        // 设置按钮内字体样式颜色
+        // set text and color of button
         normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
         normalBtn.setStyle("-fx-text-fill: #033D8B;");
-
-
-        // 计算按钮的位置
+        // set position of button
         anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = (newVal.doubleValue() - normalBtn.getHeight())* 0.9;
             AnchorPane.setTopAnchor(normalBtn, topAnchor);
         });
-
         anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double leftAnchor = (newVal.doubleValue() - normalBtn.getWidth()) / 20;
             AnchorPane.setLeftAnchor(normalBtn, leftAnchor);
         });
         anchorPane.getChildren().add(normalBtn);
-
 
         return anchorPane;
     }
