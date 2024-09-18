@@ -1,5 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
@@ -18,19 +19,25 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+
 /**
- * @author DOVAKIIN
+ *
+ * @author 13318
  */
-
-
 public class VerificationPageController {
     ScheduledService<Double> sche ;
+
+    /**
+     *
+     * @param primaryStage
+     * @return
+     */
     public Pane createVerificationPagePane(Stage primaryStage)
     {
         AnchorPane anchorPane = new AnchorPane();
 
         //识别结果变量
-        Boolean verficationResult = true;
+        Boolean verficationResult = false;
 
         //创建背景
         anchorPane.setStyle("-fx-background-color:linear-gradient(to bottom,#0550AE,#0969DA,#B6E3FF,#6E7781) ;");
@@ -40,6 +47,8 @@ public class VerificationPageController {
 
 
 
+        // create PauseTransition
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
 
 
         // 创建verificationWindow对象
@@ -83,7 +92,7 @@ public class VerificationPageController {
         // 创建 Text 对象
         Text text = new Text("Face recognition ...");
 
-        double faceRecognitionSize = 0.0;
+        double faceRecognitionSize = 20;
 
         //计算字体大小
 //        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -108,52 +117,7 @@ public class VerificationPageController {
         // 设置字体样式（字体，字体加粗，字体斜体，字体大小）
         text.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.ITALIC, faceRecognitionSize));
 
-
-
-
-
-//        double x = 0.0;
-//        double y = 0.0;
-        //test
-//        for (int i = 1; i < 100; i++)
-//        {
-//            // 创建must对象
-//            String mustPath = "pictureOfMust.png";
-//            Image must = new Image(mustPath);
-//
-//            // 创建ImageView并设置图片
-//            ImageView mustView = new ImageView(must);
-//            anchorPane.getChildren().add(mustView);
-//
-//            // 设置must大小
-//            mustView.setFitWidth(1000);
-//            mustView.setFitHeight(1000);
-//            mustView.setPreserveRatio(true);
-//
-//            // 设置must位置
-//            AnchorPane.setTopAnchor(mustView, x);
-//            AnchorPane.setLeftAnchor(mustView, y);
-//
-//            //计算must大小
-//            anchorPane.widthProperty().addListener((obs, oldVal, newVal) ->
-//            {
-//                double topAnchor = newVal.doubleValue() * 0.45;
-//                mustView.setFitWidth(topAnchor);
-//            });
-//            anchorPane.heightProperty().addListener((obs, oldVal, newVal) ->
-//            {
-//                double topAnchor = newVal.doubleValue() * 0.45;
-//                mustView.setFitHeight(topAnchor);
-//            });
-//            x += 0.1;
-//            y += 0.1;
-//            try {
-//                Thread.sleep(100);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-
+        anchorPane.getChildren().add(text);
 
 
 
@@ -175,6 +139,10 @@ public class VerificationPageController {
 
                     }
 
+                    /**
+                     *
+                     * @param value the new value
+                     */
                     @Override
                     protected void updateValue(Double value) {
                         System.out.println(value);
@@ -194,9 +162,10 @@ public class VerificationPageController {
 
                             sche.cancel();
                             anchorPane.getChildren().remove(bar1);
-                            if(verficationResult){
-                                Rectangle rectangle = main.createRectangle(40,40,45,164,78);
-                                main.setRectangle(anchorPane,rectangle,0.15,0.15,0.7,0.7);
+                            if(verficationResult)
+                            {
+                                Rectangle rectangle = main.createRectangle(40, 40, 45, 164, 78);
+                                main.setRectangle(anchorPane, rectangle, 0.15, 0.15, 0.7, 0.7);
 //                                anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
 //                                    double y = newVal.doubleValue()*0.15;
 //                                    double height = newVal.doubleValue()*0.7;
@@ -212,28 +181,45 @@ public class VerificationPageController {
                                 anchorPane.getChildren().add(rectangle);
                                 primaryStage.hide();
                                 primaryStage.show();
+                            }else{
+                                Rectangle rectangle = main.createRectangle(40, 40, 207, 34, 46);
+                                main.setRectangle(anchorPane, rectangle, 0.15, 0.15, 0.7, 0.7);
+//                                anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+//                                    double y = newVal.doubleValue()*0.15;
+//                                    double height = newVal.doubleValue()*0.7;
+//                                    rectangle.setY(y);
+//                                    rectangle.setHeight(height);
+//                                });
+//                                anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+//                                    double x = newVal.doubleValue()*0.15 ;
+//                                    double width=newVal.doubleValue()*0.7;
+//                                    rectangle.setX(x);
+//                                    rectangle.setWidth(width);
+//                                });
+                                anchorPane.getChildren().add(rectangle);
+                                primaryStage.hide();
+                                primaryStage.show();
+                            }
 
-                                try {
-                                    Thread.sleep(6000);
-                                } catch (InterruptedException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                main.showFunctionPage(primaryStage);
 
+                                // start pause
+                                pause.play();
+                                // jump when pause finished
+                                pause.setOnFinished(event -> {
+                                    main.showFunctionPage(primaryStage);
+                                });
 
                                 System.out.println("OK");
 
-                            }
+
                         }
-
-
                     }
                 };
                 return  task;
             }
         };
         sche.setDelay(Duration.millis(0));
-        sche.setPeriod(Duration.millis(500));
+        sche.setPeriod(Duration.millis(100));
         sche.start();
 
 

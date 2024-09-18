@@ -66,6 +66,7 @@ public class MainPageController {
 
 
         //buttonbar
+
         Rectangle rectangle = main.createRectangle(0,0,5,80,174);
         main.setRectangle(anchorPane,rectangle,0.9,0.6,0.15,4.0);
         anchorPane.getChildren().add(rectangle);
@@ -127,7 +128,7 @@ public class MainPageController {
 
         // 计算按钮的位置
         anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double topAnchor = (newVal.doubleValue() - normalBtn.getHeight())* 0.8;
+            double topAnchor = (newVal.doubleValue() - normalBtn.getHeight())* 0.9;
             AnchorPane.setTopAnchor(normalBtn, topAnchor);
         });
 
