@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 /**
  * BaseRectangle is the class for storing data of Rectangles
+ * @author jingye
  */
 public class BaseRectangle {
     protected  double arcWidth;
@@ -25,7 +26,7 @@ public class BaseRectangle {
     }
     /**
      * Those method is used to get the degree of the filleted corner
-     * @return
+     *
      */
     public double getArcWidth()
     {return arcWidth;}

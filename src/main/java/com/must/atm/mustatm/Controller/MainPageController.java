@@ -21,7 +21,11 @@ import java.util.Arrays;
  * @author 13318
  */
 public class MainPageController {
-
+    /** createMainPagePane
+     *
+     * @param primaryStage listen window
+     * @return MainPagePane
+     */
     public  Pane createMainPagePane(Stage primaryStage)
     {
         AnchorPane anchorPane = new AnchorPane();
@@ -29,6 +33,8 @@ public class MainPageController {
         anchorPane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
         //instantiate a controller
         Controller controller = new Controller();
+
+
         // instantiate an image which is the picture of MUST
         String mustPath = "pictureOfMust.png";
         Image must = new Image(mustPath);
@@ -57,6 +63,8 @@ public class MainPageController {
             double topAnchor = newVal.doubleValue()*0.45;
             mustView.setFitHeight (topAnchor);
         });
+
+
         //add a buttonbar
         //input the data of bar in the list
         ArrayList<Integer>recColor = new ArrayList<>(Arrays.asList(5,80,174));
@@ -66,28 +74,32 @@ public class MainPageController {
         Rectangle rectangle = controller.createRectangle(rec);
         controller.setRectangle(anchorPane,rectangle,rec);
         anchorPane.getChildren().add(rectangle);
-        // instantiate a topbar
-        String topbarPath = "topbar.png";
-        Image topbar = new Image(topbarPath);
-        // set topbar
-        ImageView topbarView = new ImageView(topbar);
-        anchorPane.getChildren().add(topbarView);
-        //set the size of title
-        topbarView.setFitWidth(1000);
-        topbarView.setFitHeight(1000);
-        topbarView.setPreserveRatio(true);
-        // set position of title
-        AnchorPane.setTopAnchor(topbarView, 0.0);
-        AnchorPane.setLeftAnchor(topbarView, 0.0);
-        //set size of title
+
+
+        // instantiate a topBar
+        String topBarPath = "topBar.png";
+        Image topBar = new Image(topBarPath);
+        // set topBar
+        ImageView topBarView = new ImageView(topBar);
+        anchorPane.getChildren().add(topBarView);
+        //set the size of topBar
+        topBarView.setFitWidth(1000);
+        topBarView.setFitHeight(1000);
+        topBarView.setPreserveRatio(true);
+        // set position of topBar
+        AnchorPane.setTopAnchor(topBarView, 0.0);
+        AnchorPane.setLeftAnchor(topBarView, 0.0);
+        //set size of topBar
         anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = newVal.doubleValue();
-            topbarView.setFitWidth (topAnchor);
+            topBarView.setFitWidth (topAnchor);
         });
         anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = newVal.doubleValue();
-            topbarView.setFitHeight (topAnchor);
+            topBarView.setFitHeight (topAnchor);
         });
+
+
         // set button
         var normalBtn = new Button("SERVICE");
         normalBtn.setMnemonicParsing(true);

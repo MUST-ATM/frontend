@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-/**
+/**use to create verification page
  *
  * @author 13318
  */
@@ -34,29 +34,32 @@ public class VerificationPageController {
     /**
      *
      * @param primaryStage
-     * @return
+     * @return VerificationPagePane
      */
     public Pane createVerificationPagePane(Stage primaryStage)
     {
         AnchorPane anchorPane = new AnchorPane();
-        //识别结果变量
-        Boolean verficationResult = false;
-        //创建背景
+        //recognize and anti-spoofing result
+        Boolean verificationResult = false;
+        Boolean antiSpoofingResult = true;
+        //create background
         anchorPane.setStyle("-fx-background-color:linear-gradient(to bottom,#0550AE,#0969DA,#B6E3FF,#6E7781) ;");
         Controller controller = new Controller();
         // create PauseTransition
         PauseTransition pause = new PauseTransition(Duration.seconds(3));
-        // 创建verificationWindow对象
+
+
+        // create verificationWindow object
         String verificationWindowPath = "verificationWindow.png";
         Image topbar = new Image(verificationWindowPath);
-        // 创建ImageView并设置图片
+        // create ImageView and set picture
         ImageView verificationWindowView = new ImageView(topbar);
         anchorPane.getChildren().add(verificationWindowView);
-        // 设置图片大小
+        // picture size
         verificationWindowView.setFitWidth(500);
         verificationWindowView.setFitHeight(500);
         verificationWindowView.setPreserveRatio(true);
-        // 计算图片位置
+        // picture location
         anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double picHight = (newVal.doubleValue() )*0.25;
             AnchorPane.setTopAnchor(verificationWindowView, picHight);
@@ -65,7 +68,7 @@ public class VerificationPageController {
             double leftAnchor = (newVal.doubleValue() )*0.25;
             AnchorPane.setLeftAnchor(verificationWindowView, leftAnchor);
         });
-        //计算图片大小
+        //picture size
         anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = newVal.doubleValue()/2;
             verificationWindowView.setFitWidth (topAnchor);
@@ -74,34 +77,55 @@ public class VerificationPageController {
             double topAnchor = newVal.doubleValue()/2;
             verificationWindowView.setFitHeight (topAnchor);
         });
-        // 创建 Text 对象
-        Text text = new Text("Face recognition ...");
+
+
+        // create Text object
+        Text text1 = new Text("Face recognition ...");
         double faceRecognitionSize = 20;
-        // 计算字体位置
+        // text location
         anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double topAnchor = (newVal.doubleValue() )*0.25;
-            AnchorPane.setTopAnchor(text, topAnchor);
+            double topAnchor = (newVal.doubleValue() )*0.45;
+            AnchorPane.setTopAnchor(text1, topAnchor);
         });
         anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double leftAnchor = (newVal.doubleValue() )*0.25;
-            AnchorPane.setLeftAnchor(text, leftAnchor);
+            double leftAnchor = (newVal.doubleValue() )*0.36;
+            AnchorPane.setLeftAnchor(text1, leftAnchor);
         });
-        // 设置字体样式（字体，字体加粗，字体斜体，字体大小）
-        text.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.ITALIC, faceRecognitionSize));
-        anchorPane.getChildren().add(text);
+        // set font style（font，bold，italic，size）
+        text1.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.ITALIC, faceRecognitionSize));
+        anchorPane.getChildren().add(text1);
+
+
+        // create Text object
+//        Text text2 = new Text("Face Anti-Spoofing ...");
+//        double antiSpoofingSize = 20;
+//        // text location
+//        anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+//            double topAnchor = (newVal.doubleValue() )*0.45;
+//            AnchorPane.setTopAnchor(text2, topAnchor);
+//        });
+//        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+//            double leftAnchor = (newVal.doubleValue() )*0.36;
+//            AnchorPane.setLeftAnchor(text2, leftAnchor);
+//        });
+//        // set font style（font，bold，italic，size）
+//        text2.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.ITALIC, antiSpoofingSize));
+//        anchorPane.getChildren().add(text2);
+
+
         //set bar
         var bar1 = new ProgressBar(0);
         bar1.setPrefWidth(200);
 
         sche = new ScheduledService<Double>() {
             double i =0;
-            double number =0;
+//            double number =0;
             @Override
             protected Task<Double> createTask() {
                 Task <Double> task = new Task<Double>() {
                     @Override
                     protected Double call() throws Exception {
-                        return  i=i+0.1;
+                        return  i=i+0.01;
                     }
                     /**
                      *
@@ -112,21 +136,12 @@ public class VerificationPageController {
                         System.out.println(value);
                         bar1.setProgress(value);
 
-                        if(value>=1&&number<2){
-                            bar1.setProgress(0);
-                            number = number+1;
-
-                            i=0;
-
-                            sche.restart();
-                            System.out.println("end");
-
-                        }
-                        if(number>=2){
+                        if(value>=1){
 
                             sche.cancel();
                             anchorPane.getChildren().remove(bar1);
-                            if(verficationResult)
+
+                            if(verificationResult)
                             {
                                 ArrayList<Integer> recColor = new ArrayList<>(Arrays.asList(45,164,78));
                                 ArrayList<Double>recPosition = new ArrayList<>(Arrays.asList(0.15,0.15,0.7,0.7));
@@ -136,6 +151,13 @@ public class VerificationPageController {
                                 anchorPane.getChildren().add(rectangle);
                                 primaryStage.hide();
                                 primaryStage.show();
+                                // start pause
+                                pause.play();
+                                // jump when pause finished
+                                pause.setOnFinished(event -> {
+                                    controller.showFunctionPage(primaryStage);
+                                });
+                                System.out.println("OK");
                             }else{
                                 ArrayList<Integer> recColor = new ArrayList<>(Arrays.asList(207,34,46));
                                 ArrayList<Double>recPosition = new ArrayList<>(Arrays.asList(0.15,0.15,0.7,0.7));
@@ -145,22 +167,25 @@ public class VerificationPageController {
                                 anchorPane.getChildren().add(rectangle);
                                 primaryStage.hide();
                                 primaryStage.show();
-                            }
                                 // start pause
                                 pause.play();
-                                // jump when pause finished
                                 pause.setOnFinished(event -> {
-                                    controller.showFunctionPage(primaryStage);
+                                    controller.showMainPage(primaryStage);
                                 });
                                 System.out.println("OK");
+                            }
+                            System.out.println("end");
+
                         }
-                    }
+
+                        }
+
                 };
                 return  task;
             }
         };
         sche.setDelay(Duration.millis(0));
-        sche.setPeriod(Duration.millis(100));
+        sche.setPeriod(Duration.millis(30));
         sche.start();
         //set position of bar
         anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {

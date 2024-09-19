@@ -17,7 +17,7 @@ public class FunctionPageController {
         //创建背景
         anchorPane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
         // 创建topbar对象
-        String topbarPath = "topbar.png";
+        String topbarPath = "topBar.png";
         Image topbar = new Image(topbarPath);
         // 创建ImageView并设置图片
         ImageView topbarView = new ImageView(topbar);
