@@ -10,6 +10,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -38,12 +39,12 @@ public class VerificationPageController {
      */
     public Pane createVerificationPagePane(Stage primaryStage)
     {
-        AnchorPane anchorPane = new AnchorPane();
+        BorderPane basePane = new BorderPane();
         //recognize and anti-spoofing result
         Boolean verificationResult = false;
         Boolean antiSpoofingResult = true;
         //create background
-        anchorPane.setStyle("-fx-background-color:linear-gradient(to bottom,#0550AE,#0969DA,#B6E3FF,#6E7781) ;");
+        basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#0550AE,#0969DA,#B6E3FF,#6E7781) ;");
         Controller controller = new Controller();
         // create PauseTransition
         PauseTransition pause = new PauseTransition(Duration.seconds(3));
@@ -54,26 +55,26 @@ public class VerificationPageController {
         Image topbar = new Image(verificationWindowPath);
         // create ImageView and set picture
         ImageView verificationWindowView = new ImageView(topbar);
-        anchorPane.getChildren().add(verificationWindowView);
+        basePane.getChildren().add(verificationWindowView);
         // picture size
         verificationWindowView.setFitWidth(500);
         verificationWindowView.setFitHeight(500);
         verificationWindowView.setPreserveRatio(true);
         // picture location
-        anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+        basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double picHight = (newVal.doubleValue() )*0.25;
             AnchorPane.setTopAnchor(verificationWindowView, picHight);
         });
-        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+        basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double leftAnchor = (newVal.doubleValue() )*0.25;
             AnchorPane.setLeftAnchor(verificationWindowView, leftAnchor);
         });
         //picture size
-        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+        basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = newVal.doubleValue()/2;
             verificationWindowView.setFitWidth (topAnchor);
         });
-        anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+        basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = newVal.doubleValue()/2;
             verificationWindowView.setFitHeight (topAnchor);
         });
@@ -83,17 +84,17 @@ public class VerificationPageController {
         Text text1 = new Text("Face recognition ...");
         double faceRecognitionSize = 20;
         // text location
-        anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+        basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = (newVal.doubleValue() )*0.45;
             AnchorPane.setTopAnchor(text1, topAnchor);
         });
-        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+        basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double leftAnchor = (newVal.doubleValue() )*0.36;
             AnchorPane.setLeftAnchor(text1, leftAnchor);
         });
         // set font style（font，bold，italic，size）
         text1.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.ITALIC, faceRecognitionSize));
-        anchorPane.getChildren().add(text1);
+        basePane.getChildren().add(text1);
 
 
         // create Text object
@@ -139,7 +140,7 @@ public class VerificationPageController {
                         if(value>=1){
 
                             sche.cancel();
-                            anchorPane.getChildren().remove(bar1);
+                            basePane.getChildren().remove(bar1);
 
                             if(verificationResult)
                             {
@@ -147,8 +148,8 @@ public class VerificationPageController {
                                 ArrayList<Double>recPosition = new ArrayList<>(Arrays.asList(0.15,0.15,0.7,0.7));
                                 BaseRectangle rec =new BaseRectangle(40.0,40.0,recColor,recPosition);
                                 Rectangle rectangle = controller.createRectangle(rec);
-                                controller.setRectangle(anchorPane, rectangle, rec);
-                                anchorPane.getChildren().add(rectangle);
+                                controller.setRectangle(basePane, rectangle, rec);
+                                basePane.getChildren().add(rectangle);
                                 primaryStage.hide();
                                 primaryStage.show();
                                 // start pause
@@ -163,8 +164,8 @@ public class VerificationPageController {
                                 ArrayList<Double>recPosition = new ArrayList<>(Arrays.asList(0.15,0.15,0.7,0.7));
                                 BaseRectangle rec =new BaseRectangle(40.0,40.0,recColor,recPosition);
                                 Rectangle rectangle = controller.createRectangle(rec);
-                                controller.setRectangle(anchorPane, rectangle, rec);
-                                anchorPane.getChildren().add(rectangle);
+                                controller.setRectangle(basePane, rectangle, rec);
+                                basePane.getChildren().add(rectangle);
                                 primaryStage.hide();
                                 primaryStage.show();
                                 // start pause
@@ -188,15 +189,15 @@ public class VerificationPageController {
         sche.setPeriod(Duration.millis(30));
         sche.start();
         //set position of bar
-        anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+        basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = (newVal.doubleValue()*0.5 );
             bar1.setLayoutY(topAnchor);
         });
-        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+        basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double leftAnchor = (newVal.doubleValue() *0.35);
             bar1.setLayoutX(leftAnchor);
         });
-        anchorPane.getChildren().add(bar1);
-        return anchorPane;
+        basePane.getChildren().add(bar1);
+        return basePane;
     }
 }

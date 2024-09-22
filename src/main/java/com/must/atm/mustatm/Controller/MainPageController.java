@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -28,38 +30,49 @@ public class MainPageController {
      */
     public  Pane createMainPagePane(Stage primaryStage)
     {
-        AnchorPane anchorPane = new AnchorPane();
+        BorderPane basePane = new BorderPane();
         //set background
-        anchorPane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
+        basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
         //instantiate a controller
         Controller controller = new Controller();
 
 
+        // create topPane
+        HBox topPane = new HBox();
+        // instantiate a topBar
+        String topBarPath = "topBar.png";
+        Image topBar = new Image(topBarPath);
+        // set topBar
+        ImageView topBarView = new ImageView(topBar);
+        topPane.getChildren().add(topBarView);
+        basePane.setTop(topPane);
+
+        
         // instantiate an image which is the picture of MUST
         String mustPath = "pictureOfMust.png";
         Image must = new Image(mustPath);
         // set the image
         ImageView mustView = new ImageView(must);
-        anchorPane.getChildren().add(mustView);
+        basePane.getChildren().add(mustView);
         // set the default size of image
         mustView.setFitWidth(1000);
         mustView.setFitHeight(1000);
         mustView.setPreserveRatio(true);
         //set the position of the image
-        anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+        basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = newVal.doubleValue() * 0.35;
             AnchorPane.setTopAnchor(mustView, topAnchor);
         });
-        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+        basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double leftAnchor = (newVal.doubleValue()) * 0.45;
             AnchorPane.setLeftAnchor(mustView, leftAnchor);
         });
         //set the size of image
-        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+        basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = newVal.doubleValue()*0.45;
             mustView.setFitWidth (topAnchor);
         });
-        anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+        basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = newVal.doubleValue()*0.45;
             mustView.setFitHeight (topAnchor);
         });
@@ -72,32 +85,8 @@ public class MainPageController {
         //instantiate a BaseRectangle which can encapsulate the data
         BaseRectangle rec =new BaseRectangle(0.0,0.0,recColor,recPosition);
         Rectangle rectangle = controller.createRectangle(rec);
-        controller.setRectangle(anchorPane,rectangle,rec);
-        anchorPane.getChildren().add(rectangle);
-
-
-        // instantiate a topBar
-        String topBarPath = "topBar.png";
-        Image topBar = new Image(topBarPath);
-        // set topBar
-        ImageView topBarView = new ImageView(topBar);
-        anchorPane.getChildren().add(topBarView);
-        //set the size of topBar
-        topBarView.setFitWidth(1000);
-        topBarView.setFitHeight(1000);
-        topBarView.setPreserveRatio(true);
-        // set position of topBar
-        AnchorPane.setTopAnchor(topBarView, 0.0);
-        AnchorPane.setLeftAnchor(topBarView, 0.0);
-        //set size of topBar
-        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double topAnchor = newVal.doubleValue();
-            topBarView.setFitWidth (topAnchor);
-        });
-        anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double topAnchor = newVal.doubleValue();
-            topBarView.setFitHeight (topAnchor);
-        });
+        controller.setRectangle(basePane,rectangle,rec);
+        basePane.getChildren().add(rectangle);
 
 
         // set button
@@ -110,18 +99,10 @@ public class MainPageController {
         // set text and color of button
         normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
         normalBtn.setStyle("-fx-text-fill: #033D8B;");
-        // set position of button
-        anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double topAnchor = (newVal.doubleValue() - normalBtn.getHeight())* 0.9;
-            AnchorPane.setTopAnchor(normalBtn, topAnchor);
-        });
-        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double leftAnchor = (newVal.doubleValue() - normalBtn.getWidth()) / 20;
-            AnchorPane.setLeftAnchor(normalBtn, leftAnchor);
-        });
-        anchorPane.getChildren().add(normalBtn);
+        basePane.getChildren().add(normalBtn);
+        basePane.setBottom(topPane);
 
-        return anchorPane;
+        return basePane;
     }
 
 }

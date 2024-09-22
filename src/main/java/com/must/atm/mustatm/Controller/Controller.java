@@ -3,6 +3,7 @@ import com.must.atm.mustatm.Template.BaseRectangle;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -54,14 +55,14 @@ public class Controller {
         });
     }
     //set Rectangle's X,Y and height, width
-    public void setRectangle(AnchorPane anchorPane, Rectangle rectangle, BaseRectangle rec){
-        anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+    public void setRectangle(BorderPane basePane, Rectangle rectangle, BaseRectangle rec){
+        basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double rectangleY = newVal.doubleValue()*rec.getTimesY();
             double height = newVal.doubleValue()*rec.getTimesHeight();
             rectangle.setY(rectangleY);
             rectangle.setHeight(height);
         });
-        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+        basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double rectangleX = newVal.doubleValue()* rec.getTimesX();
             double width=newVal.doubleValue()*rec.getTimesWidth();
             rectangle.setX(rectangleX);
