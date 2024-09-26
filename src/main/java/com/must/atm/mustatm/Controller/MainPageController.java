@@ -5,10 +5,7 @@ import com.must.atm.mustatm.Template.BaseRectangle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -37,46 +34,58 @@ public class MainPageController {
         Controller controller = new Controller();
 
 
-        // create topPane
+        //creat topPane
         HBox topPane = new HBox();
+
         // instantiate a topBar
-        String topBarPath = "topBar.png";
-        Image topBar = new Image(topBarPath);
+        Image topBar = new Image("topBar.png");
         // set topBar
         ImageView topBarView = new ImageView(topBar);
+        topBarView.setPreserveRatio(true);
+        topBarView.fitWidthProperty().bind(basePane.widthProperty());
         topPane.getChildren().add(topBarView);
         basePane.setTop(topPane);
 
-        
+
+
+        //create rightPane
+        AnchorPane rightPane = new AnchorPane();
+        rightPane.setStyle("-fx-background-color:linear-gradient(to bottom,#008000,#008000) ;");
         // instantiate an image which is the picture of MUST
-        String mustPath = "pictureOfMust.png";
-        Image must = new Image(mustPath);
+        Image must = new Image("pictureOfMust.png");
         // set the image
         ImageView mustView = new ImageView(must);
-        basePane.getChildren().add(mustView);
+        rightPane.getChildren().add(mustView);
         // set the default size of image
-        mustView.setFitWidth(1000);
-        mustView.setFitHeight(1000);
+        mustView.setFitWidth(100);
+        mustView.setFitHeight(100);
         mustView.setPreserveRatio(true);
         //set the position of the image
         basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double topAnchor = newVal.doubleValue() * 0.35;
+            double topAnchor = newVal.doubleValue() * 0.1;
             AnchorPane.setTopAnchor(mustView, topAnchor);
         });
-        basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double leftAnchor = (newVal.doubleValue()) * 0.45;
-            AnchorPane.setLeftAnchor(mustView, leftAnchor);
-        });
+
         //set the size of image
         basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = newVal.doubleValue()*0.45;
             mustView.setFitWidth (topAnchor);
         });
+
+        AnchorPane.setRightAnchor(mustView, 50.0);
+
         basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double topAnchor = newVal.doubleValue()*0.45;
             mustView.setFitHeight (topAnchor);
         });
+        basePane.setRight(rightPane);
 
+
+
+        //create buttonPane
+        HBox bottomPane = new HBox();
+
+        bottomPane.setStyle("-fx-background-color:linear-gradient(to bottom,#FFFF00,#FFFF00) ;");
 
         //add a buttonbar
         //input the data of bar in the list
@@ -87,20 +96,26 @@ public class MainPageController {
         Rectangle rectangle = controller.createRectangle(rec);
         controller.setRectangle(basePane,rectangle,rec);
         basePane.getChildren().add(rectangle);
+        //basePane.setBottom(bottomPane);
 
 
-        // set button
+        //create leftPane
+        AnchorPane leftPane = new AnchorPane();
+        leftPane.setMinHeight(110);
+        leftPane.setStyle("-fx-background-color:linear-gradient(to bottom,#0000FF,#0000FF) ;");
+
+        // create button
         var normalBtn = new Button("SERVICE");
-        normalBtn.setMnemonicParsing(true);
         // set button action
         normalBtn.setOnAction(e ->controller.showVerScene(primaryStage));
-        // set button default size
+        // set button
         normalBtn.setPrefSize(300, 60);
-        // set text and color of button
         normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
         normalBtn.setStyle("-fx-text-fill: #033D8B;");
-        basePane.getChildren().add(normalBtn);
-        basePane.setBottom(topPane);
+        leftPane.setBottomAnchor(normalBtn, 50.0);
+        leftPane.setLeftAnchor(normalBtn, 50.0);
+        leftPane.getChildren().add(normalBtn);
+        basePane.setLeft(leftPane);
 
         return basePane;
     }

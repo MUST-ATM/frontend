@@ -19,8 +19,8 @@ public class Controller {
         var verificationScene = new Scene(verificationPage.createVerificationPagePane(primaryStage));
         primaryStage.setScene(verificationScene);
         primaryStage.setOnCloseRequest(t -> Platform.exit());
-        primaryStage.setMaxWidth(1800);
-        primaryStage.setMaxHeight(900);
+        primaryStage.setWidth(1050);
+        primaryStage.setHeight(700);
         Platform.runLater(() -> {
             primaryStage.show();
             primaryStage.requestFocus();
@@ -29,11 +29,11 @@ public class Controller {
     //Generate and show function page
     public void showFunctionPage(Stage primaryStage){
         var functionPage = new FunctionPageController();
-        var functionScene = new Scene(functionPage.createFunctionPagePane(primaryStage));
+        var functionScene = new Scene(functionPage.createFunctionPagePane(primaryStage),800,600);
         primaryStage.setScene(functionScene);
         primaryStage.setOnCloseRequest(t -> Platform.exit());
-        primaryStage.setMaxWidth(1800);
-        primaryStage.setMaxHeight(900);
+        primaryStage.setWidth(1050);
+        primaryStage.setHeight(700);
         Platform.runLater(() -> {
             primaryStage.show();
             primaryStage.requestFocus();
@@ -46,9 +46,8 @@ public class Controller {
         primaryStage.setScene(mainScene);
         primaryStage.setTitle(System.getProperty("app.name"));
         primaryStage.setOnCloseRequest(t -> Platform.exit());
-
-        primaryStage.setMaxWidth(1800);
-        primaryStage.setMaxHeight(900);
+        primaryStage.setWidth(1050);
+        primaryStage.setHeight(700);
         Platform.runLater(() -> {
             primaryStage.show();
             primaryStage.requestFocus();
