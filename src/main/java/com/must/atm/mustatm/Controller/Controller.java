@@ -54,7 +54,7 @@ public class Controller {
         });
     }
     //set Rectangle's X,Y and height, width
-    public void setRectangle(BorderPane basePane, Rectangle rectangle, BaseRectangle rec){
+    public void setRectangle(AnchorPane basePane, Rectangle rectangle, BaseRectangle rec){
         basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double rectangleY = newVal.doubleValue()*rec.getTimesY();
             double height = newVal.doubleValue()*rec.getTimesHeight();

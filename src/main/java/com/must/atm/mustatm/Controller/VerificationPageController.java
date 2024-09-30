@@ -39,7 +39,7 @@ public class VerificationPageController {
      */
     public Pane createVerificationPagePane(Stage primaryStage)
     {
-        BorderPane basePane = new BorderPane();
+        AnchorPane basePane = new AnchorPane();
         //recognize and anti-spoofing result
         Boolean verificationResult = false;
         Boolean antiSpoofingResult = true;
