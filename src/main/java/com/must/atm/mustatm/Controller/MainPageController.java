@@ -11,6 +11,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+
 /**
  * MainPageController is a class which can generate main page
  * @author 13318
