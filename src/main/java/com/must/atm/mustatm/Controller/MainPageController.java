@@ -11,7 +11,6 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-
 /**
  * MainPageController is a class which can generate main page
  * @author 13318
@@ -33,11 +32,9 @@ public class MainPageController {
         //creat topPane
         HBox topPane = new HBox();
         basePane.setTop(topPane);
-
         //create leftPane
         AnchorPane leftPane = new AnchorPane();
         basePane.setLeft(leftPane);
-
         //create rightPane
         AnchorPane rightPane = new AnchorPane();
         basePane.setRight(rightPane);
@@ -79,20 +76,17 @@ public class MainPageController {
 
         //set listener
         basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double topAnchor = newVal.doubleValue()*0.45;
             rectangle.setWidth(basePane.getWidth()*0.5);
             normalBtn.setPrefSize(basePane.getWidth()*0.3,60);
             leftPane.setLeftAnchor(normalBtn, leftPane.getWidth()*0.10);
-            mustView.setFitWidth (topAnchor);
+            mustView.setFitWidth(basePane.getWidth()*0.45);
         });
         basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double topAnchor = newVal.doubleValue()*0.45;
             rectangle.setHeight(basePane.getHeight()*0.1);
             leftPane.setBottomAnchor(normalBtn, leftPane.getHeight()*0.15);
-            AnchorPane.setTopAnchor(mustView, topAnchor*0.1);
+            AnchorPane.setTopAnchor(mustView, basePane.getHeight()*0.1);
         });
-        
+
         return basePane;
     }
-
 }

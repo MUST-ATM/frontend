@@ -32,7 +32,7 @@ import java.util.Arrays;
 public class VerificationPageController {
     ScheduledService<Double> sche ;
 
-    /**
+    /**use to create verification page
      *
      * @param primaryStage
      * @return VerificationPagePane
@@ -46,9 +46,6 @@ public class VerificationPageController {
         //create background
         basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#0550AE,#0969DA,#B6E3FF,#6E7781) ;");
         Controller controller = new Controller();
-        // create PauseTransition
-        PauseTransition pause = new PauseTransition(Duration.seconds(3));
-
 
         // create verificationWindow object
         String verificationWindowPath = "verificationWindow.png";
@@ -60,66 +57,27 @@ public class VerificationPageController {
         verificationWindowView.setFitWidth(500);
         verificationWindowView.setFitHeight(500);
         verificationWindowView.setPreserveRatio(true);
-        // picture location
-        basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double picHight = (newVal.doubleValue() )*0.25;
-            AnchorPane.setTopAnchor(verificationWindowView, picHight);
-        });
-        basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double leftAnchor = (newVal.doubleValue() )*0.25;
-            AnchorPane.setLeftAnchor(verificationWindowView, leftAnchor);
-        });
-        //picture size
-        basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double topAnchor = newVal.doubleValue()/2;
-            verificationWindowView.setFitWidth (topAnchor);
-        });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double topAnchor = newVal.doubleValue()/2;
-            verificationWindowView.setFitHeight (topAnchor);
-        });
 
-
-        // create Text object
+        // create Text object1
         Text text1 = new Text("Face recognition ...");
         double faceRecognitionSize = 20;
-        // text location
-        basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double topAnchor = (newVal.doubleValue() )*0.45;
-            AnchorPane.setTopAnchor(text1, topAnchor);
-        });
-        basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double leftAnchor = (newVal.doubleValue() )*0.36;
-            AnchorPane.setLeftAnchor(text1, leftAnchor);
-        });
         // set font style（font，bold，italic，size）
         text1.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.ITALIC, faceRecognitionSize));
         basePane.getChildren().add(text1);
 
-
-        // create Text object
-//        Text text2 = new Text("Face Anti-Spoofing ...");
-//        double antiSpoofingSize = 20;
-//        // text location
-//        anchorPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-//            double topAnchor = (newVal.doubleValue() )*0.45;
-//            AnchorPane.setTopAnchor(text2, topAnchor);
-//        });
-//        anchorPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-//            double leftAnchor = (newVal.doubleValue() )*0.36;
-//            AnchorPane.setLeftAnchor(text2, leftAnchor);
-//        });
-//        // set font style（font，bold，italic，size）
-//        text2.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.ITALIC, antiSpoofingSize));
-//        anchorPane.getChildren().add(text2);
-
+        // create Text object1
+        Text text2 = new Text("Face Anti-Spoofing ...");
+        double antiSpoofingSize = 20;
+        // set font style（font，bold，italic，size）
+        text2.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.ITALIC, antiSpoofingSize));
+//        basePane.getChildren().add(text2);
 
         //set bar
         var bar1 = new ProgressBar(0);
         bar1.setPrefWidth(200);
 
         sche = new ScheduledService<Double>() {
-            double i =0;
+            double i = 0;
 //            double number =0;
             @Override
             protected Task<Double> createTask() {
@@ -134,6 +92,9 @@ public class VerificationPageController {
                      */
                     @Override
                     protected void updateValue(Double value) {
+                        // create PauseTransition
+                        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+
                         System.out.println(value);
                         bar1.setProgress(value);
 
@@ -188,16 +149,25 @@ public class VerificationPageController {
         sche.setDelay(Duration.millis(0));
         sche.setPeriod(Duration.millis(30));
         sche.start();
-        //set position of bar
+        basePane.getChildren().add(bar1);
+
+        //set Listener
         basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double topAnchor = (newVal.doubleValue()*0.5 );
-            bar1.setLayoutY(topAnchor);
+            AnchorPane.setTopAnchor(verificationWindowView, basePane.getHeight()*0.25);
+            verificationWindowView.setFitHeight (basePane.getHeight()/2);
+            bar1.setLayoutY(basePane.getHeight()*0.5);
+            AnchorPane.setTopAnchor(text1, basePane.getHeight()*0.45);
+            AnchorPane.setLeftAnchor(text2, basePane.getHeight()*0.45);
         });
         basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double leftAnchor = (newVal.doubleValue() *0.35);
-            bar1.setLayoutX(leftAnchor);
+            AnchorPane.setLeftAnchor(verificationWindowView, basePane.getWidth()*0.25);
+            AnchorPane.setLeftAnchor(text1, basePane.getWidth()*0.36);
+            verificationWindowView.setFitWidth (basePane.getWidth()/2);
+            bar1.setLayoutX(basePane.getWidth()*0.35);
+            AnchorPane.setLeftAnchor(text1, basePane.getWidth()*0.36);
+            AnchorPane.setLeftAnchor(text2, basePane.getWidth()*0.36);
         });
-        basePane.getChildren().add(bar1);
+
         return basePane;
     }
 }
