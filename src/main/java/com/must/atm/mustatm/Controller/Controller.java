@@ -37,6 +37,7 @@ public class Controller {
         Platform.runLater(() -> {
             primaryStage.show();
             primaryStage.requestFocus();
+            
         });
     }
     //Generate and show main page

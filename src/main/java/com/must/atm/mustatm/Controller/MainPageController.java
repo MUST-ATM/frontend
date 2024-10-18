@@ -69,7 +69,6 @@ public class MainPageController {
         // set button action
         normalBtn.setOnAction(e ->controller.showVerScene(primaryStage));
         // set button
-        normalBtn.setPrefSize(300, 60);
         normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
         normalBtn.setStyle("-fx-text-fill: #033D8B;");
         leftPane.getChildren().add(normalBtn);
