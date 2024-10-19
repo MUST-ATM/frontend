@@ -30,10 +30,10 @@ public class VerificationPageController {
 
     /**use to create verification page
      *
-     * @param primaryStage
+     * @param primaryStage listen window
      * @return VerificationPagePane
      */
-    public Pane createVerificationPagePane(Stage primaryStage)
+    public Pane pane(Stage primaryStage)
     {
         StackPane basePane = new StackPane  ();
 

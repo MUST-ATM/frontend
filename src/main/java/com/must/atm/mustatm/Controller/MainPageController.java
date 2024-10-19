@@ -11,9 +11,11 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import java.util.function.Function;
+
 /**
  * MainPageController is a class which can generate main page
- * @author 13318
+ * @author 13318, BoyunWang
  */
 public class MainPageController {
     /** createMainPagePane
@@ -26,8 +28,6 @@ public class MainPageController {
         BorderPane basePane = new BorderPane();
         //set background
         basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
-        //instantiate a controller
-        Controller controller = new Controller();
 
         //creat topPane
         HBox topPane = new HBox();
@@ -53,8 +53,8 @@ public class MainPageController {
         rectangle.setFill(Color.rgb(5,80,174));
         rectangle.setHeight(rightPane.getHeight()*0.15);
         rectangle.setWidth(rightPane.getWidth()*0.7);
-        rightPane.setBottomAnchor(rectangle, 0.0);
-        rightPane.setRightAnchor(rectangle, 0.0);
+        AnchorPane.setBottomAnchor(rectangle, 0.0);
+        AnchorPane.setRightAnchor(rectangle, 0.0);
         rightPane.getChildren().add(rectangle);
 
         // instantiate an image which is the picture of MUST
@@ -67,7 +67,8 @@ public class MainPageController {
         // create button
         var normalBtn = new Button("SERVICE");
         // set button action
-        normalBtn.setOnAction(e ->controller.showVerScene(primaryStage));
+        VerificationPageController verificationPage = new VerificationPageController();
+        normalBtn.setOnAction(e ->primaryStage.getScene().setRoot(verificationPage.pane(primaryStage)));
         // set button
         normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
         normalBtn.setStyle("-fx-text-fill: #033D8B;");
