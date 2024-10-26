@@ -23,7 +23,7 @@ public class MainPageController {
      * @param primaryStage listen window
      * @return MainPagePane
      */
-    public  Pane createMainPagePane(Stage primaryStage)
+    public  Pane pane(Stage primaryStage)
     {
         BorderPane basePane = new BorderPane();
         //set background
@@ -76,14 +76,14 @@ public class MainPageController {
 
         //set listener
         basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            rectangle.setWidth(basePane.getWidth()*0.5);
-            normalBtn.setPrefSize(basePane.getWidth()*0.3,60);
-            leftPane.setLeftAnchor(normalBtn, leftPane.getWidth()*0.10);
+            rectangle.setWidth(primaryStage.getWidth()*0.5);
+            normalBtn.setPrefSize(primaryStage.getWidth()*0.3,primaryStage.getHeight()*0.1);
+            leftPane.setLeftAnchor(normalBtn, primaryStage.getWidth()*0.05);
             mustView.setFitWidth(basePane.getWidth()*0.45);
         });
         basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            rectangle.setHeight(basePane.getHeight()*0.1);
-            leftPane.setBottomAnchor(normalBtn, leftPane.getHeight()*0.15);
+            rectangle.setHeight(primaryStage.getHeight()*0.1);
+            leftPane.setBottomAnchor(normalBtn, primaryStage.getHeight()*0.15);
             AnchorPane.setTopAnchor(mustView, basePane.getHeight()*0.1);
         });
 
