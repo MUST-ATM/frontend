@@ -306,8 +306,8 @@ public class VerificationPageController
         {
             aboutModalPane.hide(true);
             aboutModalPane.setPersistent(false);
-            FunctionPageController functionPage = new FunctionPageController();
-            primaryStage.getScene().setRoot(functionPage.pane(primaryStage));
+            MainPageController mainPage = new MainPageController();
+            primaryStage.getScene().setRoot(mainPage.pane(primaryStage));
             System.out.println("OK");
         });
     }
