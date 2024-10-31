@@ -17,7 +17,8 @@ import javafx.stage.Stage;
 /**
  * @author DOVAKIIN
  */
-public class FunctionPageController {
+public class FunctionPageController
+{
 
     public Pane pane(Stage primaryStage)
     {
@@ -46,9 +47,9 @@ public class FunctionPageController {
 
         //set rectangle
         Rectangle rectangle = new Rectangle();
-        rectangle.setFill(Color.rgb(5,80,174));
-        rectangle.setHeight(rightPane.getHeight()*0.15);
-        rectangle.setWidth(rightPane.getWidth()*0.7);
+        rectangle.setFill(Color.rgb(5, 80, 174));
+        rectangle.setHeight(rightPane.getHeight() * 0.15);
+        rectangle.setWidth(rightPane.getWidth() * 0.7);
         AnchorPane.setBottomAnchor(rectangle, 0.0);
         AnchorPane.setRightAnchor(rectangle, 0.0);
         rightPane.getChildren().add(rectangle);
@@ -62,47 +63,46 @@ public class FunctionPageController {
 //        VerificationPageController verificationPage = new VerificationPageController();
 //        normalBtnOne.setOnAction(e ->primaryStage.getScene().setRoot(verificationPage.pane(primaryStage)));
         MainPageController mainPage = new MainPageController();
-        normalBtnFour.setOnAction(e ->primaryStage.getScene().setRoot(mainPage.pane(primaryStage)));
+        normalBtnFour.setOnAction(e -> primaryStage.getScene().setRoot(mainPage.pane(primaryStage)));
         DepositOneController depositPage = new DepositOneController();
-        normalBtnOne.setOnAction(e ->primaryStage.getScene().setRoot(depositPage.pane(primaryStage)));
+        normalBtnOne.setOnAction(e -> primaryStage.getScene().setRoot(depositPage.pane(primaryStage)));
         // set button
         normalBtnOne.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
         normalBtnTwo.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
         normalBtnThree.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
         normalBtnFour.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
 //        normalBtnOne.setStyle("-fx-text-fill: #033D8B;");
-        leftPane.getChildren().addAll(normalBtnOne,normalBtnTwo,normalBtnThree);
+        leftPane.getChildren().addAll(normalBtnOne, normalBtnTwo, normalBtnThree);
         rightPane.getChildren().add(normalBtnFour);
 
 
         //set listener
-        basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            rectangle.setWidth(primaryStage.getWidth()*0.5);
-            normalBtnOne.setPrefSize(primaryStage.getWidth()*0.3,primaryStage.getHeight()*0.1);
-            normalBtnTwo.setPrefSize(primaryStage.getWidth()*0.3,primaryStage.getHeight()*0.1);
-            normalBtnThree.setPrefSize(primaryStage.getWidth()*0.3,primaryStage.getHeight()*0.1);
-            normalBtnFour.setPrefSize(primaryStage.getWidth()*0.3,primaryStage.getHeight()*0.1);
-            leftPane.setLeftAnchor(normalBtnOne, primaryStage.getWidth()*0.05);
-            leftPane.setLeftAnchor(normalBtnTwo, primaryStage.getWidth()*0.05);
-            leftPane.setLeftAnchor( normalBtnThree, primaryStage.getWidth()*0.05);
-            rightPane.setRightAnchor(normalBtnFour, primaryStage.getWidth()*0.05);
+        basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        {
+            rectangle.setWidth(primaryStage.getWidth() * 0.5);
+            normalBtnOne.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
+            normalBtnTwo.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
+            normalBtnThree.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
+            normalBtnFour.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
+            leftPane.setLeftAnchor(normalBtnOne, primaryStage.getWidth() * 0.05);
+            leftPane.setLeftAnchor(normalBtnTwo, primaryStage.getWidth() * 0.05);
+            leftPane.setLeftAnchor(normalBtnThree, primaryStage.getWidth() * 0.05);
+            rightPane.setRightAnchor(normalBtnFour, primaryStage.getWidth() * 0.05);
 
 
         });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            rectangle.setHeight(primaryStage.getHeight()*0.1);
-            leftPane.setBottomAnchor(normalBtnOne, primaryStage.getHeight()*0.55);
-            leftPane.setBottomAnchor(normalBtnTwo, primaryStage.getHeight()*0.35);
-            leftPane.setBottomAnchor(normalBtnThree, primaryStage.getHeight()*0.15);
-            rightPane.setBottomAnchor(normalBtnFour, primaryStage.getHeight()*0.15);
+        basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        {
+            rectangle.setHeight(primaryStage.getHeight() * 0.1);
+            leftPane.setBottomAnchor(normalBtnOne, primaryStage.getHeight() * 0.55);
+            leftPane.setBottomAnchor(normalBtnTwo, primaryStage.getHeight() * 0.35);
+            leftPane.setBottomAnchor(normalBtnThree, primaryStage.getHeight() * 0.15);
+            rightPane.setBottomAnchor(normalBtnFour, primaryStage.getHeight() * 0.15);
 
         });
 
         return basePane;
     }
-
-
-
 
 
 }

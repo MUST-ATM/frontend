@@ -1,7 +1,9 @@
 package com.must.atm.mustatm.Service;
 
 import com.must.atm.mustatm.Service.cards.cardType;
+import javafx.scene.image.Image;
 
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 
 /**
@@ -9,9 +11,11 @@ import java.util.HashMap;
  */
 public interface AccountService
 {
-    int getUserId(String faceId);
+    String getFaceId(Image image) throws Exception;
+    int getUserId(String faceId) throws Exception;
     String getUserName(int userId);
     HashMap<cardType,Integer> getCardsId(int userId);
     double getBalance(int cardId);
+    HashMap<String,String>resolveRawInfo(HttpResponse<String> rawInfo);
     //TODO: getRawInfo, RawInfo need to be defined
 }

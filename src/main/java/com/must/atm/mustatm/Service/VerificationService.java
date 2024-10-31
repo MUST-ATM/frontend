@@ -2,10 +2,12 @@ package com.must.atm.mustatm.Service;
 
 import javafx.scene.image.Image;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 public interface VerificationService
 {
-    boolean faceRecognition(Image image);
-    boolean faceAntiSpoofing(Image image);
-    String getFaceId();
+    String faceRecognition(Image image) throws Exception;
+    boolean faceAntiSpoofing(Image image) throws Exception;
 
 }

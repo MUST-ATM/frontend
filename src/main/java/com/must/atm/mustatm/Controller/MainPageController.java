@@ -11,19 +11,20 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-import java.util.function.Function;
-
 /**
  * MainPageController is a class which can generate main page
- * @author 13318, BoyunWang
+ *
+ * @author 13318, bywang
  */
-public class MainPageController {
-    /** createMainPagePane
+public class MainPageController
+{
+    /**
+     * createMainPagePane
      *
      * @param primaryStage listen window
      * @return MainPagePane
      */
-    public  Pane pane(Stage primaryStage)
+    public Pane pane(Stage primaryStage)
     {
         BorderPane basePane = new BorderPane();
         //set background
@@ -50,9 +51,9 @@ public class MainPageController {
 
         //set rectangle
         Rectangle rectangle = new Rectangle();
-        rectangle.setFill(Color.rgb(5,80,174));
-        rectangle.setHeight(rightPane.getHeight()*0.15);
-        rectangle.setWidth(rightPane.getWidth()*0.7);
+        rectangle.setFill(Color.rgb(5, 80, 174));
+        rectangle.setHeight(rightPane.getHeight() * 0.15);
+        rectangle.setWidth(rightPane.getWidth() * 0.7);
         AnchorPane.setBottomAnchor(rectangle, 0.0);
         AnchorPane.setRightAnchor(rectangle, 0.0);
         rightPane.getChildren().add(rectangle);
@@ -68,23 +69,25 @@ public class MainPageController {
         var normalBtn = new Button("SERVICE");
         // set button action
         VerificationPageController verificationPage = new VerificationPageController();
-        normalBtn.setOnAction(e ->primaryStage.getScene().setRoot(verificationPage.pane(primaryStage)));
+        normalBtn.setOnAction(e -> primaryStage.getScene().setRoot(verificationPage.pane(primaryStage)));
         // set button
         normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
         normalBtn.setStyle("-fx-text-fill: #033D8B;");
         leftPane.getChildren().add(normalBtn);
 
         //set listener
-        basePane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            rectangle.setWidth(primaryStage.getWidth()*0.5);
-            normalBtn.setPrefSize(primaryStage.getWidth()*0.3,primaryStage.getHeight()*0.1);
-            leftPane.setLeftAnchor(normalBtn, primaryStage.getWidth()*0.05);
-            mustView.setFitWidth(basePane.getWidth()*0.45);
+        basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        {
+            rectangle.setWidth(primaryStage.getWidth() * 0.5);
+            normalBtn.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
+            AnchorPane.setLeftAnchor(normalBtn, primaryStage.getWidth() * 0.05);
+            mustView.setFitWidth(basePane.getWidth() * 0.45);
         });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            rectangle.setHeight(primaryStage.getHeight()*0.1);
-            leftPane.setBottomAnchor(normalBtn, primaryStage.getHeight()*0.15);
-            AnchorPane.setTopAnchor(mustView, basePane.getHeight()*0.1);
+        basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        {
+            rectangle.setHeight(primaryStage.getHeight() * 0.1);
+            AnchorPane.setBottomAnchor(normalBtn, primaryStage.getHeight() * 0.15);
+            AnchorPane.setTopAnchor(mustView, basePane.getHeight() * 0.1);
         });
 
         return basePane;
