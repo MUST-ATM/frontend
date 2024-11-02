@@ -12,11 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-/**
- * @author DOVAKIIN
- */
-public class FunctionPageController
-{
+public class WithdrawOneController {
+
 
     public Pane pane(Stage primaryStage)
     {
@@ -50,20 +47,16 @@ public class FunctionPageController
         rightPane.getChildren().add(rectangle);
 
         // create button
-        var normalBtnOne = new Button("DEPOSIT");
-        var normalBtnTwo = new Button("WITHDRAW");
-        var normalBtnThree = new Button("CHECK ACCOUNT");
-        var normalBtnFour = new Button("EXIST");
+        var normalBtnOne = new Button("CNY/USD ACCOUNT");
+        var normalBtnTwo = new Button("MOP ACCOUNT");
+        var normalBtnThree = new Button("HCD ACCOUNT");
+        var normalBtnFour = new Button("RETURN");
 
         // set button action
-        MainPageController mainPage = new MainPageController();
-        normalBtnFour.setOnAction(e -> primaryStage.getScene().setRoot(mainPage.pane(primaryStage)));
-        DepositOneController depositPage = new DepositOneController();
-        normalBtnOne.setOnAction(e -> primaryStage.getScene().setRoot(depositPage.pane(primaryStage)));
-        WithdrawOneController withdrawPage = new WithdrawOneController();
-        normalBtnTwo.setOnAction(e -> primaryStage.getScene().setRoot(withdrawPage.pane(primaryStage)));
-        CheckAccountOneController checkAccountPage = new CheckAccountOneController();
-        normalBtnThree.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountPage.pane(primaryStage)));
+        FunctionPageController functionPage = new FunctionPageController();
+        normalBtnFour.setOnAction(e -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
+
+//        normalBtnOne.setOnAction(e -> primaryStage.getScene().setRoot(depositPage.pane(primaryStage)));
         // set button
         // add button to panes
         leftPane.getChildren().addAll(normalBtnOne, normalBtnTwo, normalBtnThree);

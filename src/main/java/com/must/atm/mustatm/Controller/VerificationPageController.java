@@ -36,7 +36,7 @@ public class VerificationPageController
         StackPane basePane = new StackPane();
 
         //recognize and anti-spoofing result
-        Boolean verificationResult = false;
+        Boolean verificationResult = true;
             Boolean antiSpoofingResult = true;
         final int[] verificationStage = {1};
         final Boolean[] fail = {false};
