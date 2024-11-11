@@ -36,7 +36,7 @@ public class VerificationPageController
         StackPane basePane = new StackPane();
 
         //recognize and anti-spoofing result
-        Boolean verificationResult = false;
+        Boolean verificationResult = true;
             Boolean antiSpoofingResult = true;
         final int[] verificationStage = {1};
         final Boolean[] fail = {false};
@@ -179,8 +179,8 @@ public class VerificationPageController
                                     rectangle.setArcWidth(20);
                                     aboutPane.getChildren().add(rectangle);
                                     basePane.getChildren().addAll(sceneRoot, aboutModalPane);
-
-                                    PauseTransition pause = new PauseTransition(Duration.seconds(3));
+                                    //success wait time
+                                    PauseTransition pause = new PauseTransition(Duration.seconds(1));
                                     PauseTransition noTime = new PauseTransition(Duration.seconds(0.02));
 
                                     // start pause
