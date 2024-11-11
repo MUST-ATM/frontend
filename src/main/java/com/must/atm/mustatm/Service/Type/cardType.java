@@ -1,4 +1,4 @@
-package com.must.atm.mustatm.Service.cards;
+package com.must.atm.mustatm.Service.Type;
 
 /**
  * Enum for card type

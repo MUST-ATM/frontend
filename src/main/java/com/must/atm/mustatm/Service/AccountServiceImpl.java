@@ -1,59 +1,97 @@
 package com.must.atm.mustatm.Service;
-
-import com.must.atm.mustatm.Service.cards.cardType;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.must.atm.mustatm.Service.Base.userIdBase;
+import com.must.atm.mustatm.Service.Base.balanceBase;
+import com.must.atm.mustatm.Service.Type.cardType;
 import javafx.scene.image.Image;
 
-import java.net.http.HttpResponse;
-import java.util.HashMap;
-
 /**
+ * Account Service
+ * Get FaceId, UserId, and Balance
  * @author bywang
  */
 public class AccountServiceImpl implements AccountService
 {
-
+    /**
+     * Get FaceId
+     * @param image The image of the user
+     * @return The faceId of the user
+     */
     @Override
-    public String getFaceId(Image image) throws Exception
+    public String getFaceId(Image image)
     {
         VerificationServiceImpl verificationService = new VerificationServiceImpl();
-        var faceId = verificationService.faceRecognition(image);
-        if (faceId != null)
+        try
         {
-            return faceId;
-        }
-        else
+            return verificationService.faceRecognition(image);
+        } catch (Exception e)
         {
-            return null;
+            System.out.println("Face Recognition Failed");
+            throw new RuntimeException(e);
         }
     }
+    /**
+     * Get UserId
+     * @param faceId The faceId of the user
+     * @return The userId of the user
+     */
     @Override
-    public int getUserId(String faceId) throws Exception
+    public int getUserId(String faceId)
     {
         NetworkServiceImpl networkService = new NetworkServiceImpl();
-        var rawUserId = networkService.request("/account/face/"+faceId).body();
-        //TODO: convert rawUserId to UserId
-        return 0;
+        String rawUserId;
+        try
+        {
+            rawUserId = networkService.request("/account/face/"+faceId).body();
+        } catch (Exception e)
+        {
+            System.out.println("UserID Request Failed");
+            throw new RuntimeException(e);
+        }
+        //Json to Object
+        ObjectMapper mapper = new ObjectMapper();
+        userIdBase userIdBase;
+        try
+        {
+            userIdBase = mapper.readValue(rawUserId, userIdBase.class);
+        } catch (JsonProcessingException e)
+        {
+            System.out.println("Json Processing Failed");
+            throw new RuntimeException(e);
+        }
+        return userIdBase.getUserId();
     }
+    /**
+     * Get Balance
+     * @param userId The userId of the user
+     * @param currency The currency of the card
+     * @return The balance of the user
+     */
     @Override
-    public HashMap<String,String> resolveRawInfo(HttpResponse<String> rawInfo)
+    public double getBalance(int userId, cardType currency)
     {
-        return null;
-    }
-    @Override
-    public String getUserName(int userId)
-    {
-        return "";
-    }
-
-    @Override
-    public HashMap<cardType, Integer> getCardsId(int userId)
-    {
-        return null;
-    }
-
-    @Override
-    public double getBalance(int cardId)
-    {
-        return 0;
+        NetworkServiceImpl networkService = new NetworkServiceImpl();
+        String balance;
+        try
+        {
+            balance = networkService.request("/account/card/"+userId+"/"+currency).body();
+        } catch (Exception e)
+        {
+            System.out.println("Balance Request Failed");
+            throw new RuntimeException(e);
+        }
+        //Json to Object
+        ObjectMapper mapper = new ObjectMapper();
+        balanceBase balanceBase;
+        try
+        {
+            balanceBase = mapper.readValue(balance, balanceBase.class);
+        } catch (JsonProcessingException e)
+        {
+            System.out.println("Json Processing Failed");
+            throw new RuntimeException(e);
+        }
+        return balanceBase.getBalance();
     }
 }
