@@ -12,6 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+/**
+ * A class which can generate the first check account page
+ */
 public class CheckAccountOneController {
     public Pane pane(Stage primaryStage)
     {
@@ -47,7 +50,7 @@ public class CheckAccountOneController {
         // create button
         var normalBtnOne = new Button("CNY/USD ACCOUNT");
         var normalBtnTwo = new Button("MOP ACCOUNT");
-        var normalBtnThree = new Button("HCD ACCOUNT");
+        var normalBtnThree = new Button("HKD ACCOUNT");
         var normalBtnFour = new Button("RETURN");
 
         // set button action

@@ -13,6 +13,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+/**
+ * A class which can generate the second check account page
+ *
+ *
+ */
 
 public class CheckAccountTwoController {
     public Pane pane(Stage primaryStage)
@@ -63,7 +68,10 @@ public class CheckAccountTwoController {
         middlePane.getChildren().add(text);
         //set text filed
         //need unput from service
-        var account = new TextField("114514 MOP");
+
+        //here need an input
+        String Account =getInput();
+        var account = new TextField(Account);
         account.setEditable(false);
         account.setStyle(getStyle.getTextFieldStyle());
         middlePane.getChildren().add(account);
@@ -104,5 +112,12 @@ public class CheckAccountTwoController {
         });
 
         return basePane;
+    }
+
+    // provide input value
+    private String getInput(){
+        String account ="114514 MOP";
+
+        return account;
     }
 }

@@ -49,7 +49,7 @@ public class WithdrawOneController {
         // create button
         var normalBtnOne = new Button("CNY/USD ACCOUNT");
         var normalBtnTwo = new Button("MOP ACCOUNT");
-        var normalBtnThree = new Button("HCD ACCOUNT");
+        var normalBtnThree = new Button("HKD ACCOUNT");
         var normalBtnFour = new Button("RETURN");
 
         // set button action

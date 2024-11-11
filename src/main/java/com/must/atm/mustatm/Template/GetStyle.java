@@ -1,5 +1,9 @@
 package com.must.atm.mustatm.Template;
 
+/**
+ * A class which can provide css style to the component
+ *
+ */
  public class GetStyle {
 
     public String getButtonStyle() {
