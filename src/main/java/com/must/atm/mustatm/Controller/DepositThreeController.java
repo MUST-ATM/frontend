@@ -67,11 +67,11 @@ public class DepositThreeController
         // set button action
         if (deposit){
             DepositSuccess success = new DepositSuccess();
-            normalBtn.setOnAction(e -> primaryStage.getScene().setRoot(success.pane(primaryStage)));
+            normalBtn.setOnAction(_ -> primaryStage.getScene().setRoot(success.pane(primaryStage)));
 
         }else {
             DepositFail fail = new DepositFail();
-            normalBtn.setOnAction(e -> primaryStage.getScene().setRoot(fail.pane(primaryStage)));
+            normalBtn.setOnAction(_ -> primaryStage.getScene().setRoot(fail.pane(primaryStage)));
         }
         // set button
         normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));

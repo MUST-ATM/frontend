@@ -58,7 +58,7 @@ public class VerificationPageController
                 Task<Double> task = new Task<>()
                 {
                     @Override
-                    protected Double call() throws Exception
+                    protected Double call()
                     {
                         return i = i + 0.01;
                     }
@@ -239,8 +239,8 @@ public class VerificationPageController
     private static class Dialog extends VBox
     {
         /**
-         * @param width
-         * @param height
+         * @param width Dialog width
+         * @param height Dialog height
          */
         public Dialog(int width, int height)
         {

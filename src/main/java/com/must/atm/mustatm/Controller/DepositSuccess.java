@@ -1,6 +1,5 @@
 package com.must.atm.mustatm.Controller;
 
-import javafx.animation.PauseTransition;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -67,9 +66,9 @@ public class DepositSuccess
         // set button action
 
         FunctionPageController functionPage = new FunctionPageController();
-        normalBtnOne.setOnAction(e -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
+        normalBtnOne.setOnAction(_ -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
         MainPageController mainPage = new MainPageController();
-        normalBtnTwo.setOnAction(e -> primaryStage.getScene().setRoot(mainPage.pane(primaryStage)));
+        normalBtnTwo.setOnAction(_ -> primaryStage.getScene().setRoot(mainPage.pane(primaryStage)));
 
         // set button
         normalBtnOne.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
