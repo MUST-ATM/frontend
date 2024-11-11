@@ -49,7 +49,7 @@ public class DepositTwoController
             //pause
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.play();
-            pause.setOnFinished(event -> {
+            pause.setOnFinished(_ -> {
                 DepositThreeController depositThree = new DepositThreeController();
                 primaryStage.getScene().setRoot(depositThree.pane(primaryStage));
             });
@@ -149,7 +149,7 @@ public class DepositTwoController
 
 
             //set listener
-            basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+            basePane.widthProperty().addListener((_, _, _) ->
             {
                 rectangle.setWidth(primaryStage.getWidth() * 0.5);
                 normalBtnOne.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
@@ -159,7 +159,7 @@ public class DepositTwoController
 
 
             });
-            basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+            basePane.heightProperty().addListener((_, _, _) ->
             {
                 rectangle.setHeight(primaryStage.getHeight() * 0.1);
                 AnchorPane.setBottomAnchor(normalBtnOne, primaryStage.getHeight() * 0.55);

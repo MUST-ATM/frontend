@@ -40,11 +40,6 @@ public class DepositFail
         StackPane centerPane = new StackPane();
         basePane.setCenter(centerPane);
 
-        //pause
-        PauseTransition pause = new PauseTransition();
-        pause.setOnFinished(event -> {
-
-        });
 
         // instantiate a topBar
         Image topBar = new Image("topBar.png");
@@ -72,9 +67,9 @@ public class DepositFail
         // set button action
 
         FunctionPageController functionPage = new FunctionPageController();
-        normalBtnOne.setOnAction(e -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
+        normalBtnOne.setOnAction(_ -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
         MainPageController mainPage = new MainPageController();
-        normalBtnTwo.setOnAction(e -> primaryStage.getScene().setRoot(mainPage.pane(primaryStage)));
+        normalBtnTwo.setOnAction(_ -> primaryStage.getScene().setRoot(mainPage.pane(primaryStage)));
 
         // set button
         normalBtnOne.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -83,7 +78,7 @@ public class DepositFail
         rightPane.getChildren().add(normalBtnTwo);
 
         //set listener
-        basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        basePane.widthProperty().addListener((_, _, _) ->
         {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             normalBtnOne.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
@@ -92,7 +87,7 @@ public class DepositFail
             AnchorPane.setRightAnchor(normalBtnTwo, primaryStage.getWidth() * 0.05);
 
         });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        basePane.heightProperty().addListener((_, _, _) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
             AnchorPane.setBottomAnchor(normalBtnOne, primaryStage.getHeight() * 0.35);

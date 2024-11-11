@@ -78,7 +78,7 @@ public class DepositSuccess
         rightPane.getChildren().add(normalBtnTwo);
 
         //set listener
-        basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        basePane.widthProperty().addListener((_, _, _) ->
         {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             normalBtnOne.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
@@ -87,7 +87,7 @@ public class DepositSuccess
             AnchorPane.setRightAnchor(normalBtnTwo, primaryStage.getWidth() * 0.05);
 
         });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        basePane.heightProperty().addListener((_, _, _) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
             AnchorPane.setBottomAnchor(normalBtnOne, primaryStage.getHeight() * 0.35);

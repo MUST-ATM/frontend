@@ -69,21 +69,21 @@ public class MainPageController
         var normalBtn = new Button("SERVICE");
         // set button action
         VerificationPageController verificationPage = new VerificationPageController();
-        normalBtn.setOnAction(e -> primaryStage.getScene().setRoot(verificationPage.pane(primaryStage)));
+        normalBtn.setOnAction(_ -> primaryStage.getScene().setRoot(verificationPage.pane(primaryStage)));
         // set button
         normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
         normalBtn.setStyle("-fx-text-fill: #033D8B;");
         leftPane.getChildren().add(normalBtn);
 
         //set listener
-        basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        basePane.widthProperty().addListener((_, _, _) ->
         {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             normalBtn.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
             AnchorPane.setLeftAnchor(normalBtn, primaryStage.getWidth() * 0.05);
             mustView.setFitWidth(basePane.getWidth() * 0.45);
         });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        basePane.heightProperty().addListener((_, _, _) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
             AnchorPane.setBottomAnchor(normalBtn, primaryStage.getHeight() * 0.15);

@@ -60,9 +60,9 @@ public class DepositOneController
         var normalBtnFour = new Button("RETURN");
         // set button action
         DepositTwoController despositTwo = new DepositTwoController();
-        normalBtnOne.setOnAction(e -> primaryStage.getScene().setRoot(despositTwo.pane(primaryStage)));
+        normalBtnOne.setOnAction(_ -> primaryStage.getScene().setRoot(despositTwo.pane(primaryStage)));
         FunctionPageController functionPage = new FunctionPageController();
-        normalBtnFour.setOnAction(e -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
+        normalBtnFour.setOnAction(_ -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
         // set button
         normalBtnOne.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
         normalBtnTwo.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -74,7 +74,7 @@ public class DepositOneController
 
 
         //set listener
-        basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        basePane.widthProperty().addListener((_, _, _) ->
         {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             normalBtnOne.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
@@ -88,7 +88,7 @@ public class DepositOneController
 
 
         });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        basePane.heightProperty().addListener((_, _, _) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
             AnchorPane.setBottomAnchor(normalBtnOne, primaryStage.getHeight() * 0.55);

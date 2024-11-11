@@ -185,7 +185,7 @@ public class VerificationPageController
 
                                     // start pause
                                     noTime.play();
-                                    noTime.setOnFinished(event ->
+                                    noTime.setOnFinished(_ ->
                                     {
                                         pause.play();
                                         aboutModalPane.setPersistent(true);
@@ -194,7 +194,7 @@ public class VerificationPageController
 
                                         System.out.println("aboutDialogOpenBtn");
                                     });
-                                    pause.setOnFinished(event ->
+                                    pause.setOnFinished(_ ->
                                     {
                                         aboutModalPane.hide(true);
                                         aboutModalPane.setPersistent(false);
@@ -293,7 +293,7 @@ public class VerificationPageController
 
         // start pause
         noTime.play();
-        noTime.setOnFinished(event ->
+        noTime.setOnFinished(_ ->
         {
             pause.play();
             aboutModalPane.setPersistent(true);
@@ -302,7 +302,7 @@ public class VerificationPageController
 
             System.out.println("aboutDialogOpen");
         });
-        pause.setOnFinished(event ->
+        pause.setOnFinished(_ ->
         {
             aboutModalPane.hide(true);
             aboutModalPane.setPersistent(false);

@@ -78,14 +78,14 @@ public class DepositThreeController
         leftPane.getChildren().add(normalBtn);
 
         //set listener
-        basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        basePane.widthProperty().addListener((_, _, _) ->
         {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             normalBtn.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
             AnchorPane.setLeftAnchor(normalBtn, primaryStage.getWidth() * 0.05);
 
         });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        basePane.heightProperty().addListener((_, _, _) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
             AnchorPane.setBottomAnchor(normalBtn, primaryStage.getHeight() * 0.35);
