@@ -12,6 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+/**
+ * A class which can generate the first withdraw page
+ */
 public class WithdrawOneController {
 
 
@@ -55,8 +58,10 @@ public class WithdrawOneController {
         // set button action
         FunctionPageController functionPage = new FunctionPageController();
         normalBtnFour.setOnAction(e -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
-
-//        normalBtnOne.setOnAction(e -> primaryStage.getScene().setRoot(depositPage.pane(primaryStage)));
+        WithdrawTwoController withdrawTwo = new WithdrawTwoController();
+        normalBtnOne.setOnAction(e -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage)));
+        normalBtnTwo.setOnAction(e -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage)));
+        normalBtnThree.setOnAction(e -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage)));
         // set button
         // add button to panes
         leftPane.getChildren().addAll(normalBtnOne, normalBtnTwo, normalBtnThree);
