@@ -53,7 +53,7 @@ public class VerificationServiceImpl implements VerificationService
     /**
      * Face Anti-Spoofing
      * @param image The image of the user
-     * @return Whether the user is a real person
+     * @return True if the image is real, False if the image is fake
      */
     @Override
     public boolean faceAntiSpoofing(Image image) throws Exception

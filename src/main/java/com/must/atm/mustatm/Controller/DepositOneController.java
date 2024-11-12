@@ -15,17 +15,10 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
- * @author 敬业
+ * @author 13318
  */
 public class DepositOneController
 {
-
-
-    /**
-     * @author DOVAKIIN
-     */
-
-
     public Pane pane(Stage primaryStage)
     {
         BorderPane basePane = new BorderPane();
@@ -64,49 +57,47 @@ public class DepositOneController
         var normalBtnOne = new Button("CNY/USD ACCOUNT");
         var normalBtnTwo = new Button("MOP ACCOUNT");
         var normalBtnThree = new Button("HCD ACCOUNT");
-        var normalBtnFour = new Button("EXIST");
+        var normalBtnFour = new Button("RETURN");
         // set button action
-//        VerificationPageController verificationPage = new VerificationPageController();
-//        normalBtnOne.setOnAction(e ->primaryStage.getScene().setRoot(verificationPage.pane(primaryStage)));
+        DepositTwoController despositTwo = new DepositTwoController();
+        normalBtnOne.setOnAction(_ -> primaryStage.getScene().setRoot(despositTwo.pane(primaryStage)));
         FunctionPageController functionPage = new FunctionPageController();
-        normalBtnFour.setOnAction(e -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
+        normalBtnFour.setOnAction(_ -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
         // set button
         normalBtnOne.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
         normalBtnTwo.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
         normalBtnThree.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
         normalBtnFour.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
-//        normalBtnOne.setStyle("-fx-text-fill: #033D8B;");
+    //        normalBtnOne.setStyle("-fx-text-fill: #033D8B;");
         leftPane.getChildren().addAll(normalBtnOne, normalBtnTwo, normalBtnThree);
         rightPane.getChildren().add(normalBtnFour);
 
 
         //set listener
-        basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        basePane.widthProperty().addListener((_, _, _) ->
         {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             normalBtnOne.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
             normalBtnTwo.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
             normalBtnThree.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
             normalBtnFour.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
-            leftPane.setLeftAnchor(normalBtnOne, primaryStage.getWidth() * 0.05);
-            leftPane.setLeftAnchor(normalBtnTwo, primaryStage.getWidth() * 0.05);
-            leftPane.setLeftAnchor(normalBtnThree, primaryStage.getWidth() * 0.05);
-            rightPane.setRightAnchor(normalBtnFour, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(normalBtnOne, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(normalBtnTwo, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(normalBtnThree, primaryStage.getWidth() * 0.05);
+            AnchorPane.setRightAnchor(normalBtnFour, primaryStage.getWidth() * 0.05);
 
 
         });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        basePane.heightProperty().addListener((_, _, _) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
-            leftPane.setBottomAnchor(normalBtnOne, primaryStage.getHeight() * 0.55);
-            leftPane.setBottomAnchor(normalBtnTwo, primaryStage.getHeight() * 0.35);
-            leftPane.setBottomAnchor(normalBtnThree, primaryStage.getHeight() * 0.15);
-            rightPane.setBottomAnchor(normalBtnFour, primaryStage.getHeight() * 0.15);
+            AnchorPane.setBottomAnchor(normalBtnOne, primaryStage.getHeight() * 0.55);
+            AnchorPane.setBottomAnchor(normalBtnTwo, primaryStage.getHeight() * 0.35);
+            AnchorPane.setBottomAnchor(normalBtnThree, primaryStage.getHeight() * 0.15);
+            AnchorPane.setBottomAnchor(normalBtnFour, primaryStage.getHeight() * 0.15);
 
         });
 
         return basePane;
     }
-
-
 }
