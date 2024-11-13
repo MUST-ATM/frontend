@@ -13,7 +13,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+/**
+ * A class which can generate the withdraw-success page
+ */
 public class WithdrawSuccessController {
     public Pane pane(Stage primaryStage){
         BorderPane basePane = new BorderPane();
@@ -59,30 +61,30 @@ public class WithdrawSuccessController {
         GetStyle getStyle = new GetStyle();
         rectangleMid.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 30, 0, 7, 7);");
         //set text
-        Text text = new Text("WITHDRAW");
+        Text text = new Text("WITHDRAWAL");
         text.setStyle(getStyle.getTextStyle());
-        text.setStyle(getStyle.getTextStyleTwo());
+        text.setStyle(getStyle.getTextStyleBig());
         middlePane.getChildren().add(text);
         Text textTwo = new Text("SUCCESSFUL");
-        textTwo.setStyle(getStyle.getTextStyleTwo());
+        textTwo.setStyle(getStyle.getTextStyleBig());
         middlePane.getChildren().add(textTwo);
 
 
         // create button
-        var normalBtn = new Button("CONTINUE");
-        var normalBtnTwo = new Button("EXIST");
+        var btnContinue = new Button("CONTINUE");
+        var btnExist = new Button("EXIST");
         // set button action
         WithdrawOneController withdrawOneController = new WithdrawOneController();
         MainPageController mainPageController = new MainPageController();
-        normalBtn.setOnAction(e -> primaryStage.getScene().setRoot(withdrawOneController.pane(primaryStage)));
-        normalBtnTwo.setOnAction(e -> primaryStage.getScene().setRoot(mainPageController.pane(primaryStage)));
+        btnContinue.setOnAction(e -> primaryStage.getScene().setRoot(withdrawOneController.pane(primaryStage)));
+        btnExist.setOnAction(e -> primaryStage.getScene().setRoot(mainPageController.pane(primaryStage)));
         // set button
         // add button to panes
-        rightPane.getChildren().add(normalBtn);
-        leftPane.getChildren().add(normalBtnTwo);
+        rightPane.getChildren().add(btnContinue);
+        leftPane.getChildren().add(btnExist);
         // use ButtonStyle set button's style
-        normalBtn.setStyle(getStyle.getButtonStyle());
-        normalBtnTwo.setStyle(getStyle.getButtonStyle());
+        btnContinue.setStyle(getStyle.getButtonStyle());
+        btnExist.setStyle(getStyle.getButtonStyle());
 
         //set listener
         basePane.widthProperty().addListener((obs, oldVal, newVal) ->
@@ -94,10 +96,10 @@ public class WithdrawSuccessController {
             middlePane.setLeftAnchor(text, primaryStage.getWidth() * 0.05);
             middlePane.setLeftAnchor(textTwo, primaryStage.getWidth() * 0.05);
 
-            normalBtn.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
-            normalBtnTwo.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
-            leftPane.setLeftAnchor(normalBtnTwo, primaryStage.getWidth() * 0.05);
-            rightPane.setRightAnchor(normalBtn, primaryStage.getWidth() * 0.05);
+            btnContinue.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
+            btnExist.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
+            leftPane.setLeftAnchor(btnExist, primaryStage.getWidth() * 0.05);
+            rightPane.setRightAnchor(btnContinue, primaryStage.getWidth() * 0.05);
         });
         basePane.heightProperty().addListener((obs, oldVal, newVal) ->
         {
@@ -108,8 +110,8 @@ public class WithdrawSuccessController {
             middlePane.setBottomAnchor(textTwo, primaryStage.getHeight() * 0.38);
 
 
-            leftPane.setBottomAnchor(normalBtnTwo, primaryStage.getHeight() * 0.35);
-            rightPane.setBottomAnchor(normalBtn, primaryStage.getHeight() * 0.35);
+            leftPane.setBottomAnchor(btnExist, primaryStage.getHeight() * 0.35);
+            rightPane.setBottomAnchor(btnContinue, primaryStage.getHeight() * 0.35);
         });
 
         return basePane;

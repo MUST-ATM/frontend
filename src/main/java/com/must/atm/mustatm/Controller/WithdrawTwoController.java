@@ -63,12 +63,12 @@ public class WithdrawTwoController {
         withDrawRectangle.setFill(Color.rgb(5, 80, 174));
         middlePane.getChildren().add(withDrawRectangle);
 
-        var normalBtnOne = new Button("CONFIRM");
+        var btnConfirm = new Button("CONFIRM");
         // set button
         // add button to panes
-        rightPane.getChildren().add(normalBtnOne);
+        rightPane.getChildren().add(btnConfirm);
         // use ButtonStyle set button's style
-        normalBtnOne.setStyle(getStyle.getButtonStyle());
+        btnConfirm.setStyle(getStyle.getButtonStyle());
         //set text field
         var balance = new TextField(getInput());
         balance.setEditable(false);
@@ -80,10 +80,10 @@ public class WithdrawTwoController {
         middlePane.getChildren().add(withDraw);
         withDraw.setStyle(getStyle.getTextFieldStyleTwo());
         WithdrawThreeController withdrawThree = new WithdrawThreeController();
-        normalBtnOne.setOnAction(e -> {primaryStage.getScene().setRoot(withdrawThree.pane(primaryStage));
+        btnConfirm.setOnAction(e -> {primaryStage.getScene().setRoot(withdrawThree.pane(primaryStage));
             getOutput(withDraw.getText());
         });
-//        normalBtnOne.setOnAction(e -> getOutput(withDraw.getText()));
+
 
 
 
@@ -104,10 +104,10 @@ public class WithdrawTwoController {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             balanceRectangle.setWidth(primaryStage.getWidth() * 0.5);
             withDrawRectangle.setWidth(primaryStage.getWidth() * 0.5);
-            normalBtnOne.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
+            btnConfirm.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
             balance.setPrefWidth(primaryStage.getWidth() * 0.4);
             withDraw.setPrefWidth(primaryStage.getWidth() * 0.4);
-            rightPane.setRightAnchor(normalBtnOne, primaryStage.getWidth() * 0.05);
+            rightPane.setRightAnchor(btnConfirm, primaryStage.getWidth() * 0.05);
             middlePane.setLeftAnchor(balanceRectangle, primaryStage.getWidth() * 0.10);
             middlePane.setLeftAnchor(withDrawRectangle, primaryStage.getWidth() * 0.10);
             middlePane.setLeftAnchor(balance, primaryStage.getWidth() * 0.25);
@@ -122,7 +122,7 @@ public class WithdrawTwoController {
             withDrawRectangle.setHeight(primaryStage.getHeight() * 0.15);
             balance.setPrefHeight(primaryStage.getHeight() * 0.15);
             withDraw.setPrefHeight(primaryStage.getHeight() * 0.15);
-            rightPane.setBottomAnchor(normalBtnOne, primaryStage.getHeight() * 0.35);
+            rightPane.setBottomAnchor(btnConfirm, primaryStage.getHeight() * 0.35);
             middlePane.setBottomAnchor(balanceRectangle, primaryStage.getHeight() * 0.40);
             middlePane.setBottomAnchor(withDrawRectangle, primaryStage.getHeight() * 0.20);
             middlePane.setBottomAnchor(balance, primaryStage.getHeight() * 0.40);

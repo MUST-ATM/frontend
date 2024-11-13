@@ -78,16 +78,16 @@ public class CheckAccountTwoController {
 
 
         // create button
-        var normalBtn = new Button("RETURN");
+        var btnReturn = new Button("RETURN");
         // set button action
         CheckAccountOneController checkAccountPage = new CheckAccountOneController();
-        normalBtn.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountPage.pane(primaryStage)));
+        btnReturn.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountPage.pane(primaryStage)));
         // set button
         // add button to panes
-        rightPane.getChildren().add(normalBtn);
+        rightPane.getChildren().add(btnReturn);
         // use ButtonStyle set button's style
 
-        normalBtn.setStyle(getStyle.getButtonStyle());
+        btnReturn.setStyle(getStyle.getButtonStyle());
 
         //set listener
         basePane.widthProperty().addListener((obs, oldVal, newVal) ->
@@ -98,8 +98,8 @@ public class CheckAccountTwoController {
             middlePane.setLeftAnchor(rectangleMid, primaryStage.getWidth() * 0.25);
             middlePane.setLeftAnchor(text, primaryStage.getWidth() * 0.26);
             middlePane.setLeftAnchor(account, primaryStage.getWidth() * 0.26);
-            normalBtn.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
-            rightPane.setRightAnchor(normalBtn, primaryStage.getWidth() * 0.05);
+            btnReturn.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
+            rightPane.setRightAnchor(btnReturn, primaryStage.getWidth() * 0.05);
         });
         basePane.heightProperty().addListener((obs, oldVal, newVal) ->
         {
@@ -108,7 +108,7 @@ public class CheckAccountTwoController {
             middlePane.setBottomAnchor(rectangleMid, primaryStage.getHeight() * 0.15);
             middlePane.setBottomAnchor(text, primaryStage.getHeight() * 0.48);
             middlePane.setBottomAnchor(account, primaryStage.getHeight() * 0.40);
-            rightPane.setBottomAnchor(normalBtn, primaryStage.getHeight() * 0.35);
+            rightPane.setBottomAnchor(btnReturn, primaryStage.getHeight() * 0.35);
         });
 
         return basePane;

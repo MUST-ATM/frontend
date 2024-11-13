@@ -48,49 +48,49 @@ public class CheckAccountOneController {
         rightPane.getChildren().add(rectangle);
 
         // create button
-        var normalBtnOne = new Button("CNY/USD ACCOUNT");
-        var normalBtnTwo = new Button("MOP ACCOUNT");
-        var normalBtnThree = new Button("HKD ACCOUNT");
-        var normalBtnFour = new Button("RETURN");
+        var btnOtherAccount = new Button("CNY/USD ACCOUNT");
+        var btnMopAccount = new Button("MOP ACCOUNT");
+        var btnHkdAccount = new Button("HKD ACCOUNT");
+        var btnReturn = new Button("RETURN");
 
         // set button action
         FunctionPageController functionPage = new FunctionPageController();
-        normalBtnFour.setOnAction(e -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
+        btnReturn.setOnAction(e -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
         CheckAccountTwoController checkAccountTwo = new CheckAccountTwoController();
-        normalBtnOne.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage)));
-        normalBtnTwo.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage)));
-        normalBtnThree.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage)));
+        btnOtherAccount.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage)));
+        btnMopAccount.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage)));
+        btnHkdAccount.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage)));
         // set button
         // add button to panes
-        leftPane.getChildren().addAll(normalBtnOne, normalBtnTwo, normalBtnThree);
-        rightPane.getChildren().add(normalBtnFour);
+        leftPane.getChildren().addAll(btnOtherAccount, btnMopAccount, btnHkdAccount);
+        rightPane.getChildren().add(btnReturn);
         // use ButtonStyle set button's style
         GetStyle getStyle = new GetStyle();
-        normalBtnOne.setStyle(getStyle.getButtonStyle());
-        normalBtnTwo.setStyle(getStyle.getButtonStyle());
-        normalBtnThree.setStyle(getStyle.getButtonStyle());
-        normalBtnFour.setStyle(getStyle.getButtonStyle());
+        btnOtherAccount.setStyle(getStyle.getButtonStyle());
+        btnMopAccount.setStyle(getStyle.getButtonStyle());
+        btnHkdAccount.setStyle(getStyle.getButtonStyle());
+        btnReturn.setStyle(getStyle.getButtonStyle());
 
         //set listener
         basePane.widthProperty().addListener((obs, oldVal, newVal) ->
         {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
-            normalBtnOne.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
-            normalBtnTwo.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
-            normalBtnThree.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
-            normalBtnFour.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
-            leftPane.setLeftAnchor(normalBtnOne, primaryStage.getWidth() * 0.05);
-            leftPane.setLeftAnchor(normalBtnTwo, primaryStage.getWidth() * 0.05);
-            leftPane.setLeftAnchor(normalBtnThree, primaryStage.getWidth() * 0.05);
-            rightPane.setRightAnchor(normalBtnFour, primaryStage.getWidth() * 0.05);
+            btnOtherAccount.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
+            btnMopAccount.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
+            btnHkdAccount.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
+            btnReturn.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
+            leftPane.setLeftAnchor(btnOtherAccount, primaryStage.getWidth() * 0.05);
+            leftPane.setLeftAnchor(btnMopAccount, primaryStage.getWidth() * 0.05);
+            leftPane.setLeftAnchor(btnHkdAccount, primaryStage.getWidth() * 0.05);
+            rightPane.setRightAnchor(btnReturn, primaryStage.getWidth() * 0.05);
         });
         basePane.heightProperty().addListener((obs, oldVal, newVal) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
-            leftPane.setBottomAnchor(normalBtnOne, primaryStage.getHeight() * 0.55);
-            leftPane.setBottomAnchor(normalBtnTwo, primaryStage.getHeight() * 0.35);
-            leftPane.setBottomAnchor(normalBtnThree, primaryStage.getHeight() * 0.15);
-            rightPane.setBottomAnchor(normalBtnFour, primaryStage.getHeight() * 0.35);
+            leftPane.setBottomAnchor(btnOtherAccount, primaryStage.getHeight() * 0.55);
+            leftPane.setBottomAnchor(btnMopAccount, primaryStage.getHeight() * 0.35);
+            leftPane.setBottomAnchor(btnHkdAccount, primaryStage.getHeight() * 0.15);
+            rightPane.setBottomAnchor(btnReturn, primaryStage.getHeight() * 0.35);
         });
 
         return basePane;

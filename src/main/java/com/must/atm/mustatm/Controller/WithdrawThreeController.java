@@ -1,19 +1,23 @@
 package com.must.atm.mustatm.Controller;
 
+import atlantafx.base.controls.ModalPane;
 import com.must.atm.mustatm.Template.GetStyle;
+import javafx.animation.PauseTransition;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
+/**
+ * A class which ca ngenerate the third withdraw page
+ */
 public class WithdrawThreeController {
     public Pane pane(Stage primaryStage){
         BorderPane basePane = new BorderPane();
@@ -83,24 +87,67 @@ public class WithdrawThreeController {
         middlePane.getChildren().add(balance);
 
         // create button
-        var normalBtn = new Button("RETURN");
-        var normalBtnTwo = new Button("CONFIRM");
+        var btnReturn = new Button("RETURN");
+        var btnConfirm = new Button("CONFIRM");
         // set button action
         WithdrawOneController withdrawOneController = new WithdrawOneController();
         WithdrawSuccessController withdrawSuccessController = new WithdrawSuccessController();
-        normalBtn.setOnAction(e -> primaryStage.getScene().setRoot(withdrawOneController.pane(primaryStage)));
-        normalBtnTwo.setOnAction(e -> primaryStage.getScene().setRoot(withdrawSuccessController.pane(primaryStage)));
+        btnReturn.setOnAction(e -> primaryStage.getScene().setRoot(withdrawOneController.pane(primaryStage)));
+        btnConfirm.setOnAction(e -> primaryStage.getScene().setRoot(withdrawSuccessController.pane(primaryStage)));
         // set button
         // add button to panes
-        rightPane.getChildren().add(normalBtn);
-        leftPane.getChildren().add(normalBtnTwo);
+        rightPane.getChildren().add(btnReturn);
+        leftPane.getChildren().add(btnConfirm);
         // use ButtonStyle set button's style
-        normalBtn.setStyle(getStyle.getButtonStyle());
-        normalBtnTwo.setStyle(getStyle.getButtonStyle());
+        btnReturn.setStyle(getStyle.getButtonStyle());
+        btnConfirm.setStyle(getStyle.getButtonStyle());
+
+
+        //create dialog
+        VBox sceneRoot = new VBox();
+        ModalPane aboutModalPane = new ModalPane();
+        StackPane aboutPane = new StackPane();
+        aboutModalPane.setId("aboutModal");
+        Dialog aboutDialog = new Dialog(0,0);
+        aboutDialog.getChildren().add(aboutPane);
+        aboutDialog.setStyle("-fx-background-color: rgba(255,255,255, 0.0);");
+        Rectangle rectangleTwo = new Rectangle();
+        rectangleTwo.setFill(Color.rgb(207, 34, 46));
+        rectangleTwo.setArcHeight(20);
+        rectangleTwo.setArcWidth(20);
+        aboutPane.getChildren().add(rectangleTwo);
+        VBox textBox = new VBox();
+        Text TopText = new Text("WITHDRAWAL FAILED");
+        textBox.setSpacing(30);
+        textBox.setAlignment(Pos.CENTER);
+        TopText.setStyle(getStyle.getTextStyleBig());
+        textBox.getChildren().add(TopText);
+        aboutPane.getChildren().add(textBox);
+
+        if(getInputWarningInuputWrong()){
+            underBasePane.getChildren().addAll(sceneRoot, aboutModalPane);
+            Text FailText = new Text("Please input an number in correct format");
+            FailText.setStyle(getStyle.getTextStyle());
+            textBox.getChildren().add(FailText);
+            callDialog( aboutModalPane, aboutDialog, aboutPane, primaryStage, withdrawOneController);
+        }else
+            if(getInputWarningDepositionWrong()){
+                underBasePane.getChildren().addAll(sceneRoot, aboutModalPane);
+                Text FailText = new Text("Do not have enough deposit");
+                FailText.setStyle(getStyle.getTextStyle());
+                textBox.getChildren().add(FailText);
+                callDialog( aboutModalPane, aboutDialog, aboutPane, primaryStage, withdrawOneController);
+        }
+
+
+
+
+
 
         //set listener
         basePane.widthProperty().addListener((obs, oldVal, newVal) ->
         {
+            rectangleTwo.setWidth(primaryStage.getWidth() * 0.5);
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             rectangleMid.setWidth(primaryStage.getWidth() * 0.45);
             withdraw.setPrefWidth(primaryStage.getWidth() * 0.40);
@@ -110,13 +157,14 @@ public class WithdrawThreeController {
             middlePane.setLeftAnchor(textTwo, primaryStage.getWidth() * 0.03);
             middlePane.setLeftAnchor(withdraw, primaryStage.getWidth() * 0.03);
             middlePane.setLeftAnchor(balance, primaryStage.getWidth() * 0.03);
-            normalBtn.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
-            normalBtnTwo.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
-            leftPane.setLeftAnchor(normalBtnTwo, primaryStage.getWidth() * 0.05);
-            rightPane.setRightAnchor(normalBtn, primaryStage.getWidth() * 0.05);
+            btnReturn.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
+            btnConfirm.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
+            leftPane.setLeftAnchor(btnConfirm, primaryStage.getWidth() * 0.05);
+            rightPane.setRightAnchor(btnReturn, primaryStage.getWidth() * 0.05);
         });
         basePane.heightProperty().addListener((obs, oldVal, newVal) ->
         {
+            rectangleTwo.setHeight(primaryStage.getHeight() * 0.4);
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
             rectangleMid.setHeight(primaryStage.getHeight() * 0.4);
             middlePane.setBottomAnchor(rectangleMid, primaryStage.getHeight() * 0.15);
@@ -124,8 +172,8 @@ public class WithdrawThreeController {
             middlePane.setBottomAnchor(textTwo, primaryStage.getHeight() * 0.31);
             middlePane.setBottomAnchor(withdraw, primaryStage.getHeight() * 0.40);
             middlePane.setBottomAnchor(balance, primaryStage.getHeight() * 0.23);
-            leftPane.setBottomAnchor(normalBtnTwo, primaryStage.getHeight() * 0.35);
-            rightPane.setBottomAnchor(normalBtn, primaryStage.getHeight() * 0.35);
+            leftPane.setBottomAnchor(btnConfirm, primaryStage.getHeight() * 0.35);
+            rightPane.setBottomAnchor(btnReturn, primaryStage.getHeight() * 0.35);
         });
 
         return basePane;
@@ -139,5 +187,56 @@ public class WithdrawThreeController {
         String balance ="114000 MOP";
 
         return balance;
+    }
+    private Boolean getInputWarningInuputWrong(){
+        return true;
+    }
+    private Boolean getInputWarningDepositionWrong(){
+        return true;
+    }
+    private void callDialog(ModalPane aboutModalPane,Dialog aboutDialog,StackPane aboutPane,Stage primaryStage,WithdrawOneController withdrawOneController){
+        //success wait time
+        PauseTransition pause = new PauseTransition(Duration.seconds(5));
+        PauseTransition noTime = new PauseTransition(Duration.seconds(0.02));
+//        Text FailText = new Text("Please input an number in correct format");
+        // start pause
+        aboutModalPane.toFront();
+        noTime.play();
+        noTime.setOnFinished(_ ->
+        {
+            pause.play();
+            aboutModalPane.setPersistent(true);
+//            aboutPane.getChildren().add(FailText);
+            aboutModalPane.show(aboutDialog);
+
+            System.out.println("aboutDialogOpenBtn");
+        });
+        pause.setOnFinished(_ ->
+        {
+            aboutModalPane.hide(false);
+            aboutModalPane.setPersistent(true);
+            primaryStage.getScene().setRoot(withdrawOneController.pane(primaryStage));
+            System.out.println("OK");
+        });
+
+
+
+    }
+    private static class Dialog extends VBox
+    {
+        /**
+         * @param width Dialog width
+         * @param height Dialog height
+         */
+        public Dialog(int width, int height)
+        {
+            super();
+
+            setSpacing(10);
+            setAlignment(Pos.CENTER);
+            setMinSize(width, height);
+            setMaxSize(width, height);
+            setStyle("-fx-background-color: -color-bg-default;");
+        }
     }
 }
