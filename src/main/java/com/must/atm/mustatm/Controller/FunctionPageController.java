@@ -60,12 +60,10 @@ public class FunctionPageController
         var normalBtnThree = new Button("CHECK ACCOUNT");
         var normalBtnFour = new Button("EXIST");
         // set button action
-//        VerificationPageController verificationPage = new VerificationPageController();
-//        normalBtnOne.setOnAction(e ->primaryStage.getScene().setRoot(verificationPage.pane(primaryStage)));
         MainPageController mainPage = new MainPageController();
-        normalBtnFour.setOnAction(e -> primaryStage.getScene().setRoot(mainPage.pane(primaryStage)));
+        normalBtnFour.setOnAction(_ -> primaryStage.getScene().setRoot(mainPage.pane(primaryStage)));
         DepositOneController depositPage = new DepositOneController();
-        normalBtnOne.setOnAction(e -> primaryStage.getScene().setRoot(depositPage.pane(primaryStage)));
+        normalBtnOne.setOnAction(_ -> primaryStage.getScene().setRoot(depositPage.pane(primaryStage)));
         // set button
         normalBtnOne.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
         normalBtnTwo.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
@@ -77,27 +75,27 @@ public class FunctionPageController
 
 
         //set listener
-        basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        basePane.widthProperty().addListener((_, _, _) ->
         {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             normalBtnOne.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
             normalBtnTwo.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
             normalBtnThree.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
             normalBtnFour.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
-            leftPane.setLeftAnchor(normalBtnOne, primaryStage.getWidth() * 0.05);
-            leftPane.setLeftAnchor(normalBtnTwo, primaryStage.getWidth() * 0.05);
-            leftPane.setLeftAnchor(normalBtnThree, primaryStage.getWidth() * 0.05);
-            rightPane.setRightAnchor(normalBtnFour, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(normalBtnOne, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(normalBtnTwo, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(normalBtnThree, primaryStage.getWidth() * 0.05);
+            AnchorPane.setRightAnchor(normalBtnFour, primaryStage.getWidth() * 0.05);
 
 
         });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        basePane.heightProperty().addListener((_, _, _) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
-            leftPane.setBottomAnchor(normalBtnOne, primaryStage.getHeight() * 0.55);
-            leftPane.setBottomAnchor(normalBtnTwo, primaryStage.getHeight() * 0.35);
-            leftPane.setBottomAnchor(normalBtnThree, primaryStage.getHeight() * 0.15);
-            rightPane.setBottomAnchor(normalBtnFour, primaryStage.getHeight() * 0.15);
+            AnchorPane.setBottomAnchor(normalBtnOne, primaryStage.getHeight() * 0.55);
+            AnchorPane.setBottomAnchor(normalBtnTwo, primaryStage.getHeight() * 0.35);
+            AnchorPane.setBottomAnchor(normalBtnThree, primaryStage.getHeight() * 0.15);
+            AnchorPane.setBottomAnchor(normalBtnFour, primaryStage.getHeight() * 0.15);
 
         });
 
