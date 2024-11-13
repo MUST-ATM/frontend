@@ -29,7 +29,7 @@ package com.must.atm.mustatm.Template;
                     """;
         return style;
     }
-    public String getTextStyleTwo() {
+    public String getTextStyleBig() {
         var style = """
 
                -fx-font-size: 45px;
