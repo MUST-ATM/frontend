@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  *
  */
 
-public class CheckAccountTwoController {
+public class CheckAccountStateTwoController {
     public Pane pane(Stage primaryStage)
     {
         BorderPane basePane = new BorderPane();
@@ -80,7 +80,7 @@ public class CheckAccountTwoController {
         // create button
         var btnReturn = new Button("RETURN");
         // set button action
-        CheckAccountOneController checkAccountPage = new CheckAccountOneController();
+        CheckAccountStateOneController checkAccountPage = new CheckAccountStateOneController();
         btnReturn.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountPage.pane(primaryStage)));
         // set button
         // add button to panes

@@ -2,7 +2,6 @@ package com.must.atm.mustatm.Controller;
 
 import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -74,9 +73,9 @@ public class WithdrawSuccessController {
         var btnContinue = new Button("CONTINUE");
         var btnExist = new Button("EXIST");
         // set button action
-        WithdrawOneController withdrawOneController = new WithdrawOneController();
+        WithdrawStateOneController withdrawStateOneController = new WithdrawStateOneController();
         MainPageController mainPageController = new MainPageController();
-        btnContinue.setOnAction(e -> primaryStage.getScene().setRoot(withdrawOneController.pane(primaryStage)));
+        btnContinue.setOnAction(e -> primaryStage.getScene().setRoot(withdrawStateOneController.pane(primaryStage)));
         btnExist.setOnAction(e -> primaryStage.getScene().setRoot(mainPageController.pane(primaryStage)));
         // set button
         // add button to panes

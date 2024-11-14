@@ -18,9 +18,12 @@ import javafx.util.Duration;
 /**
  * A class which ca ngenerate the third withdraw page
  */
-public class WithdrawThreeController {
+public class WithdrawStateThreeController {
     public Pane pane(Stage primaryStage){
+
+        StackPane underBasePane = new StackPane();
         BorderPane basePane = new BorderPane();
+        underBasePane.getChildren().add(basePane);
         //set background
         basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
 
@@ -44,7 +47,7 @@ public class WithdrawThreeController {
         // set topBar
         ImageView topBarView = new ImageView(topBar);
         topBarView.setPreserveRatio(true);
-        topBarView.fitWidthProperty().bind(basePane.widthProperty());
+        topBarView.fitWidthProperty().bind(underBasePane.widthProperty());
         topPane.getChildren().add(topBarView);
 
         //set rectangle
@@ -90,7 +93,7 @@ public class WithdrawThreeController {
         var btnReturn = new Button("RETURN");
         var btnConfirm = new Button("CONFIRM");
         // set button action
-        WithdrawOneController withdrawOneController = new WithdrawOneController();
+        WithdrawStateOneController withdrawOneController = new WithdrawStateOneController();
         WithdrawSuccessController withdrawSuccessController = new WithdrawSuccessController();
         btnReturn.setOnAction(e -> primaryStage.getScene().setRoot(withdrawOneController.pane(primaryStage)));
         btnConfirm.setOnAction(e -> primaryStage.getScene().setRoot(withdrawSuccessController.pane(primaryStage)));
@@ -131,12 +134,12 @@ public class WithdrawThreeController {
             textBox.getChildren().add(FailText);
             callDialog( aboutModalPane, aboutDialog, aboutPane, primaryStage, withdrawOneController);
         }else
-            if(getInputWarningDepositionWrong()){
-                underBasePane.getChildren().addAll(sceneRoot, aboutModalPane);
-                Text FailText = new Text("Do not have enough deposit");
-                FailText.setStyle(getStyle.getTextStyle());
-                textBox.getChildren().add(FailText);
-                callDialog( aboutModalPane, aboutDialog, aboutPane, primaryStage, withdrawOneController);
+        if(getInputWarningDepositionWrong()){
+            underBasePane.getChildren().addAll(sceneRoot, aboutModalPane);
+            Text FailText = new Text("Do not have enough deposit");
+            FailText.setStyle(getStyle.getTextStyle());
+            textBox.getChildren().add(FailText);
+            callDialog( aboutModalPane, aboutDialog, aboutPane, primaryStage, withdrawOneController);
         }
 
 
@@ -145,7 +148,7 @@ public class WithdrawThreeController {
 
 
         //set listener
-        basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        underBasePane.widthProperty().addListener((obs, oldVal, newVal) ->
         {
             rectangleTwo.setWidth(primaryStage.getWidth() * 0.5);
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
@@ -162,7 +165,7 @@ public class WithdrawThreeController {
             leftPane.setLeftAnchor(btnConfirm, primaryStage.getWidth() * 0.05);
             rightPane.setRightAnchor(btnReturn, primaryStage.getWidth() * 0.05);
         });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        underBasePane.heightProperty().addListener((obs, oldVal, newVal) ->
         {
             rectangleTwo.setHeight(primaryStage.getHeight() * 0.4);
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
@@ -176,7 +179,7 @@ public class WithdrawThreeController {
             rightPane.setBottomAnchor(btnReturn, primaryStage.getHeight() * 0.35);
         });
 
-        return basePane;
+        return underBasePane;
     }
     private String getInput(){
         String withdraw ="114514 MOP";
@@ -189,12 +192,12 @@ public class WithdrawThreeController {
         return balance;
     }
     private Boolean getInputWarningInuputWrong(){
-        return true;
+        return false;
     }
     private Boolean getInputWarningDepositionWrong(){
-        return true;
+        return false;
     }
-    private void callDialog(ModalPane aboutModalPane,Dialog aboutDialog,StackPane aboutPane,Stage primaryStage,WithdrawOneController withdrawOneController){
+    private void callDialog(ModalPane aboutModalPane,Dialog aboutDialog,StackPane aboutPane,Stage primaryStage,WithdrawStateOneController withdrawOneController){
         //success wait time
         PauseTransition pause = new PauseTransition(Duration.seconds(5));
         PauseTransition noTime = new PauseTransition(Duration.seconds(0.02));

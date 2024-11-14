@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 /**
  * @author 13318
  */
-public class DepositOneController
+public class DepositStateOneController
 {
     public Pane pane(Stage primaryStage)
     {

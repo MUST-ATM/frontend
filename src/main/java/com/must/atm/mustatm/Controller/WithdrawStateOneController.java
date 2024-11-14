@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 /**
  * A class which can generate the first withdraw page
  */
-public class WithdrawOneController {
+public class WithdrawStateOneController {
 
 
     public Pane pane(Stage primaryStage)
@@ -58,7 +58,7 @@ public class WithdrawOneController {
         // set button action
         FunctionPageController functionPage = new FunctionPageController();
         btnReturn.setOnAction(e -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
-        WithdrawTwoController withdrawTwo = new WithdrawTwoController();
+        WithdrawStateTwoController withdrawTwo = new WithdrawStateTwoController();
         btnOtherAccount.setOnAction(e -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage)));
         btnMopAccount.setOnAction(e -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage)));
         btnHkdAccount.setOnAction(e -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage)));

@@ -58,11 +58,11 @@ public class FunctionPageController
         // set button action
         MainPageController mainPage = new MainPageController();
         btnExist.setOnAction(e -> primaryStage.getScene().setRoot(mainPage.pane(primaryStage)));
-        DepositOneController depositPage = new DepositOneController();
+        DepositStateOneController depositPage = new DepositStateOneController();
         btnDeposit.setOnAction(e -> primaryStage.getScene().setRoot(depositPage.pane(primaryStage)));
-        WithdrawOneController withdrawPage = new WithdrawOneController();
+        WithdrawStateOneController withdrawPage = new WithdrawStateOneController();
         btnWithdraw.setOnAction(e -> primaryStage.getScene().setRoot(withdrawPage.pane(primaryStage)));
-        CheckAccountOneController checkAccountPage = new CheckAccountOneController();
+        CheckAccountStateOneController checkAccountPage = new CheckAccountStateOneController();
         btnCheck.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountPage.pane(primaryStage)));
         // set button
         // add button to panes

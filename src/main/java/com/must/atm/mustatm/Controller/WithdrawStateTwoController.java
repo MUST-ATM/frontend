@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 /**
  * A class which can generate the second withdraw page
  */
-public class WithdrawTwoController {
+public class WithdrawStateTwoController {
 
     public Pane pane(Stage primaryStage)
     {
@@ -79,7 +79,7 @@ public class WithdrawTwoController {
         withDraw.setEditable(true);
         middlePane.getChildren().add(withDraw);
         withDraw.setStyle(getStyle.getTextFieldStyleTwo());
-        WithdrawThreeController withdrawThree = new WithdrawThreeController();
+        WithdrawStateThreeController withdrawThree = new WithdrawStateThreeController();
         btnConfirm.setOnAction(e -> {primaryStage.getScene().setRoot(withdrawThree.pane(primaryStage));
             getOutput(withDraw.getText());
         });

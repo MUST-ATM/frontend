@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 /**
  * A class which can generate the first check account page
  */
-public class CheckAccountOneController {
+public class CheckAccountStateOneController {
     public Pane pane(Stage primaryStage)
     {
         BorderPane basePane = new BorderPane();
@@ -56,7 +56,7 @@ public class CheckAccountOneController {
         // set button action
         FunctionPageController functionPage = new FunctionPageController();
         btnReturn.setOnAction(e -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
-        CheckAccountTwoController checkAccountTwo = new CheckAccountTwoController();
+        CheckAccountStateTwoController checkAccountTwo = new CheckAccountStateTwoController();
         btnOtherAccount.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage)));
         btnMopAccount.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage)));
         btnHkdAccount.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage)));
