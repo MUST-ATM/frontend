@@ -1,5 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
+import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -52,8 +53,6 @@ public class MainPageController
         //set rectangle
         Rectangle rectangle = new Rectangle();
         rectangle.setFill(Color.rgb(5, 80, 174));
-        rectangle.setHeight(rightPane.getHeight() * 0.15);
-        rectangle.setWidth(rightPane.getWidth() * 0.7);
         AnchorPane.setBottomAnchor(rectangle, 0.0);
         AnchorPane.setRightAnchor(rectangle, 0.0);
         rightPane.getChildren().add(rectangle);
@@ -72,8 +71,10 @@ public class MainPageController
         normalBtn.setOnAction(_ -> primaryStage.getScene().setRoot(verificationPage.pane(primaryStage)));
         // set button
         normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        normalBtn.setStyle("-fx-text-fill: #033D8B;");
+        GetStyle getStyle = new GetStyle();
+        normalBtn.setStyle(getStyle.getButtonStyle());
         leftPane.getChildren().add(normalBtn);
+
 
         //set listener
         basePane.widthProperty().addListener((_, _, _) ->
