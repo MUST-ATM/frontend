@@ -1,7 +1,5 @@
 package com.must.atm.mustatm.Controller;
 
-
-import com.must.atm.mustatm.Template.GetStyle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
