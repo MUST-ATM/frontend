@@ -1,21 +1,15 @@
 package com.must.atm.mustatm.Controller;
 
-import atlantafx.base.controls.ModalPane;
+
 import com.must.atm.mustatm.Template.GetStyle;
-import javafx.animation.PauseTransition;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  * A class which can generate the withdraw-success page
@@ -80,8 +74,8 @@ public class DepositFail {
         // set button action
         DepositOneController DepositOne = new DepositOneController();
         MainPageController mainPageController = new MainPageController();
-        btnContinue.setOnAction(e -> primaryStage.getScene().setRoot(DepositOne.pane(primaryStage)));
-        btnExist.setOnAction(e -> primaryStage.getScene().setRoot(mainPageController.pane(primaryStage)));
+        btnContinue.setOnAction(_ -> primaryStage.getScene().setRoot(DepositOne.pane(primaryStage)));
+        btnExist.setOnAction(_ -> primaryStage.getScene().setRoot(mainPageController.pane(primaryStage)));
         // set button
         // add button to panes
         rightPane.getChildren().add(btnContinue);

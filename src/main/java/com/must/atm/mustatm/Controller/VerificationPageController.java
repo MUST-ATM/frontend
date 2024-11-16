@@ -11,7 +11,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -78,13 +77,11 @@ public class VerificationPageController
 
                         // create Text object1
                         Text text1 = new Text("Face recognition ...");
-                        double faceRecognitionSize = 20;
                         // set font style（font，bold，italic，size）
                         text1.setStyle(getStyle.getTextStyle());
 
                         // create Text object2
                         Text text2 = new Text("Face Anti-Spoofing ...");
-                        double antiSpoofingSize = 20;
                         // set font style（font，bold，italic，size）
                         text2.setStyle(getStyle.getTextStyle());
 

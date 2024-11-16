@@ -3,7 +3,6 @@ package com.must.atm.mustatm.Controller;
 
 import com.must.atm.mustatm.Template.GetStyle;
 import javafx.animation.KeyFrame;
-import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -36,7 +35,6 @@ public class DepositTwoController
         public Pane pane(Stage primaryStage)
         {
             BorderPane basePane = new BorderPane();
-            var waitingtime = 60;
             //set background
             basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
 
@@ -85,10 +83,6 @@ public class DepositTwoController
             whiteRect.setHeight(centerPane.getHeight() * 0.15);
             whiteRect.setWidth(centerPane.getWidth() * 0.7);
 
-
-
-
-            GetStyle getStyle = new GetStyle();
             //set text
             Text text = new Text("Please Input Your Cash");
             text.setStyle("""
@@ -107,7 +101,7 @@ public class DepositTwoController
             AtomicInteger tmp = new AtomicInteger(60);
             Label label = new Label("60s");
             label.setFont(javafx.scene.text.Font.font(20));
-            animation = new Timeline(new KeyFrame(Duration.millis(1000), e -> {
+            animation = new Timeline(new KeyFrame(Duration.millis(1000), _ -> {
                 int currentValue = tmp.get();
                 if (currentValue > 0)
                 {
@@ -143,15 +137,11 @@ public class DepositTwoController
             {
                 rectangle.setWidth(primaryStage.getWidth() * 0.5);
                 whiteRect.setWidth(primaryStage.getWidth() * 0.3);
-
-
-
             });
             basePane.heightProperty().addListener((_, _, _) ->
             {
                 rectangle.setHeight(primaryStage.getHeight() * 0.1);
                 whiteRect.setHeight(primaryStage.getHeight() * 0.3);
-
             });
 
             return basePane;
