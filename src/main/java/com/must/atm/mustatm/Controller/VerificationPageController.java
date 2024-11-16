@@ -1,6 +1,7 @@
 package com.must.atm.mustatm.Controller;
 
 import atlantafx.base.controls.ModalPane;
+import com.must.atm.mustatm.Template.GetStyle;
 import javafx.animation.PauseTransition;
 import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
@@ -23,7 +24,7 @@ import javafx.util.Duration;
 public class VerificationPageController
 {
     ScheduledService<Double> sche;
-
+    GetStyle getStyle = new GetStyle();
 
     /**
      * use to create verification page
@@ -79,15 +80,13 @@ public class VerificationPageController
                         Text text1 = new Text("Face recognition ...");
                         double faceRecognitionSize = 20;
                         // set font style（font，bold，italic，size）
-                        text1.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.ITALIC, faceRecognitionSize));
-                        text1.setFill(Color.rgb(255, 255, 255));
+                        text1.setStyle(getStyle.getTextStyle());
 
                         // create Text object2
                         Text text2 = new Text("Face Anti-Spoofing ...");
                         double antiSpoofingSize = 20;
                         // set font style（font，bold，italic，size）
-                        text2.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.ITALIC, antiSpoofingSize));
-                        text2.setFill(Color.rgb(255, 255, 255));
+                        text2.setStyle(getStyle.getTextStyle());
 
                         //set success text box
                         VBox  successText= new VBox();
@@ -95,13 +94,11 @@ public class VerificationPageController
                         // create success text
                         Text text3 = new Text("RECOGNITION");
                         // set font style（font，bold，italic，size）
-                        text3.setFont(Font.font("Inter", FontWeight.BOLD, 40));
-                        text3.setFill(Color.rgb(255,255,255));
+                        text3.setStyle(getStyle.getTextStyleBig());
                         successText.getChildren().add(text3);
                         Text text4 = new Text("SUCCESS");
                         // set font style（font，bold，italic，size）
-                        text4.setFont(Font.font("Inter", FontWeight.BOLD, 40));
-                        text4.setFill(Color.rgb(255,255,255));
+                        text4.setStyle(getStyle.getTextStyleBig());
                         successText.getChildren().add(text4);
 
 
@@ -163,6 +160,7 @@ public class VerificationPageController
                                     progressBox.getChildren().remove(text2);
                                     basePane.getChildren().remove(progressBar);
 
+                                    //create dialog
                                     VBox sceneRoot = new VBox();
                                     ModalPane aboutModalPane = new ModalPane();
                                     StackPane aboutPane = new StackPane();
@@ -236,7 +234,7 @@ public class VerificationPageController
     /**
      *
      */
-    private static class Dialog extends VBox
+    static class Dialog extends VBox
     {
         /**
          * @param width Dialog width

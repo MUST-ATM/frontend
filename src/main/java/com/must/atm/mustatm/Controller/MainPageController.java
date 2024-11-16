@@ -1,5 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
+import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,6 +28,7 @@ public class MainPageController
     public Pane pane(Stage primaryStage)
     {
         BorderPane basePane = new BorderPane();
+        GetStyle getStyle = new GetStyle();
         //set background
         basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
 
@@ -71,8 +73,7 @@ public class MainPageController
         VerificationPageController verificationPage = new VerificationPageController();
         normalBtn.setOnAction(_ -> primaryStage.getScene().setRoot(verificationPage.pane(primaryStage)));
         // set button
-        normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        normalBtn.setStyle("-fx-text-fill: #033D8B;");
+        normalBtn.setStyle(getStyle.getButtonStyle());
         leftPane.getChildren().add(normalBtn);
 
         //set listener

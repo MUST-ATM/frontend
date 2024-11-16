@@ -1,5 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
+import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,6 +23,7 @@ public class DepositOneController
     public Pane pane(Stage primaryStage)
     {
         BorderPane basePane = new BorderPane();
+        GetStyle getStyle = new GetStyle();
         //set background
         basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
 
@@ -64,10 +66,10 @@ public class DepositOneController
         FunctionPageController functionPage = new FunctionPageController();
         normalBtnFour.setOnAction(_ -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
         // set button
-        normalBtnOne.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        normalBtnTwo.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        normalBtnThree.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        normalBtnFour.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
+        normalBtnOne.setStyle(getStyle.getButtonStyle());
+        normalBtnTwo.setStyle(getStyle.getButtonStyle());
+        normalBtnThree.setStyle(getStyle.getButtonStyle());
+        normalBtnFour.setStyle(getStyle.getButtonStyle());
     //        normalBtnOne.setStyle("-fx-text-fill: #033D8B;");
         leftPane.getChildren().addAll(normalBtnOne, normalBtnTwo, normalBtnThree);
         rightPane.getChildren().add(normalBtnFour);
