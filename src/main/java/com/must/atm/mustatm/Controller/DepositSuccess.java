@@ -71,7 +71,7 @@ public class DepositSuccess {
         var btnContinue = new Button("CONTINUE");
         var btnExist = new Button("EXIST");
         // set button action
-        DepositOneController DepositOne = new DepositOneController();
+        DepositStateOneController DepositOne = new DepositStateOneController();
         MainPageController mainPageController = new MainPageController();
         btnContinue.setOnAction(_ -> primaryStage.getScene().setRoot(DepositOne.pane(primaryStage)));
         btnExist.setOnAction(_ -> primaryStage.getScene().setRoot(mainPageController.pane(primaryStage)));
