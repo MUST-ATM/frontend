@@ -21,7 +21,6 @@ public class FunctionPageController
     public Pane pane(Stage primaryStage)
     {
         BorderPane basePane = new BorderPane();
-        GetStyle getStyle = new GetStyle();
         //set background
         basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
 
@@ -47,54 +46,56 @@ public class FunctionPageController
         //set rectangle
         Rectangle rectangle = new Rectangle();
         rectangle.setFill(Color.rgb(5, 80, 174));
-        rectangle.setHeight(rightPane.getHeight() * 0.15);
-        rectangle.setWidth(rightPane.getWidth() * 0.7);
         AnchorPane.setBottomAnchor(rectangle, 0.0);
         AnchorPane.setRightAnchor(rectangle, 0.0);
         rightPane.getChildren().add(rectangle);
 
         // create button
-        var normalBtnOne = new Button("DEPOSIT");
-        var normalBtnTwo = new Button("WITHDRAW");
-        var normalBtnThree = new Button("CHECK ACCOUNT");
-        var normalBtnFour = new Button("EXIST");
+        var btnDeposit = new Button("DEPOSIT");
+        var btnWithdraw = new Button("WITHDRAW");
+        var btnCheck = new Button("CHECK ACCOUNT");
+        var btnExist = new Button("EXIST");
+
         // set button action
         MainPageController mainPage = new MainPageController();
-        normalBtnFour.setOnAction(_ -> primaryStage.getScene().setRoot(mainPage.pane(primaryStage)));
-        DepositOneController depositPage = new DepositOneController();
-        normalBtnOne.setOnAction(_ -> primaryStage.getScene().setRoot(depositPage.pane(primaryStage)));
+        btnExist.setOnAction(e -> primaryStage.getScene().setRoot(mainPage.pane(primaryStage)));
+        DepositStateOneController depositPage = new DepositStateOneController();
+        btnDeposit.setOnAction(e -> primaryStage.getScene().setRoot(depositPage.pane(primaryStage)));
+        WithdrawStateOneController withdrawPage = new WithdrawStateOneController();
+        btnWithdraw.setOnAction(e -> primaryStage.getScene().setRoot(withdrawPage.pane(primaryStage)));
+        CheckAccountStateOneController checkAccountPage = new CheckAccountStateOneController();
+        btnCheck.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountPage.pane(primaryStage)));
         // set button
-        normalBtnOne.setStyle(getStyle.getButtonStyle());
-        normalBtnTwo.setStyle(getStyle.getButtonStyle());
-        normalBtnThree.setStyle(getStyle.getButtonStyle());
-        normalBtnFour.setStyle(getStyle.getButtonStyle());
-        leftPane.getChildren().addAll(normalBtnOne, normalBtnTwo, normalBtnThree);
-        rightPane.getChildren().add(normalBtnFour);
-
+        // add button to panes
+        leftPane.getChildren().addAll(btnDeposit, btnWithdraw, btnCheck);
+        rightPane.getChildren().add(btnExist);
+        // use ButtonStyle set button's style
+        GetStyle getStyle = new GetStyle();
+        btnDeposit.setStyle(getStyle.getButtonStyle());
+        btnWithdraw.setStyle(getStyle.getButtonStyle());
+        btnCheck.setStyle(getStyle.getButtonStyle());
+        btnExist.setStyle(getStyle.getButtonStyle());
 
         //set listener
         basePane.widthProperty().addListener((_, _, _) ->
         {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
-            normalBtnOne.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
-            normalBtnTwo.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
-            normalBtnThree.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
-            normalBtnFour.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
-            AnchorPane.setLeftAnchor(normalBtnOne, primaryStage.getWidth() * 0.05);
-            AnchorPane.setLeftAnchor(normalBtnTwo, primaryStage.getWidth() * 0.05);
-            AnchorPane.setLeftAnchor(normalBtnThree, primaryStage.getWidth() * 0.05);
-            AnchorPane.setRightAnchor(normalBtnFour, primaryStage.getWidth() * 0.05);
-
-
+            btnDeposit.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
+            btnWithdraw.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
+            btnCheck.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
+            btnExist.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
+            leftPane.setLeftAnchor(btnDeposit, primaryStage.getWidth() * 0.05);
+            leftPane.setLeftAnchor(btnWithdraw, primaryStage.getWidth() * 0.05);
+            leftPane.setLeftAnchor(btnCheck, primaryStage.getWidth() * 0.05);
+            rightPane.setRightAnchor(btnExist, primaryStage.getWidth() * 0.05);
         });
         basePane.heightProperty().addListener((_, _, _) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
-            AnchorPane.setBottomAnchor(normalBtnOne, primaryStage.getHeight() * 0.55);
-            AnchorPane.setBottomAnchor(normalBtnTwo, primaryStage.getHeight() * 0.35);
-            AnchorPane.setBottomAnchor(normalBtnThree, primaryStage.getHeight() * 0.15);
-            AnchorPane.setBottomAnchor(normalBtnFour, primaryStage.getHeight() * 0.15);
-
+            leftPane.setBottomAnchor(btnDeposit, primaryStage.getHeight() * 0.55);
+            leftPane.setBottomAnchor(btnWithdraw, primaryStage.getHeight() * 0.35);
+            leftPane.setBottomAnchor(btnCheck, primaryStage.getHeight() * 0.15);
+            rightPane.setBottomAnchor(btnExist, primaryStage.getHeight() * 0.35);
         });
 
         return basePane;

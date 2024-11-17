@@ -7,6 +7,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
@@ -25,7 +28,6 @@ public class MainPageController
     public Pane pane(Stage primaryStage)
     {
         BorderPane basePane = new BorderPane();
-        GetStyle getStyle = new GetStyle();
         //set background
         basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
 
@@ -51,8 +53,6 @@ public class MainPageController
         //set rectangle
         Rectangle rectangle = new Rectangle();
         rectangle.setFill(Color.rgb(5, 80, 174));
-        rectangle.setHeight(rightPane.getHeight() * 0.15);
-        rectangle.setWidth(rightPane.getWidth() * 0.7);
         AnchorPane.setBottomAnchor(rectangle, 0.0);
         AnchorPane.setRightAnchor(rectangle, 0.0);
         rightPane.getChildren().add(rectangle);
@@ -70,8 +70,11 @@ public class MainPageController
         VerificationPageController verificationPage = new VerificationPageController();
         normalBtn.setOnAction(_ -> primaryStage.getScene().setRoot(verificationPage.pane(primaryStage)));
         // set button
+        normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
+        GetStyle getStyle = new GetStyle();
         normalBtn.setStyle(getStyle.getButtonStyle());
         leftPane.getChildren().add(normalBtn);
+
 
         //set listener
         basePane.widthProperty().addListener((_, _, _) ->
