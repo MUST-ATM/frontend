@@ -1,5 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
+
 import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -11,9 +12,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
- * A class which can generate the deposit-success page
+ * A class which can generate the withdraw-success page
  */
-public class DepositSuccess {
+public class DepositFailController
+{
     public Pane pane(Stage primaryStage){
         BorderPane basePane = new BorderPane();
         //set background
@@ -52,7 +54,7 @@ public class DepositSuccess {
         bottomPane.getChildren().add(rectangle);
 
         Rectangle rectangleMid = new Rectangle();
-        rectangleMid.setFill(Color.rgb(45, 164, 78));
+        rectangleMid.setFill(Color.rgb(207, 34, 46));
         middlePane.getChildren().add(rectangleMid);
 
         GetStyle getStyle = new GetStyle();
@@ -62,7 +64,7 @@ public class DepositSuccess {
         text.setStyle(getStyle.getTextStyle());
         text.setStyle(getStyle.getTextStyleBig());
         middlePane.getChildren().add(text);
-        Text textTwo = new Text("SUCCESSFUL");
+        Text textTwo = new Text("FAIL");
         textTwo.setStyle(getStyle.getTextStyleBig());
         middlePane.getChildren().add(textTwo);
 

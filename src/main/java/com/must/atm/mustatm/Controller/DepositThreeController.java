@@ -67,11 +67,11 @@ public class DepositThreeController
 
         // set button action
         if (deposit){
-            DepositSuccess success = new DepositSuccess();
+            DepositSuccessController success = new DepositSuccessController();
             btnConfirm.setOnAction(_ -> primaryStage.getScene().setRoot(success.pane(primaryStage)));
 
         }else {
-            DepositFail fail = new DepositFail();
+            DepositFailController fail = new DepositFailController();
             btnConfirm.setOnAction(_ -> primaryStage.getScene().setRoot(fail.pane(primaryStage)));
         }
         // set button
