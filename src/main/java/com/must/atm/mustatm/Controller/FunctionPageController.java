@@ -42,6 +42,7 @@ public class FunctionPageController
         topBarView.fitWidthProperty().bind(basePane.widthProperty());
         topPane.getChildren().add(topBarView);
 
+
         //set rectangle
         Rectangle rectangle = new Rectangle();
         rectangle.setFill(Color.rgb(5, 80, 174));
@@ -76,7 +77,7 @@ public class FunctionPageController
         btnExist.setStyle(getStyle.getButtonStyle());
 
         //set listener
-        basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        basePane.widthProperty().addListener((_, _, _) ->
         {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             btnDeposit.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
@@ -88,7 +89,7 @@ public class FunctionPageController
             leftPane.setLeftAnchor(btnCheck, primaryStage.getWidth() * 0.05);
             rightPane.setRightAnchor(btnExist, primaryStage.getWidth() * 0.05);
         });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        basePane.heightProperty().addListener((_, _, _) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
             leftPane.setBottomAnchor(btnDeposit, primaryStage.getHeight() * 0.55);

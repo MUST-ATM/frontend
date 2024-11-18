@@ -1,5 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
+import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,9 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
@@ -22,6 +20,7 @@ public class DepositStateOneController
     public Pane pane(Stage primaryStage)
     {
         BorderPane basePane = new BorderPane();
+        GetStyle getStyle = new GetStyle();
         //set background
         basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
 
@@ -59,15 +58,15 @@ public class DepositStateOneController
         var normalBtnThree = new Button("HCD ACCOUNT");
         var normalBtnFour = new Button("RETURN");
         // set button action
-        DepositTwoController despositTwo = new DepositTwoController();
-        normalBtnOne.setOnAction(_ -> primaryStage.getScene().setRoot(despositTwo.pane(primaryStage)));
+        DepositTwoController depositTwo = new DepositTwoController();
+        normalBtnOne.setOnAction(_ -> primaryStage.getScene().setRoot(depositTwo.pane(primaryStage)));
         FunctionPageController functionPage = new FunctionPageController();
         normalBtnFour.setOnAction(_ -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
         // set button
-        normalBtnOne.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        normalBtnTwo.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        normalBtnThree.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        normalBtnFour.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
+        normalBtnOne.setStyle(getStyle.getButtonStyle());
+        normalBtnTwo.setStyle(getStyle.getButtonStyle());
+        normalBtnThree.setStyle(getStyle.getButtonStyle());
+        normalBtnFour.setStyle(getStyle.getButtonStyle());
     //        normalBtnOne.setStyle("-fx-text-fill: #033D8B;");
         leftPane.getChildren().addAll(normalBtnOne, normalBtnTwo, normalBtnThree);
         rightPane.getChildren().add(normalBtnFour);
