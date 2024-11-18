@@ -58,8 +58,8 @@ public class DepositStateOneController
         var normalBtnThree = new Button("HCD ACCOUNT");
         var normalBtnFour = new Button("RETURN");
         // set button action
-        DepositTwoController despositTwo = new DepositTwoController();
-        normalBtnOne.setOnAction(_ -> primaryStage.getScene().setRoot(despositTwo.pane(primaryStage)));
+        DepositTwoController depositTwo = new DepositTwoController();
+        normalBtnOne.setOnAction(_ -> primaryStage.getScene().setRoot(depositTwo.pane(primaryStage)));
         FunctionPageController functionPage = new FunctionPageController();
         normalBtnFour.setOnAction(_ -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
         // set button

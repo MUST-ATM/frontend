@@ -3,6 +3,7 @@ package com.must.atm.mustatm.Controller;
 
 import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -22,7 +23,7 @@ public class DepositThreeController
     public Pane pane(Stage primaryStage)
     {
 
-        boolean deposit = false;
+        boolean depositResult = true;
         BorderPane basePane = new BorderPane();
         //set background
         basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
@@ -66,7 +67,7 @@ public class DepositThreeController
         var btnConfirm = new Button("CONFIRM");
 
         // set button action
-        if (deposit){
+        if (depositResult){
             DepositSuccessController success = new DepositSuccessController();
             btnConfirm.setOnAction(_ -> primaryStage.getScene().setRoot(success.pane(primaryStage)));
 
@@ -74,15 +75,16 @@ public class DepositThreeController
             DepositFailController fail = new DepositFailController();
             btnConfirm.setOnAction(_ -> primaryStage.getScene().setRoot(fail.pane(primaryStage)));
         }
+        GetStyle getStyle = new GetStyle();
         // set button
-        btnConfirm.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
+        btnConfirm.setStyle(getStyle.getButtonStyle());
         leftPane.getChildren().add(btnConfirm);
 
         Rectangle rectangleMid = new Rectangle();
         rectangleMid.setFill(Color.rgb(5, 80, 174));
         middlePane.getChildren().add(rectangleMid);
 
-        GetStyle getStyle = new GetStyle();
+
         rectangleMid.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 30, 0, 7, 7);");
         //set text
         Text text = new Text("Your Deposit Is:");
@@ -93,15 +95,31 @@ public class DepositThreeController
         text.setStyle(getStyle.getTextStyle());
         middlePane.getChildren().add(textTwo);
 
+        String Deposit =getInput();
+        var deposit = new TextField(Deposit);
+        deposit.setEditable(false);
+        deposit.setStyle(getStyle.getTextFieldStyle());
+        middlePane.getChildren().add(deposit);
+
+        String Balance = getInputTwo();
+        var balance = new TextField(Balance);
+        balance.setEditable(false);
+        balance.setStyle(getStyle.getTextFieldStyle());
+        middlePane.getChildren().add(balance);
+
 
         //set listener
         basePane.widthProperty().addListener((_, _, _) ->
         {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             rectangleMid.setWidth(primaryStage.getWidth() * 0.45);
+            deposit.setPrefWidth(primaryStage.getWidth() * 0.40);
+            balance.setPrefWidth(primaryStage.getWidth() * 0.40);
             AnchorPane.setLeftAnchor(rectangleMid, primaryStage.getWidth() * 0.02);
             AnchorPane.setLeftAnchor(text, primaryStage.getWidth() * 0.03);
             AnchorPane.setLeftAnchor(textTwo, primaryStage.getWidth() * 0.03);
+            AnchorPane.setLeftAnchor(deposit, primaryStage.getWidth() * 0.03);
+            AnchorPane.setLeftAnchor(balance, primaryStage.getWidth() * 0.03);
             btnConfirm.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
             AnchorPane.setLeftAnchor(btnConfirm, primaryStage.getWidth() * 0.05);
         });
@@ -112,9 +130,22 @@ public class DepositThreeController
             AnchorPane.setBottomAnchor(rectangleMid, primaryStage.getHeight() * 0.15);
             AnchorPane.setBottomAnchor(text, primaryStage.getHeight() * 0.48);
             AnchorPane.setBottomAnchor(textTwo, primaryStage.getHeight() * 0.31);
+            AnchorPane.setBottomAnchor(deposit, primaryStage.getHeight() * 0.40);
+            AnchorPane.setBottomAnchor(balance, primaryStage.getHeight() * 0.23);
             AnchorPane.setBottomAnchor(btnConfirm, primaryStage.getHeight() * 0.35);
         });
 
         return basePane;
     }
+    private String getInput(){
+        String deposit ="114514 MOP";
+
+        return deposit;
+    }
+    private String getInputTwo(){
+        String balance ="114000 MOP";
+
+        return balance;
+    }
 }
+
