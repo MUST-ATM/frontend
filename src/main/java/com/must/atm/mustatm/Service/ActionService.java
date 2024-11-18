@@ -7,5 +7,7 @@ import com.must.atm.mustatm.Service.Type.cardType;
  */
 public interface ActionService
 {
+    double deposit(int userId,cardType cardType,double amount);
+    double withdraw(int userId,cardType cardType,double amount);
     void setBalance(int userId,cardType cardType,double amount);
 }
