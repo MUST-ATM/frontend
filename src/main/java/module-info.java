@@ -9,6 +9,7 @@ module com.must.atm.mustatm {
     requires com.fasterxml.jackson.databind;
     requires org.bytedeco.javacv;
     requires org.bytedeco.opencv;
+    requires java.desktop;
     opens com.must.atm.mustatm.Controller to javafx.fxml;
     exports com.must.atm.mustatm.Controller;
 

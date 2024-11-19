@@ -2,10 +2,11 @@ package com.must.atm.mustatm.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.scene.image.Image;
 
+import java.awt.image.BufferedImage;
 import java.net.http.HttpResponse;
 
+import static com.must.atm.mustatm.Service.utils.bufferToByte;
 
 /**
  * Verification Service
@@ -21,16 +22,16 @@ public class VerificationServiceImpl implements VerificationService
      * @return The faceId of the user
      */
     @Override
-    public String faceRecognition(Image image)
+    public String faceRecognition(BufferedImage image)
     {
         NetworkServiceImpl request = new NetworkServiceImpl();
         HttpResponse<String> response;
         try
         {
-            response = request.sendImage("/upload/face-reco",imageBuffer(image));
+            response = request.sendImage("/upload/face-reco", bufferToByte(image));
         } catch (Exception e)
         {
-            System.out.println("Face image transfer failed");
+            System.out.println("Face Recognition Failed");
             throw new RuntimeException(e);
         }
         if(response.statusCode()==200)
@@ -56,21 +57,11 @@ public class VerificationServiceImpl implements VerificationService
      * @return True if the image is real, False if the image is fake
      */
     @Override
-    public boolean faceAntiSpoofing(Image image) throws Exception
+    public boolean faceAntiSpoofing(BufferedImage image) throws Exception
     {
         NetworkServiceImpl request = new NetworkServiceImpl();
-        var response = request.sendImage("/upload/face-anti",imageBuffer(image));
+        var response = request.sendImage("/upload/face-anti", bufferToByte(image));
         return response.statusCode() == 200;
     }
-    /**
-     * Image Buffer
-     * @param image The image of the user
-     * @return The byte array of the image
-     */
-    private byte[] imageBuffer(Image image)
-    {
-        int w = (int)image.getWidth();
-        int h = (int)image.getHeight();
-        return new byte[w * h * 4];
-    }
+
 }
