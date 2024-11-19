@@ -1,6 +1,6 @@
 package com.must.atm.mustatm.Service;
 
-import javafx.scene.image.Image;
+import java.awt.image.BufferedImage;
 
 
 /**
@@ -9,7 +9,8 @@ import javafx.scene.image.Image;
  */
 public interface VerificationService
 {
-    String faceRecognition(Image image) throws Exception;
-    boolean faceAntiSpoofing(Image image) throws Exception;
 
+    String faceRecognition(BufferedImage image);
+
+    boolean faceAntiSpoofing(BufferedImage image) throws Exception;
 }
