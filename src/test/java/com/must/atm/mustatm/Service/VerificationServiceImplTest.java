@@ -2,8 +2,6 @@ package com.must.atm.mustatm.Service;
 
 import org.junit.jupiter.api.Test;
 
-import javax.imageio.ImageIO;
-import java.io.File;
 import static org.junit.jupiter.api.Assertions.*;
 
 class VerificationServiceImplTest
@@ -14,7 +12,7 @@ class VerificationServiceImplTest
     {
         VerificationServiceImpl verificationService = new VerificationServiceImpl();
         assertDoesNotThrow(()->
-                verificationService.faceRecognition(ImageIO.read(new File("src/main/resources/capture.jpg"))));
+                verificationService.faceRecognition("src/main/resources/capture.jpg"));
 
     }
 
@@ -23,6 +21,6 @@ class VerificationServiceImplTest
     {
         VerificationServiceImpl verificationService = new VerificationServiceImpl();
         assertDoesNotThrow(()->
-                verificationService.faceAntiSpoofing(ImageIO.read(new File("src/main/resources/capture.jpg"))));
+                verificationService.faceAntiSpoofing("src/main/resources/capture.jpg"));
     }
 }
