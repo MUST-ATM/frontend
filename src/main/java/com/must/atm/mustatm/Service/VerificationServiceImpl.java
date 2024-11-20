@@ -3,7 +3,9 @@ package com.must.atm.mustatm.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 import java.net.http.HttpResponse;
 
 import static com.must.atm.mustatm.Service.utils.bufferToByte;
@@ -18,12 +20,13 @@ public class VerificationServiceImpl implements VerificationService
 {
     /**
      * Face Recognition
-     * @param image The image of the user
+     * @param imagePath The image path of the user
      * @return The faceId of the user
      */
     @Override
-    public String faceRecognition(BufferedImage image)
+    public String faceRecognition(String imagePath) throws IOException
     {
+        var image = ImageIO.read(new File(imagePath));
         NetworkServiceImpl request = new NetworkServiceImpl();
         HttpResponse<String> response;
         try
@@ -53,12 +56,13 @@ public class VerificationServiceImpl implements VerificationService
     }
     /**
      * Face Anti-Spoofing
-     * @param image The image of the user
+     * @param imagePath The image of the user
      * @return True if the image is real, False if the image is fake
      */
     @Override
-    public boolean faceAntiSpoofing(BufferedImage image) throws Exception
+    public boolean faceAntiSpoofing(String imagePath) throws Exception
     {
+        var image = ImageIO.read(new File(imagePath));
         NetworkServiceImpl request = new NetworkServiceImpl();
         var response = request.sendImage("/upload/face-anti", bufferToByte(image));
         return response.statusCode() == 200;

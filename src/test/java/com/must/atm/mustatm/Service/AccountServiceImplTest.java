@@ -4,9 +4,6 @@ import com.must.atm.mustatm.Service.Type.cardType;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -20,10 +17,10 @@ class AccountServiceImplTest
 {
     @Test
     @DisplayName("Test getFaceId")
-    void getFaceId() throws IOException
+    void getFaceId()
     {
         AccountServiceImpl accountService = new AccountServiceImpl();
-        var faceId = accountService.getFaceId(ImageIO.read(new File("src/main/resources/capture.jpg")));
+        var faceId = accountService.getFaceId("src/main/resources/capture.jpg");
         assertEquals("233", faceId);
     }
     @Test

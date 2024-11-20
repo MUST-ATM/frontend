@@ -3,7 +3,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.must.atm.mustatm.Service.Type.cardType;
 
-import java.awt.image.BufferedImage;
 
 /**
  * Account Service
@@ -14,16 +13,17 @@ public class AccountServiceImpl implements AccountService
 {
     /**
      * Get FaceId
-     * @param image The image of the user
+     * @param imagePath The image path of the user
      * @return The faceId of the user
      */
     @Override
-    public String getFaceId(BufferedImage image)
+    public String getFaceId(String  imagePath)
     {
         VerificationServiceImpl verificationService = new VerificationServiceImpl();
         try
         {
-            return verificationService.faceRecognition(image);
+            return verificationService.faceRecognition(imagePath);
+
         } catch (Exception e)
         {
             System.out.println("Face Recognition Failed");
