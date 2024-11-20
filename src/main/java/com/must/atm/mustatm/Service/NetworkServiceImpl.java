@@ -25,6 +25,7 @@ public class NetworkServiceImpl implements NetworkService
         {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(server + api))
+                    .version(HttpClient.Version.HTTP_1_1)
                     .POST(HttpRequest.BodyPublishers.ofByteArray(stream))
                     .build();
             try(var client = HttpClient.newHttpClient())
@@ -54,6 +55,7 @@ public class NetworkServiceImpl implements NetworkService
         {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(server + api))
+                    .version(HttpClient.Version.HTTP_1_1)
                     .GET()
                     .build();
             try(var client = HttpClient.newHttpClient())
@@ -84,6 +86,7 @@ public class NetworkServiceImpl implements NetworkService
         {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(server + api))
+                    .version(HttpClient.Version.HTTP_1_1)
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(json))
                     .build();

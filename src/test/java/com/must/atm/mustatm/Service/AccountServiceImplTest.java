@@ -5,6 +5,10 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,10 +20,11 @@ class AccountServiceImplTest
 {
     @Test
     @DisplayName("Test getFaceId")
-    void getFaceId()
+    void getFaceId() throws IOException
     {
         AccountServiceImpl accountService = new AccountServiceImpl();
-        accountService.getFaceId(null);
+        var faceId = accountService.getFaceId(ImageIO.read(new File("src/main/resources/capture.jpg")));
+        assertEquals("233", faceId);
     }
     @Test
     @DisplayName("Test getUserId by FaceId")
