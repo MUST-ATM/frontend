@@ -1,5 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
+import com.must.atm.mustatm.Service.AccountServiceImpl;
 import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -66,12 +67,10 @@ public class CheckAccountStateTwoController {
         Text text = new Text("Your Account Is:");
         text.setStyle(getStyle.getTextStyle());
         middlePane.getChildren().add(text);
-        //set text filed
-        //need unput from service
 
-        //here need an input
-        String Account =getInput();
-        var account = new TextField(Account);
+        //here need an input value
+        AccountServiceImpl accountService = new AccountServiceImpl();
+        var account = new TextField();
         account.setEditable(false);
         account.setStyle(getStyle.getTextFieldStyle());
         middlePane.getChildren().add(account);
@@ -82,11 +81,13 @@ public class CheckAccountStateTwoController {
         // set button action
         CheckAccountStateOneController checkAccountPage = new CheckAccountStateOneController();
         btnReturn.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountPage.pane(primaryStage)));
-        // set button
-        // add button to panes
+        /*
+         set button
+         add button to panes
+         */
         rightPane.getChildren().add(btnReturn);
-        // use ButtonStyle set button's style
 
+        // use ButtonStyle set button's style
         btnReturn.setStyle(getStyle.getButtonStyle());
 
         //set listener
@@ -95,29 +96,28 @@ public class CheckAccountStateTwoController {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             rectangleMid.setWidth(primaryStage.getWidth() * 0.45);
             account.setPrefWidth(primaryStage.getWidth() * 0.40);
-            middlePane.setLeftAnchor(rectangleMid, primaryStage.getWidth() * 0.25);
-            middlePane.setLeftAnchor(text, primaryStage.getWidth() * 0.26);
-            middlePane.setLeftAnchor(account, primaryStage.getWidth() * 0.26);
+            AnchorPane.setLeftAnchor(rectangleMid, primaryStage.getWidth() * 0.25);
+            AnchorPane.setLeftAnchor(text, primaryStage.getWidth() * 0.26);
+            AnchorPane.setLeftAnchor(account, primaryStage.getWidth() * 0.26);
             btnReturn.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
-            rightPane.setRightAnchor(btnReturn, primaryStage.getWidth() * 0.05);
+            AnchorPane.setRightAnchor(btnReturn, primaryStage.getWidth() * 0.05);
         });
         basePane.heightProperty().addListener((obs, oldVal, newVal) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
             rectangleMid.setHeight(primaryStage.getHeight() * 0.4);
-            middlePane.setBottomAnchor(rectangleMid, primaryStage.getHeight() * 0.15);
-            middlePane.setBottomAnchor(text, primaryStage.getHeight() * 0.48);
-            middlePane.setBottomAnchor(account, primaryStage.getHeight() * 0.40);
-            rightPane.setBottomAnchor(btnReturn, primaryStage.getHeight() * 0.35);
+            AnchorPane.setBottomAnchor(rectangleMid, primaryStage.getHeight() * 0.15);
+            AnchorPane.setBottomAnchor(text, primaryStage.getHeight() * 0.48);
+            AnchorPane.setBottomAnchor(account, primaryStage.getHeight() * 0.40);
+            AnchorPane.setBottomAnchor(btnReturn, primaryStage.getHeight() * 0.35);
         });
 
         return basePane;
     }
 
     // provide input value
-    private String getInput(){
-        String account ="114514 MOP";
-
-        return account;
+    private String getInput()
+    {
+        return "114514 MOP";
     }
 }

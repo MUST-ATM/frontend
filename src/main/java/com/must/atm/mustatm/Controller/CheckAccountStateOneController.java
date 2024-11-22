@@ -1,5 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
+import com.must.atm.mustatm.Base.UserBase;
 import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -55,7 +56,8 @@ public class CheckAccountStateOneController {
 
         // set button action
         FunctionPageController functionPage = new FunctionPageController();
-        btnReturn.setOnAction(e -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
+        UserBase userBase = new UserBase(0,"");
+        btnReturn.setOnAction(e -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage, userBase)));
         CheckAccountStateTwoController checkAccountTwo = new CheckAccountStateTwoController();
         btnOtherAccount.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage)));
         btnMopAccount.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage)));
@@ -79,18 +81,18 @@ public class CheckAccountStateOneController {
             btnMopAccount.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
             btnHkdAccount.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
             btnReturn.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
-            leftPane.setLeftAnchor(btnOtherAccount, primaryStage.getWidth() * 0.05);
-            leftPane.setLeftAnchor(btnMopAccount, primaryStage.getWidth() * 0.05);
-            leftPane.setLeftAnchor(btnHkdAccount, primaryStage.getWidth() * 0.05);
-            rightPane.setRightAnchor(btnReturn, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(btnOtherAccount, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(btnMopAccount, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(btnHkdAccount, primaryStage.getWidth() * 0.05);
+            AnchorPane.setRightAnchor(btnReturn, primaryStage.getWidth() * 0.05);
         });
         basePane.heightProperty().addListener((obs, oldVal, newVal) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
-            leftPane.setBottomAnchor(btnOtherAccount, primaryStage.getHeight() * 0.55);
-            leftPane.setBottomAnchor(btnMopAccount, primaryStage.getHeight() * 0.35);
-            leftPane.setBottomAnchor(btnHkdAccount, primaryStage.getHeight() * 0.15);
-            rightPane.setBottomAnchor(btnReturn, primaryStage.getHeight() * 0.35);
+            AnchorPane.setBottomAnchor(btnOtherAccount, primaryStage.getHeight() * 0.55);
+            AnchorPane.setBottomAnchor(btnMopAccount, primaryStage.getHeight() * 0.35);
+            AnchorPane.setBottomAnchor(btnHkdAccount, primaryStage.getHeight() * 0.15);
+            AnchorPane.setBottomAnchor(btnReturn, primaryStage.getHeight() * 0.35);
         });
 
         return basePane;

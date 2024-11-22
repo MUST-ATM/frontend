@@ -1,5 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
+import com.must.atm.mustatm.Base.UserBase;
 import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -61,7 +62,8 @@ public class DepositStateOneController
         DepositTwoController depositTwo = new DepositTwoController();
         normalBtnOne.setOnAction(_ -> primaryStage.getScene().setRoot(depositTwo.pane(primaryStage)));
         FunctionPageController functionPage = new FunctionPageController();
-        normalBtnFour.setOnAction(_ -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
+        UserBase userBase = new UserBase(0,"");
+        normalBtnFour.setOnAction(_ -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage, userBase)));
         // set button
         normalBtnOne.setStyle(getStyle.getButtonStyle());
         normalBtnTwo.setStyle(getStyle.getButtonStyle());

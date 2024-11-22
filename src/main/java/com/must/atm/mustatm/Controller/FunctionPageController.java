@@ -1,5 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
+import com.must.atm.mustatm.Base.UserBase;
 import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -18,7 +19,7 @@ import javafx.stage.Stage;
 public class FunctionPageController
 {
 
-    public Pane pane(Stage primaryStage)
+    public Pane pane(Stage primaryStage,UserBase user)
     {
         BorderPane basePane = new BorderPane();
         //set background

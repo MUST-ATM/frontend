@@ -1,5 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
+import com.must.atm.mustatm.Base.UserBase;
 import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -57,7 +58,8 @@ public class WithdrawStateOneController {
 
         // set button action
         FunctionPageController functionPage = new FunctionPageController();
-        btnReturn.setOnAction(e -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
+        UserBase userBase = new UserBase(0,"");
+        btnReturn.setOnAction(e -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage, userBase)));
         WithdrawStateTwoController withdrawTwo = new WithdrawStateTwoController();
         btnOtherAccount.setOnAction(e -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage)));
         btnMopAccount.setOnAction(e -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage)));
