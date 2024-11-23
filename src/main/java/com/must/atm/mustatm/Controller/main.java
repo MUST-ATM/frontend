@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -15,20 +17,18 @@ public class main extends Application
 {
     public Stage primaryStage;
     //    Controller controller = new Controller();
-    MainPageController mainPage = new MainPageController();
+
 
     @Override
     public void start(Stage primaryStage) throws IOException
     {
         // set AtlantaFX stylesheet
         Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
-//        controller.showMainPage(primaryStage);
-
-        primaryStage.setScene(new Scene(mainPage.pane(primaryStage)));
+        primaryStage.setTitle("MUST ATM");
+        primaryStage.setScene(new Scene(new MainPageController().pane(primaryStage)));
         primaryStage.setHeight(900);
         primaryStage.setWidth(1500);
         primaryStage.show();
         primaryStage.requestFocus();
-
     }
 }

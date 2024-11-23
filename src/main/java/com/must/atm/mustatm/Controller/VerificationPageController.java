@@ -35,11 +35,8 @@ public class VerificationPageController
 {
     private static final GetStyle getStyle = new GetStyle();
     private static final ProgressBar progressBar = new ProgressBar(0);
-    private static final UserBase user = new UserBase(0, "");
     private static final StackPane basePane = new StackPane();
-    private static final ProgressBar bar = new ProgressBar(0);
     private static final VBox progressBox = new VBox();
-    private static Stage primaryStage;
 
 
     /**
@@ -50,18 +47,19 @@ public class VerificationPageController
     public Pane pane(Stage primaryStage)
     {
         init();
-
+        StatusBase status = new StatusBase();
         TimerService service = new TimerService();
         AtomicInteger count = new AtomicInteger(0);
+        UserBase user = new UserBase(0,"");
         service.setCount(count.get());
         service.setPeriod(Duration.seconds(1));
-        service.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-
-            @Override
-            public void handle(WorkerStateEvent t) {
-                count.set((int) t.getSource().getValue());
-                progressBar.setProgress(count.get() / 100.0);
-            }
+        service.setOnSucceeded(t ->
+        {
+            count.set((int) t.getSource().getValue());
+            progressBar.setProgress(count.get() / 100.0);
+            CameraServiceImpl cameraService = new CameraServiceImpl();
+            //cameraService.capture();
+            verification(service, status,user,primaryStage);
         });
         service.setDelay(Duration.millis(0));
         service.setPeriod(Duration.millis(30));
@@ -73,7 +71,7 @@ public class VerificationPageController
         //create background
         basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#0550AE,#0969DA,#B6E3FF,#6E7781) ;");
         //set bar
-        bar.setPrefWidth(200);
+        progressBar.setPrefWidth(200);
 
         // create Text object1
         Text text1 = new Text("Face recognition ...");
@@ -103,20 +101,115 @@ public class VerificationPageController
         
     }
 
-    private static class TimerService extends ScheduledService<Integer> {
+    private void verification(TimerService service,StatusBase status,UserBase user,Stage primaryStage)
+    {
+        double process = progressBar.getProgress();
+        if (process < 0.5)
+        {
+
+            try
+            {
+                VerificationServiceImpl verificationService = new VerificationServiceImpl();
+                var username = verificationService.faceRecognition("src/main/resources/topBar.png");
+                if (username != null)
+                {
+                    user.setFaceId(username);
+                    status.setFaceRecognition(true);
+                    progressBox.getChildren().removeFirst();
+                    // create Text object2
+                    Text text2 = new Text("Face Anti-Spoofing ...");
+                    // set font style（font，bold，italic，size）
+                    text2.setStyle(getStyle.getTextStyle());
+
+                    progressBox.getChildren().addFirst(text2);
+                    if (status.getFaceAntiSpoofing())
+                    {
+                        progressBox.getChildren().removeAll();
+                    }
+                    progressBar.setProgress(0.5);
+                } else
+                {
+                    status.setFaceRecognition(false);
+                }
+            } catch (IOException e)
+            {
+                throw new RuntimeException(e);
+            }
+        } else if (process >= 0.5)
+        {
+            if (!status.getFaceRecognition())
+            {
+                showFail(primaryStage);
+                basePane.getChildren().remove(progressBar);
+                service.cancel();
+            } else
+            {
+                try
+                {
+                    VerificationServiceImpl verificationService = new VerificationServiceImpl();
+                    status.setFaceAntiSpoofing(verificationService.faceAntiSpoofing("src/main/resources/topBar.png"));
+                    if (status.getFaceAntiSpoofing())
+                    {
+                        progressBar.setProgress(1.0);
+                        service.cancel();
+                        progressBox.getChildren().removeAll();
+                        basePane.getChildren().remove(progressBar);
+                        VBox sceneRoot = new VBox();
+                        ModalPane aboutModalPane = new ModalPane();
+                        StackPane aboutPane = new StackPane();
+                        aboutModalPane.setId("aboutModal");
+                        Dialog aboutDialog = new Dialog(0, 0);
+                        aboutDialog.getChildren().add(aboutPane);
+                        aboutDialog.setStyle("-fx-background-color: rgba(255,255,255, 0.0);");
+
+                        Rectangle rectangle = new Rectangle();
+                        rectangle.setFill(Color.rgb(45, 164, 78));
+                        rectangle.setHeight(basePane.getHeight() * 0.3);
+                        rectangle.setWidth(basePane.getWidth() * 0.5);
+                        rectangle.setArcHeight(20);
+                        rectangle.setArcWidth(20);
+                        aboutPane.getChildren().add(rectangle);
+                        basePane.getChildren().addAll(sceneRoot, aboutModalPane);
+                        //success wait time
+                        PauseTransition pause = getPauseTransition(aboutModalPane, aboutPane, aboutDialog);
+                        pause.setOnFinished(_ ->
+                        {
+                            aboutModalPane.hide(true);
+                            aboutModalPane.setPersistent(false);
+                            FunctionPageController functionPage = new FunctionPageController();
+                            primaryStage.getScene().setRoot(functionPage.pane(primaryStage, user));
+                        });
+                    }
+                    else
+                    {
+                        progressBar.setProgress(1.0);
+                        showFail(primaryStage);
+                        basePane.getChildren().remove(progressBar);
+                        service.cancel();
+                    }
+
+                } catch (Exception e)
+                {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+
+    private static class TimerService extends ScheduledService<Integer>
+    {
         private final IntegerProperty count = new SimpleIntegerProperty();
 
-        public final void setCount(Integer value) {
+        public final void setCount(Integer value)
+        {
             count.set(value);
         }
 
-        public final Integer getCount() {
+        public final Integer getCount()
+        {
             return count.get();
         }
 
-        public final IntegerProperty countProperty() {
-            return count;
-        }
         @Override
         protected Task<Integer> createTask() {
             return new Task<Integer>() {
@@ -139,91 +232,7 @@ public class VerificationPageController
             progressBar.setProgress(value);
             CameraServiceImpl cameraService = new CameraServiceImpl();
             //cameraService.capture();
-            if (timer < 0.5)
-            {
-                
-                try
-                {
-                    VerificationServiceImpl verificationService = new VerificationServiceImpl();
-                    var username = verificationService.faceRecognition("src/main/resources/capture.jpg");
-                    if (username != null)
-                    {
-                        user.setFaceId(username);
-                        status.setFaceRecognition(true);
-                        progressBox.getChildren().removeFirst();
-                        // create Text object2
-                        Text text2 = new Text("Face Anti-Spoofing ...");
-                        // set font style（font，bold，italic，size）
-                        text2.setStyle(getStyle.getTextStyle());
 
-                        progressBox.getChildren().addFirst(text2);
-                        if (status.getFaceAntiSpoofing())
-                        {
-                            progressBox.getChildren().removeAll();
-                        }
-                        timer = 0.5;
-                    } else
-                    {
-                        status.setFaceRecognition(false);
-                    }
-                } catch (IOException e)
-                {
-                    throw new RuntimeException(e);
-                }
-            } else if (timer >= 0.5)
-            {
-                if (!status.getFaceRecognition())
-                {
-                    showFail();
-                    basePane.getChildren().remove(progressBar);
-                    this.cancel();
-                } else
-                {
-                    try
-                    {
-                        timer = 1.0;
-                        VerificationServiceImpl verificationService = new VerificationServiceImpl();
-                        status.setFaceAntiSpoofing(verificationService.faceAntiSpoofing("src/main/resources/capture.jpg"));
-                        if (status.getFaceAntiSpoofing())
-                        {
-                            timer = 1.0;
-                            this.cancel();
-                            progressBox.getChildren().removeAll();
-                            basePane.getChildren().remove(progressBar);
-                            VBox sceneRoot = new VBox();
-                            ModalPane aboutModalPane = new ModalPane();
-                            StackPane aboutPane = new StackPane();
-                            aboutModalPane.setId("aboutModal");
-                            Dialog aboutDialog = new Dialog(0, 0);
-                            aboutDialog.getChildren().add(aboutPane);
-                            aboutDialog.setStyle("-fx-background-color: rgba(255,255,255, 0.0);");
-
-                            Rectangle rectangle = new Rectangle();
-                            rectangle.setFill(Color.rgb(45, 164, 78));
-                            rectangle.setHeight(basePane.getHeight() * 0.3);
-                            rectangle.setWidth(basePane.getWidth() * 0.5);
-                            rectangle.setArcHeight(20);
-                            rectangle.setArcWidth(20);
-                            aboutPane.getChildren().add(rectangle);
-                            basePane.getChildren().addAll(sceneRoot, aboutModalPane);
-                            //success wait time
-                            PauseTransition pause = getPauseTransition(aboutModalPane, aboutPane, aboutDialog);
-                            pause.setOnFinished(_ ->
-                            {
-                                aboutModalPane.hide(true);
-                                aboutModalPane.setPersistent(false);
-                                FunctionPageController functionPage = new FunctionPageController();
-                                primaryStage.getScene().setRoot(functionPage.pane(primaryStage, user));
-                                System.out.println("OK");
-                            });
-                        }
-
-                    } catch (Exception e)
-                    {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
 
         }
     }*/
@@ -284,7 +293,7 @@ public class VerificationPageController
         }
     }
 
-    private static void showFail()
+    private static void showFail(Stage primaryStage)
     {
         //set fail text box
         VBox failText = new VBox();

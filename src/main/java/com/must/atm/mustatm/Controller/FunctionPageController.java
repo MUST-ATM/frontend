@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 public class FunctionPageController
 {
 
-    public Pane pane(Stage primaryStage,UserBase user)
+    public Pane pane(Stage primaryStage, UserBase userBase)
     {
         BorderPane basePane = new BorderPane();
         //set background
