@@ -1,6 +1,5 @@
 package com.must.atm.mustatm.Controller;
 
-import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,6 +10,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+
+import static com.must.atm.mustatm.Template.GetStyle.getButtonStyle;
 
 /**
  * MainPageController is a class which can generate main page
@@ -68,11 +69,13 @@ public class MainPageController
         var normalBtn = new Button("SERVICE");
         // set button action
         VerificationPageController verificationPage = new VerificationPageController();
-        normalBtn.setOnAction(_ -> primaryStage.getScene().setRoot(verificationPage.pane(primaryStage)));
+
+        normalBtn.setOnAction(_ ->
+                        primaryStage.getScene().setRoot(verificationPage.pane(primaryStage))
+                );
         // set button
         normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        GetStyle getStyle = new GetStyle();
-        normalBtn.setStyle(getStyle.getButtonStyle());
+        normalBtn.setStyle(getButtonStyle());
         leftPane.getChildren().add(normalBtn);
 
 

@@ -1,7 +1,7 @@
 package com.must.atm.mustatm.Controller;
 
+import com.must.atm.mustatm.Base.UserBase;
 import com.must.atm.mustatm.Service.AccountServiceImpl;
-import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -14,14 +14,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import static com.must.atm.mustatm.Template.GetStyle.*;
+
 /**
  * A class which can generate the second check account page
- *
- *
+ * @author jingye
  */
 
-public class CheckAccountStateTwoController {
-    public Pane pane(Stage primaryStage)
+public class CheckAccountStateTwoController
+{
+    public Pane pane(Stage primaryStage, UserBase user)
     {
         BorderPane basePane = new BorderPane();
         //set background
@@ -61,18 +64,17 @@ public class CheckAccountStateTwoController {
         rectangleMid.setFill(Color.rgb(5, 80, 174));
         middlePane.getChildren().add(rectangleMid);
 
-        GetStyle getStyle = new GetStyle();
         rectangleMid.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 30, 0, 7, 7);");
         //set text
         Text text = new Text("Your Account Is:");
-        text.setStyle(getStyle.getTextStyle());
+        text.setStyle(getTextStyle());
         middlePane.getChildren().add(text);
 
         //here need an input value
         AccountServiceImpl accountService = new AccountServiceImpl();
         var account = new TextField();
         account.setEditable(false);
-        account.setStyle(getStyle.getTextFieldStyle());
+        account.setStyle(getTextFieldStyle());
         middlePane.getChildren().add(account);
 
 
@@ -80,7 +82,7 @@ public class CheckAccountStateTwoController {
         var btnReturn = new Button("RETURN");
         // set button action
         CheckAccountStateOneController checkAccountPage = new CheckAccountStateOneController();
-        btnReturn.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountPage.pane(primaryStage)));
+        btnReturn.setOnAction(_ -> primaryStage.getScene().setRoot(checkAccountPage.pane(primaryStage,user)));
         /*
          set button
          add button to panes
@@ -88,10 +90,10 @@ public class CheckAccountStateTwoController {
         rightPane.getChildren().add(btnReturn);
 
         // use ButtonStyle set button's style
-        btnReturn.setStyle(getStyle.getButtonStyle());
+        btnReturn.setStyle(getButtonStyle());
 
         //set listener
-        basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        basePane.widthProperty().addListener((_, _, _) ->
         {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             rectangleMid.setWidth(primaryStage.getWidth() * 0.45);
@@ -102,7 +104,7 @@ public class CheckAccountStateTwoController {
             btnReturn.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
             AnchorPane.setRightAnchor(btnReturn, primaryStage.getWidth() * 0.05);
         });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        basePane.heightProperty().addListener((_, _, _) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
             rectangleMid.setHeight(primaryStage.getHeight() * 0.4);
@@ -115,9 +117,4 @@ public class CheckAccountStateTwoController {
         return basePane;
     }
 
-    // provide input value
-    private String getInput()
-    {
-        return "114514 MOP";
-    }
 }

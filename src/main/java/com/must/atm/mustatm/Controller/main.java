@@ -5,8 +5,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 /**
  *
  * @author 13318
@@ -14,15 +12,13 @@ import java.io.IOException;
 public class main extends Application
 {
     public Stage primaryStage;
-    //    Controller controller = new Controller();
     MainPageController mainPage = new MainPageController();
 
     @Override
-    public void start(Stage primaryStage) throws IOException
+    public void start(Stage primaryStage)
     {
         // set AtlantaFX stylesheet
         Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
-//        controller.showMainPage(primaryStage);
 
         primaryStage.setScene(new Scene(mainPage.pane(primaryStage)));
         primaryStage.setHeight(900);

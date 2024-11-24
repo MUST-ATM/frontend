@@ -1,6 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
-import com.must.atm.mustatm.Template.GetStyle;
+import com.must.atm.mustatm.Base.UserBase;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -13,12 +13,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import static com.must.atm.mustatm.Template.GetStyle.*;
+
 /**
  * A class which can generate the second withdraw page
+ * @author bywang
  */
-public class WithdrawStateTwoController {
+public class WithdrawStateTwoController
+{
 
-    public Pane pane(Stage primaryStage)
+    public Pane pane(Stage primaryStage, UserBase user)
     {
         BorderPane basePane = new BorderPane();
         //set background
@@ -44,7 +49,6 @@ public class WithdrawStateTwoController {
         topBarView.fitWidthProperty().bind(basePane.widthProperty());
         topPane.getChildren().add(topBarView);
 
-        GetStyle getStyle = new GetStyle();
 
         //set rectangle
         Rectangle rectangle = new Rectangle();
@@ -68,38 +72,36 @@ public class WithdrawStateTwoController {
         // add button to panes
         rightPane.getChildren().add(btnConfirm);
         // use ButtonStyle set button's style
-        btnConfirm.setStyle(getStyle.getButtonStyle());
+        btnConfirm.setStyle(getButtonStyle());
         //set text field
         var balance = new TextField(getInput());
         balance.setEditable(false);
         middlePane.getChildren().add(balance);
-        balance.setStyle(getStyle.getTextFieldStyleTwo());
+        balance.setStyle(getTextFieldStyleTwo());
 
         var withDraw = new TextField("");
         withDraw.setEditable(true);
         middlePane.getChildren().add(withDraw);
-        withDraw.setStyle(getStyle.getTextFieldStyleTwo());
+        withDraw.setStyle(getTextFieldStyleTwo());
         WithdrawStateThreeController withdrawThree = new WithdrawStateThreeController();
-        btnConfirm.setOnAction(e -> {primaryStage.getScene().setRoot(withdrawThree.pane(primaryStage));
+        btnConfirm.setOnAction(_ ->
+        {
+            primaryStage.getScene().setRoot(withdrawThree.pane(primaryStage, user));
             getOutput(withDraw.getText());
         });
 
 
-
-
-
         //set text
         Text text = new Text("Balance:");
-        text.setStyle(getStyle.getTextStyle());
+        text.setStyle(getTextStyle());
         middlePane.getChildren().add(text);
         //set text
         Text textInputBar = new Text("Withdraw:");
-        textInputBar.setStyle(getStyle.getTextStyle());
+        textInputBar.setStyle(getTextStyle());
         middlePane.getChildren().add(textInputBar);
 
 
-
-        basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        basePane.widthProperty().addListener((_, _, _) ->
         {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             balanceRectangle.setWidth(primaryStage.getWidth() * 0.5);
@@ -107,44 +109,45 @@ public class WithdrawStateTwoController {
             btnConfirm.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
             balance.setPrefWidth(primaryStage.getWidth() * 0.4);
             withDraw.setPrefWidth(primaryStage.getWidth() * 0.4);
-            rightPane.setRightAnchor(btnConfirm, primaryStage.getWidth() * 0.05);
-            middlePane.setLeftAnchor(balanceRectangle, primaryStage.getWidth() * 0.10);
-            middlePane.setLeftAnchor(withDrawRectangle, primaryStage.getWidth() * 0.10);
-            middlePane.setLeftAnchor(balance, primaryStage.getWidth() * 0.25);
-            middlePane.setLeftAnchor(withDraw, primaryStage.getWidth() * 0.25);
-            middlePane.setLeftAnchor(text, primaryStage.getWidth() * 0.12);
-            middlePane.setLeftAnchor(textInputBar, primaryStage.getWidth() * 0.11);
+            AnchorPane.setRightAnchor(btnConfirm, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(balanceRectangle, primaryStage.getWidth() * 0.10);
+            AnchorPane.setLeftAnchor(withDrawRectangle, primaryStage.getWidth() * 0.10);
+            AnchorPane.setLeftAnchor(balance, primaryStage.getWidth() * 0.25);
+            AnchorPane.setLeftAnchor(withDraw, primaryStage.getWidth() * 0.25);
+            AnchorPane.setLeftAnchor(text, primaryStage.getWidth() * 0.12);
+            AnchorPane.setLeftAnchor(textInputBar, primaryStage.getWidth() * 0.11);
         });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        basePane.heightProperty().addListener((_, _, _) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
             balanceRectangle.setHeight(primaryStage.getHeight() * 0.15);
             withDrawRectangle.setHeight(primaryStage.getHeight() * 0.15);
             balance.setPrefHeight(primaryStage.getHeight() * 0.15);
             withDraw.setPrefHeight(primaryStage.getHeight() * 0.15);
-            rightPane.setBottomAnchor(btnConfirm, primaryStage.getHeight() * 0.35);
-            middlePane.setBottomAnchor(balanceRectangle, primaryStage.getHeight() * 0.40);
-            middlePane.setBottomAnchor(withDrawRectangle, primaryStage.getHeight() * 0.20);
-            middlePane.setBottomAnchor(balance, primaryStage.getHeight() * 0.40);
-            middlePane.setBottomAnchor(withDraw, primaryStage.getHeight() * 0.20);
-            middlePane.setBottomAnchor(text, primaryStage.getHeight() * 0.45);
-            middlePane.setBottomAnchor(textInputBar, primaryStage.getHeight() * 0.25);
+            AnchorPane.setBottomAnchor(btnConfirm, primaryStage.getHeight() * 0.35);
+            AnchorPane.setBottomAnchor(balanceRectangle, primaryStage.getHeight() * 0.40);
+            AnchorPane.setBottomAnchor(withDrawRectangle, primaryStage.getHeight() * 0.20);
+            AnchorPane.setBottomAnchor(balance, primaryStage.getHeight() * 0.40);
+            AnchorPane.setBottomAnchor(withDraw, primaryStage.getHeight() * 0.20);
+            AnchorPane.setBottomAnchor(text, primaryStage.getHeight() * 0.45);
+            AnchorPane.setBottomAnchor(textInputBar, primaryStage.getHeight() * 0.25);
 
         });
-
 
 
         return basePane;
     }
 
     // provide input value
-    private String getInput(){
-        String balance ="114514 MOP";
+    private String getInput()
+    {
 
-        return balance;
+        return "114514 MOP";
     }
+
     //the number of withdraw output via this method
-    private void getOutput(String withDraw){
+    private void getOutput(String withDraw)
+    {
         System.out.println(withDraw);
 
     }

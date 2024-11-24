@@ -1,7 +1,7 @@
 package com.must.atm.mustatm.Controller;
 
 
-import com.must.atm.mustatm.Template.GetStyle;
+import com.must.atm.mustatm.Base.UserBase;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -12,12 +12,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import static com.must.atm.mustatm.Template.GetStyle.*;
+
 /**
  * @author 13318
  */
 public class DepositThreeController
 {
-    public Pane pane(Stage primaryStage)
+    public Pane pane(Stage primaryStage, UserBase user)
     {
 
         boolean depositResult = true;
@@ -66,15 +68,14 @@ public class DepositThreeController
         // set button action
         if (depositResult){
             DepositSuccessController success = new DepositSuccessController();
-            btnConfirm.setOnAction(_ -> primaryStage.getScene().setRoot(success.pane(primaryStage)));
+            btnConfirm.setOnAction(_ -> primaryStage.getScene().setRoot(success.pane(primaryStage,user)));
 
         }else {
             DepositFailController fail = new DepositFailController();
-            btnConfirm.setOnAction(_ -> primaryStage.getScene().setRoot(fail.pane(primaryStage)));
+            btnConfirm.setOnAction(_ -> primaryStage.getScene().setRoot(fail.pane(primaryStage,user)));
         }
-        GetStyle getStyle = new GetStyle();
         // set button
-        btnConfirm.setStyle(getStyle.getButtonStyle());
+        btnConfirm.setStyle(getButtonStyle());
         leftPane.getChildren().add(btnConfirm);
 
         Rectangle rectangleMid = new Rectangle();
@@ -85,23 +86,23 @@ public class DepositThreeController
         rectangleMid.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 30, 0, 7, 7);");
         //set text
         Text text = new Text("Your Deposit Is:");
-        text.setStyle(getStyle.getTextStyle());
+        text.setStyle(getTextStyle());
         middlePane.getChildren().add(text);
         Text textTwo = new Text("Balance will be:");
-        textTwo.setStyle(getStyle.getTextStyle());
-        text.setStyle(getStyle.getTextStyle());
+        textTwo.setStyle(getTextStyle());
+        text.setStyle(getTextStyle());
         middlePane.getChildren().add(textTwo);
 
         String Deposit =getInput();
         var deposit = new TextField(Deposit);
         deposit.setEditable(false);
-        deposit.setStyle(getStyle.getTextFieldStyle());
+        deposit.setStyle(getTextFieldStyle());
         middlePane.getChildren().add(deposit);
 
         String Balance = getInputTwo();
         var balance = new TextField(Balance);
         balance.setEditable(false);
-        balance.setStyle(getStyle.getTextFieldStyle());
+        balance.setStyle(getTextFieldStyle());
         middlePane.getChildren().add(balance);
 
 
@@ -135,14 +136,12 @@ public class DepositThreeController
         return basePane;
     }
     private String getInput(){
-        String deposit ="114514 MOP";
 
-        return deposit;
+        return "114514 MOP";
     }
     private String getInputTwo(){
-        String balance ="114000 MOP";
 
-        return balance;
+        return "114000 MOP";
     }
 }
 

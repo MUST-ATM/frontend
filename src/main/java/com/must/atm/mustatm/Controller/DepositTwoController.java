@@ -1,5 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
+import com.must.atm.mustatm.Base.UserBase;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -30,7 +31,7 @@ public class DepositTwoController
          * @author 13318
          */
 
-        public Pane pane(Stage primaryStage)
+        public Pane pane(Stage primaryStage, UserBase user)
         {
             BorderPane basePane = new BorderPane();
             //set background
@@ -108,7 +109,7 @@ public class DepositTwoController
                     label.setText(S.get());
                 } else {
                     DepositThreeController DepositThree = new DepositThreeController();
-                    primaryStage.getScene().setRoot(DepositThree.pane(primaryStage));
+                    primaryStage.getScene().setRoot(DepositThree.pane(primaryStage,user));
                 }
 
             }));
@@ -124,7 +125,7 @@ public class DepositTwoController
             // set button
             var normalBtn = new Button("jump");
             DepositThreeController DepositThree = new DepositThreeController();
-            normalBtn.setOnAction(_ -> primaryStage.getScene().setRoot(DepositThree.pane(primaryStage)));
+            normalBtn.setOnAction(_ -> primaryStage.getScene().setRoot(DepositThree.pane(primaryStage,user)));
             normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
             normalBtn.setStyle("-fx-text-fill: #033D8B;");
             leftPane.getChildren().add(normalBtn);
