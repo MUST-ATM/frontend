@@ -37,6 +37,11 @@ public class VerificationPageController
 {
     private VBox progressBox = new VBox();
 
+    /**
+     * show fail page
+     * @param basePane the base stack pane
+     * @param primaryStage primaryStage
+     */
     private static void showFail(StackPane basePane, Stage primaryStage)
     {
 
@@ -73,7 +78,6 @@ public class VerificationPageController
 
     /**
      * use to create verification page
-     *
      * @param primaryStage listen window
      * @return VerificationPagePane
      */
@@ -118,7 +122,6 @@ public class VerificationPageController
 
     /**
      * Background Thread to execute the verification progress and switch scene function
-     *
      * @param primaryStage stage (window)
      * @param basePane     the StackPane that construct the Pane
      * @param progressBar  progressBar
@@ -158,7 +161,7 @@ public class VerificationPageController
             }
 
             /**
-             *
+             * handle the event, count the progress and switch scene
              * @param t timer event
              */
             @Override
@@ -252,7 +255,7 @@ public class VerificationPageController
     }
 
     /**
-     *
+     * TimerService
      */
     private static class TimerService extends ScheduledService<Integer>
     {

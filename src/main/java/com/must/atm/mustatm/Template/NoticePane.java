@@ -10,12 +10,18 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
+ * A class for generating notice panes
  * @author bywang
  */
 public class NoticePane
 {
     private final StackPane aboutPane;
     private final Rectangle background;
+
+    /**
+     * Constructor
+     * @param primaryStage the primary stage
+     */
     public NoticePane(Stage primaryStage)
     {
         StackPane aboutPane = new StackPane();
@@ -32,34 +38,33 @@ public class NoticePane
         this.background = background;
         this.aboutPane = aboutPane;
     }
-    public StackPane getAboutPane()
-    {
-        return this.aboutPane;
-    }
-    public StackPane failed()
-    {
-        background.setFill(Color.rgb(207, 34, 46));
-        return aboutPane;
-    }
-
+    /**
+     * A fast utilize failed pane
+     * @param failText the text to be displayed
+     * @return failed pane
+     */
     public StackPane failed(VBox failText)
     {
         background.setFill(Color.rgb(207, 34, 46));
         aboutPane.getChildren().add(failText);
         return aboutPane;
     }
-
-    public StackPane succeed()
-    {
-        background.setFill(Color.rgb(45, 164, 78));
-        return aboutPane;
-    }
+    /**
+     * A fast utilize succeed pane
+     * @param textPane the text to be displayed
+     * @return succeed pane
+     */
     public StackPane succeed(VBox textPane)
     {
         background.setFill(Color.rgb(45, 164, 78));
         aboutPane.getChildren().add(textPane);
         return aboutPane;
     }
+    /**
+     * A fast utilize text pane
+     * @param text the text to be displayed
+     * @return text pane
+     */
     public static VBox textPane(String text)
     {
         VBox successText = new VBox();
@@ -69,6 +74,11 @@ public class NoticePane
         );
         return successText;
     }
+    /**
+     * A fast utilize text pane
+     * @param textList the text to be displayed
+     * @return text pane
+     */
     public static VBox textPane(ArrayList<String> textList)
     {
         VBox successText = new VBox();
@@ -79,9 +89,6 @@ public class NoticePane
                 ));
         return successText;
     }
-    /**
-     *
-     */
     private VBox dialog()
     {
         var vbox = new VBox();
