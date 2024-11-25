@@ -20,7 +20,7 @@ import static com.must.atm.mustatm.Template.GetStyle.getButtonStyle;
 public class FunctionPageController
 {
 
-    public Pane pane(Stage primaryStage, UserBase userBase)
+    public Pane pane(Stage primaryStage, UserBase user)
     {
         BorderPane basePane = new BorderPane();
         //set background

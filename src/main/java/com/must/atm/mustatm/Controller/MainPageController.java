@@ -91,7 +91,7 @@ public class MainPageController
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
             AnchorPane.setBottomAnchor(normalBtn, primaryStage.getHeight() * 0.15);
-            AnchorPane.setTopAnchor(mustView, basePane.getHeight() * 0.1);
+            AnchorPane.setTopAnchor(mustView, basePane.getHeight() * 0.05);
         });
 
         return basePane;

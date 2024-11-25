@@ -4,7 +4,6 @@ import com.must.atm.mustatm.Service.Type.cardType;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,7 +43,7 @@ class AccountServiceImplTest
     void getBalanceUsd()
     {
         AccountServiceImpl accountService = new AccountServiceImpl();
-       assertDoesNotThrow(() -> accountService.getBalance(233, cardType.OTHER));
+       assertDoesNotThrow(() -> accountService.getBalance(233, cardType.CNY));
     }
     @Test
     @DisplayName("get balance with MOP")

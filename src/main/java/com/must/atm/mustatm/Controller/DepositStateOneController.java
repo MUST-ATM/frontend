@@ -1,6 +1,7 @@
 package com.must.atm.mustatm.Controller;
 
 import com.must.atm.mustatm.Base.UserBase;
+import com.must.atm.mustatm.Service.Type.cardType;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -56,13 +57,14 @@ public class DepositStateOneController
         // create button
         var normalBtnOne = new Button("CNY/USD ACCOUNT");
         var normalBtnTwo = new Button("MOP ACCOUNT");
-        var normalBtnThree = new Button("HCD ACCOUNT");
+        var normalBtnThree = new Button("HKD ACCOUNT");
         var normalBtnFour = new Button("RETURN");
         // set button action
         DepositTwoController depositTwo = new DepositTwoController();
-        normalBtnOne.setOnAction(_ -> primaryStage.getScene().setRoot(depositTwo.pane(primaryStage,user)));
+        normalBtnOne.setOnAction(_ -> primaryStage.getScene().setRoot(depositTwo.pane(primaryStage,user, cardType.CNY)));
+        normalBtnTwo.setOnAction(_ -> primaryStage.getScene().setRoot(depositTwo.pane(primaryStage,user, cardType.MOP)));
+        normalBtnThree.setOnAction(_ -> primaryStage.getScene().setRoot(depositTwo.pane(primaryStage,user, cardType.HKD)));
         FunctionPageController functionPage = new FunctionPageController();
-        UserBase userBase = new UserBase(0,"");
         normalBtnFour.setOnAction(_ -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage, user)));
         // set button
         normalBtnOne.setStyle(getButtonStyle());

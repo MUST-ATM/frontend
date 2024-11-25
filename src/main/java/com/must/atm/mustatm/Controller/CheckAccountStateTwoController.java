@@ -2,6 +2,7 @@ package com.must.atm.mustatm.Controller;
 
 import com.must.atm.mustatm.Base.UserBase;
 import com.must.atm.mustatm.Service.AccountServiceImpl;
+import com.must.atm.mustatm.Service.Type.cardType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -24,7 +25,7 @@ import static com.must.atm.mustatm.Template.GetStyle.*;
 
 public class CheckAccountStateTwoController
 {
-    public Pane pane(Stage primaryStage, UserBase user)
+    public Pane pane(Stage primaryStage, UserBase user, cardType currency)
     {
         BorderPane basePane = new BorderPane();
         //set background
@@ -72,7 +73,7 @@ public class CheckAccountStateTwoController
 
         //here need an input value
         AccountServiceImpl accountService = new AccountServiceImpl();
-        var account = new TextField();
+        var account = new TextField(accountService.getBalance(user.getUserId(), currency)+ currency.toString());
         account.setEditable(false);
         account.setStyle(getTextFieldStyle());
         middlePane.getChildren().add(account);

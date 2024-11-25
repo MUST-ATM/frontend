@@ -6,6 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -24,6 +25,8 @@ public class BasePane
     public BasePane(Stage primaryStage)
     {
         var basePane = new BorderPane();
+
+        var coverPane = new StackPane();
 
         basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
 
@@ -53,8 +56,8 @@ public class BasePane
         //set rectangle
         Rectangle rectangle = new Rectangle();
         rectangle.setFill(Color.rgb(5, 80, 174));
-        rectangle.setHeight(rightPane.getHeight() * 0.15);
-        rectangle.setWidth(rightPane.getWidth() * 0.7);
+//        rectangle.setHeight(rightPane.getHeight() * 0.15);
+//        rectangle.setWidth(rightPane.getWidth() * 0.7);
         AnchorPane.setBottomAnchor(rectangle, 0.0);
         AnchorPane.setRightAnchor(rectangle, 0.0);
         bottomPane.getChildren().add(rectangle);
@@ -73,6 +76,11 @@ public class BasePane
     {
         return basePane;
     }
+
+//    public StackPane getCoverPane()
+//    {
+//        return coverPane()
+//    }
 
     public AnchorPane getMiddlePane()
     {

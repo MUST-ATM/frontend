@@ -1,6 +1,7 @@
 package com.must.atm.mustatm.Controller;
 
 import com.must.atm.mustatm.Base.UserBase;
+import com.must.atm.mustatm.Service.Type.cardType;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -31,7 +32,7 @@ public class DepositTwoController
          * @author 13318
          */
 
-        public Pane pane(Stage primaryStage, UserBase user)
+        public Pane pane(Stage primaryStage, UserBase user, cardType currency)
         {
             BorderPane basePane = new BorderPane();
             //set background
@@ -109,7 +110,7 @@ public class DepositTwoController
                     label.setText(S.get());
                 } else {
                     DepositThreeController DepositThree = new DepositThreeController();
-                    primaryStage.getScene().setRoot(DepositThree.pane(primaryStage,user));
+                    primaryStage.getScene().setRoot(DepositThree.pane(primaryStage,user,currency));
                 }
 
             }));
@@ -125,7 +126,13 @@ public class DepositTwoController
             // set button
             var normalBtn = new Button("jump");
             DepositThreeController DepositThree = new DepositThreeController();
-            normalBtn.setOnAction(_ -> primaryStage.getScene().setRoot(DepositThree.pane(primaryStage,user)));
+            normalBtn.setOnAction(_ ->
+            {
+                animation.stop();
+                primaryStage.getScene().setRoot(DepositThree.pane(primaryStage,user,currency));
+            });
+
+
             normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
             normalBtn.setStyle("-fx-text-fill: #033D8B;");
             leftPane.getChildren().add(normalBtn);

@@ -1,6 +1,7 @@
 package com.must.atm.mustatm.Controller;
 
 import com.must.atm.mustatm.Base.UserBase;
+import com.must.atm.mustatm.Service.Type.cardType;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -61,12 +62,11 @@ public class WithdrawStateOneController
 
         // set button action
         FunctionPageController functionPage = new FunctionPageController();
-        UserBase userBase = new UserBase(0, "");
-        btnReturn.setOnAction(_ -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage, userBase)));
+        btnReturn.setOnAction(_ -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage, user)));
         WithdrawStateTwoController withdrawTwo = new WithdrawStateTwoController();
-        btnOtherAccount.setOnAction(_ -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage, user)));
-        btnMopAccount.setOnAction(_ -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage, user)));
-        btnHkdAccount.setOnAction(_ -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage, user)));
+        btnOtherAccount.setOnAction(_ -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage, user, cardType.CNY)));
+        btnMopAccount.setOnAction(_ -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage, user,cardType.MOP)));
+        btnHkdAccount.setOnAction(_ -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage, user,cardType.HKD)));
         // set button
         // add button to panes
         leftPane.getChildren().addAll(btnOtherAccount, btnMopAccount, btnHkdAccount);

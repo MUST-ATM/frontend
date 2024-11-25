@@ -92,7 +92,6 @@ public class VerificationPageController
         // set font style（font，bold，italic，size）
         text1.setStyle(getTextStyle());
 
-
         progressBox.getChildren().add(text1);
 
         //base black box
@@ -166,7 +165,7 @@ public class VerificationPageController
             public void handle(WorkerStateEvent t)
             {
 
-                progressBar.setProgress((int) t.getSource().getValue() / 100.0);
+                progressBar.setProgress(progressBar.getProgress()+(int) t.getSource().getValue() / 100.0);
                 CameraServiceImpl cameraService = new CameraServiceImpl();
                 //cameraService.capture();
                 if (progressBar.getProgress() < 0.5)
@@ -174,7 +173,7 @@ public class VerificationPageController
                     try
                     {
                         VerificationServiceImpl verificationService = new VerificationServiceImpl();
-                        var username = verificationService.faceRecognition("src/main/resources/capture.jpg");
+                        var username = verificationService.faceRecognition("src/main/resources/pictureOfMust.png");
                         if (username != null)
                         {
                             user.setFaceId(username);
@@ -205,7 +204,7 @@ public class VerificationPageController
                         try
                         {
                             VerificationServiceImpl verificationService = new VerificationServiceImpl();
-                            status.setFaceAntiSpoofing(verificationService.faceAntiSpoofing("src/main/resources/capture.jpg"));
+                            status.setFaceAntiSpoofing(verificationService.faceAntiSpoofing("src/main/resources/pictureOfMust.png"));
                             if (status.getFaceAntiSpoofing())
                             {
                                 progressBar.setProgress(1);
