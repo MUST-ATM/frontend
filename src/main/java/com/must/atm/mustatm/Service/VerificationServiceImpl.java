@@ -2,10 +2,13 @@ package com.must.atm.mustatm.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.scene.image.Image;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 import java.net.http.HttpResponse;
 
+import static com.must.atm.mustatm.Service.utils.bufferToByte;
 
 /**
  * Verification Service
@@ -17,20 +20,21 @@ public class VerificationServiceImpl implements VerificationService
 {
     /**
      * Face Recognition
-     * @param image The image of the user
+     * @param imagePath The image path of the user
      * @return The faceId of the user
      */
     @Override
-    public String faceRecognition(Image image)
+    public String faceRecognition(String imagePath) throws IOException
     {
+        var image = ImageIO.read(new File(imagePath));
         NetworkServiceImpl request = new NetworkServiceImpl();
         HttpResponse<String> response;
         try
         {
-            response = request.sendImage("/upload/face-reco",imageBuffer(image));
+            response = request.sendImage("/upload/face-reco", bufferToByte(image));
         } catch (Exception e)
         {
-            System.out.println("Face image transfer failed");
+            System.out.println("Face Recognition Failed");
             throw new RuntimeException(e);
         }
         if(response.statusCode()==200)
@@ -52,25 +56,16 @@ public class VerificationServiceImpl implements VerificationService
     }
     /**
      * Face Anti-Spoofing
-     * @param image The image of the user
+     * @param imagePath The image of the user
      * @return True if the image is real, False if the image is fake
      */
     @Override
-    public boolean faceAntiSpoofing(Image image) throws Exception
+    public boolean faceAntiSpoofing(String imagePath) throws Exception
     {
+        var image = ImageIO.read(new File(imagePath));
         NetworkServiceImpl request = new NetworkServiceImpl();
-        var response = request.sendImage("/upload/face-anti",imageBuffer(image));
+        var response = request.sendImage("/upload/face-anti", bufferToByte(image));
         return response.statusCode() == 200;
     }
-    /**
-     * Image Buffer
-     * @param image The image of the user
-     * @return The byte array of the image
-     */
-    private byte[] imageBuffer(Image image)
-    {
-        int w = (int)image.getWidth();
-        int h = (int)image.getHeight();
-        return new byte[w * h * 4];
-    }
+
 }

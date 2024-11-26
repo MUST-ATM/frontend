@@ -16,7 +16,7 @@ public class Init
         {
             try
             {
-                reader = new FileReader("server.properties");
+                reader = new FileReader("src/main/resources/server.properties");
                 Properties config = new Properties();
                 config.load(reader);
                 return config;

@@ -11,6 +11,8 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import static com.must.atm.mustatm.Template.GetStyle.getButtonStyle;
+
 /**
  * MainPageController is a class which can generate main page
  *
@@ -52,8 +54,6 @@ public class MainPageController
         //set rectangle
         Rectangle rectangle = new Rectangle();
         rectangle.setFill(Color.rgb(5, 80, 174));
-        rectangle.setHeight(rightPane.getHeight() * 0.15);
-        rectangle.setWidth(rightPane.getWidth() * 0.7);
         AnchorPane.setBottomAnchor(rectangle, 0.0);
         AnchorPane.setRightAnchor(rectangle, 0.0);
         rightPane.getChildren().add(rectangle);
@@ -69,11 +69,15 @@ public class MainPageController
         var normalBtn = new Button("SERVICE");
         // set button action
         VerificationPageController verificationPage = new VerificationPageController();
-        normalBtn.setOnAction(_ -> primaryStage.getScene().setRoot(verificationPage.pane(primaryStage)));
+
+        normalBtn.setOnAction(_ ->
+                        primaryStage.getScene().setRoot(verificationPage.pane(primaryStage))
+                );
         // set button
         normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        normalBtn.setStyle("-fx-text-fill: #033D8B;");
+        normalBtn.setStyle(getButtonStyle());
         leftPane.getChildren().add(normalBtn);
+
 
         //set listener
         basePane.widthProperty().addListener((_, _, _) ->
@@ -87,7 +91,7 @@ public class MainPageController
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
             AnchorPane.setBottomAnchor(normalBtn, primaryStage.getHeight() * 0.15);
-            AnchorPane.setTopAnchor(mustView, basePane.getHeight() * 0.1);
+            AnchorPane.setTopAnchor(mustView, basePane.getHeight() * 0.05);
         });
 
         return basePane;

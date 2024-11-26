@@ -1,10 +1,8 @@
 package com.must.atm.mustatm.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.must.atm.mustatm.Service.Base.userIdBase;
-import com.must.atm.mustatm.Service.Base.balanceBase;
 import com.must.atm.mustatm.Service.Type.cardType;
-import javafx.scene.image.Image;
+
 
 /**
  * Account Service
@@ -15,16 +13,17 @@ public class AccountServiceImpl implements AccountService
 {
     /**
      * Get FaceId
-     * @param image The image of the user
+     * @param imagePath The image path of the user
      * @return The faceId of the user
      */
     @Override
-    public String getFaceId(Image image)
+    public String getFaceId(String  imagePath)
     {
         VerificationServiceImpl verificationService = new VerificationServiceImpl();
         try
         {
-            return verificationService.faceRecognition(image);
+            return verificationService.faceRecognition(imagePath);
+
         } catch (Exception e)
         {
             System.out.println("Face Recognition Failed");
@@ -51,16 +50,14 @@ public class AccountServiceImpl implements AccountService
         }
         //Json to Object
         ObjectMapper mapper = new ObjectMapper();
-        userIdBase userIdBase;
         try
         {
-            userIdBase = mapper.readValue(rawUserId, userIdBase.class);
+            return mapper.readTree(rawUserId).get("userID").asInt();
         } catch (JsonProcessingException e)
         {
             System.out.println("Json Processing Failed");
             throw new RuntimeException(e);
         }
-        return userIdBase.getUserId();
     }
     /**
      * Get Balance
@@ -83,16 +80,14 @@ public class AccountServiceImpl implements AccountService
         }
         //Json to Object
         ObjectMapper mapper = new ObjectMapper();
-        balanceBase balanceBase;
         try
         {
-            balanceBase = mapper.readValue(balance, balanceBase.class);
+            return mapper.readTree(balance).get("balance").asDouble();
         } catch (JsonProcessingException e)
         {
             System.out.println("Json Processing Failed");
             throw new RuntimeException(e);
         }
-        return balanceBase.getBalance();
     }
 
 }

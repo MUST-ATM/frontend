@@ -1,11 +1,9 @@
 package com.must.atm.mustatm.Service;
 
-import java.net.Authenticator;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.Duration;
 
 /**
  * @author bywang
@@ -25,17 +23,19 @@ public class NetworkServiceImpl implements NetworkService
     {
         try
         {
-            HttpClient client = HttpClient.newBuilder()
-                    .version(HttpClient.Version.HTTP_1_1)
-                    .followRedirects(HttpClient.Redirect.NORMAL)
-                    .connectTimeout(Duration.ofSeconds(20))
-                    .authenticator(Authenticator.getDefault())
-                    .build();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(server + api))
+                    .version(HttpClient.Version.HTTP_1_1)
                     .POST(HttpRequest.BodyPublishers.ofByteArray(stream))
                     .build();
-            return client.send(request, HttpResponse.BodyHandlers.ofString());
+            try(var client = HttpClient.newHttpClient())
+            {
+                return client.send(request, HttpResponse.BodyHandlers.ofString());
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.getMessage());
+            }
         }
         catch (Exception e)
         {
@@ -53,17 +53,19 @@ public class NetworkServiceImpl implements NetworkService
     {
         try
         {
-            HttpClient client = HttpClient.newBuilder()
-                    .version(HttpClient.Version.HTTP_1_1)
-                    .followRedirects(HttpClient.Redirect.NORMAL)
-                    .connectTimeout(Duration.ofSeconds(20))
-                    .authenticator(Authenticator.getDefault())
-                    .build();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(server + api))
+                    .version(HttpClient.Version.HTTP_1_1)
                     .GET()
                     .build();
-            return client.send(request, HttpResponse.BodyHandlers.ofString());
+            try(var client = HttpClient.newHttpClient())
+            {
+                return client.send(request, HttpResponse.BodyHandlers.ofString());
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.getMessage());
+            }
         }
         catch (Exception e)
         {
@@ -82,18 +84,20 @@ public class NetworkServiceImpl implements NetworkService
     {
         try
         {
-            HttpClient client = HttpClient.newBuilder()
-                    .version(HttpClient.Version.HTTP_1_1)
-                    .followRedirects(HttpClient.Redirect.NORMAL)
-                    .connectTimeout(Duration.ofSeconds(20))
-                    .authenticator(Authenticator.getDefault())
-                    .build();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(server + api))
+                    .version(HttpClient.Version.HTTP_1_1)
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(json))
                     .build();
-            return client.send(request, HttpResponse.BodyHandlers.ofString());
+            try(var client = HttpClient.newHttpClient())
+            {
+                return client.send(request, HttpResponse.BodyHandlers.ofString());
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.getMessage());
+            }
         }
         catch (Exception e)
         {

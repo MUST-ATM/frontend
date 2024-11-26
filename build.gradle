@@ -4,6 +4,8 @@ plugins {
   id 'org.javamodularity.moduleplugin' version '1.8.12'
   id 'org.openjfx.javafxplugin' version '0.0.13'
   id 'org.beryx.jlink' version '2.25.0'
+  id 'java-library'
+  id 'org.bytedeco.gradle-javacpp-platform' version "1.5.10"
 }
 
 group 'com.must.atm'
@@ -18,14 +20,22 @@ dependencies {
   implementation 'io.github.mkpaz:atlantafx-base:2.0.1'
   implementation 'org.kordamp.ikonli:ikonli-javafx:12.3.1'
   implementation 'org.kordamp.ikonli:ikonli-materialdesign2-pack:12.3.1'
-// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+  // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
   implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
-
-
+  // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+  testImplementation(platform('org.junit:junit-bom:5.11.3'))
+  testImplementation('org.junit.jupiter:junit-jupiter')
+  testRuntimeOnly('org.junit.platform:junit-platform-launcher')
+  implementation group: 'org.bytedeco', name: 'javacv', version: '1.5.11'
+  implementation group: 'org.bytedeco', name: 'javacv-platform', version: '1.5.11'
+  implementation group: 'org.bytedeco', name: 'flandmark-platform', version: '1.07-1.5.8'
+  implementation group: 'org.bytedeco', name: 'opencv-platform', version: '4.10.0-1.5.11'
+  implementation group: 'org.bytedeco', name: 'ffmpeg-platform', version: '7.1-1.5.11'
 }
 
 ext {
   junitVersion = '5.9.2'
+  javacppPlatform = 'linux-x86_64,macosx-x86_64,windows-x86_64,etc' // defaults to Loader.getPlatform()
 }
 tasks.withType(JavaCompile).configureEach {
   options.encoding = 'UTF-8'
@@ -41,14 +51,12 @@ javafx {
   modules = ['javafx.controls', 'javafx.fxml']
 }
 
-dependencies {
-
-  testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-}
-
 test {
-useJUnitPlatform()}
+  useJUnitPlatform()
+  testLogging {
+    events "passed", "skipped", "failed"
+  }
+}
 
 jlink {
   imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")

@@ -1,5 +1,7 @@
 package com.must.atm.mustatm.Controller;
 
+import com.must.atm.mustatm.Base.UserBase;
+import com.must.atm.mustatm.Service.Type.cardType;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,17 +11,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-/**
+import static com.must.atm.mustatm.Template.GetStyle.getButtonStyle;
+
+/**create Deposit menu pane
  * @author 13318
  */
-public class DepositOneController
+public class DepositStateOneController
 {
-    public Pane pane(Stage primaryStage)
+    public Pane pane(Stage primaryStage,UserBase user)
     {
         BorderPane basePane = new BorderPane();
         //set background
@@ -56,18 +57,20 @@ public class DepositOneController
         // create button
         var normalBtnOne = new Button("CNY/USD ACCOUNT");
         var normalBtnTwo = new Button("MOP ACCOUNT");
-        var normalBtnThree = new Button("HCD ACCOUNT");
+        var normalBtnThree = new Button("HKD ACCOUNT");
         var normalBtnFour = new Button("RETURN");
         // set button action
-        DepositTwoController despositTwo = new DepositTwoController();
-        normalBtnOne.setOnAction(_ -> primaryStage.getScene().setRoot(despositTwo.pane(primaryStage)));
+        DepositTwoController depositTwo = new DepositTwoController();
+        normalBtnOne.setOnAction(_ -> primaryStage.getScene().setRoot(depositTwo.pane(primaryStage,user, cardType.CNY)));
+        normalBtnTwo.setOnAction(_ -> primaryStage.getScene().setRoot(depositTwo.pane(primaryStage,user, cardType.MOP)));
+        normalBtnThree.setOnAction(_ -> primaryStage.getScene().setRoot(depositTwo.pane(primaryStage,user, cardType.HKD)));
         FunctionPageController functionPage = new FunctionPageController();
-        normalBtnFour.setOnAction(_ -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
+        normalBtnFour.setOnAction(_ -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage, user)));
         // set button
-        normalBtnOne.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        normalBtnTwo.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        normalBtnThree.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        normalBtnFour.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
+        normalBtnOne.setStyle(getButtonStyle());
+        normalBtnTwo.setStyle(getButtonStyle());
+        normalBtnThree.setStyle(getButtonStyle());
+        normalBtnFour.setStyle(getButtonStyle());
     //        normalBtnOne.setStyle("-fx-text-fill: #033D8B;");
         leftPane.getChildren().addAll(normalBtnOne, normalBtnTwo, normalBtnThree);
         rightPane.getChildren().add(normalBtnFour);

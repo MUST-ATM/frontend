@@ -9,6 +9,42 @@ import com.must.atm.mustatm.Service.Type.cardType;
 public class ActionServiceImpl implements ActionService
 {
     /**
+     * Deposit money
+     * @param userId user id
+     * @param cardType HKD/MOP/CNY OR USD
+     * @param amount deposit amount
+     * @return new balance
+     */
+    @Override
+    public double deposit(int userId, cardType cardType, double amount)
+    {
+        AccountServiceImpl accountService = new AccountServiceImpl();
+        double balance = accountService.getBalance(userId, cardType);
+        setBalance(userId,cardType, balance + amount);
+        return balance + amount;
+    }
+
+    /**
+     * Withdraw money
+     * @param userId user id
+     * @param cardType HKD/MOP/CNY OR USD
+     * @param amount withdraw amount
+     * @return new balance
+     */
+    @Override
+    public double withdraw(int userId, cardType cardType, double amount)
+    {
+        AccountServiceImpl accountService = new AccountServiceImpl();
+        double balance = accountService.getBalance(userId, cardType);
+        if(balance < amount)
+        {
+            throw new RuntimeException("Insufficient balance");
+        }
+        setBalance(userId,cardType, balance - amount);
+        return balance - amount;
+    }
+
+    /**
      * Set balance
      * @param userId user id
      * @param cardType card type

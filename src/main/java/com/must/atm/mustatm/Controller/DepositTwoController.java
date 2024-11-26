@@ -1,8 +1,13 @@
 package com.must.atm.mustatm.Controller;
 
-
-import javafx.animation.PauseTransition;
+import com.must.atm.mustatm.Base.UserBase;
+import com.must.atm.mustatm.Service.Type.cardType;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -11,20 +16,23 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-/**
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+
+/**create deposit waiting pane
  * @author 13318
  */
 public class DepositTwoController
-{
+    {
         /**
          * @author 13318
          */
 
-
-        public Pane pane(Stage primaryStage)
+        public Pane pane(Stage primaryStage, UserBase user, cardType currency)
         {
             BorderPane basePane = new BorderPane();
             //set background
@@ -46,79 +54,6 @@ public class DepositTwoController
             StackPane centerPane = new StackPane();
             basePane.setCenter(centerPane);
 
-            //pause
-            PauseTransition pause = new PauseTransition(Duration.seconds(2));
-            pause.play();
-            pause.setOnFinished(_ -> {
-                DepositThreeController depositThree = new DepositThreeController();
-                primaryStage.getScene().setRoot(depositThree.pane(primaryStage));
-            });
-
-            //progressBar
-//            var basicInd = new RingProgressIndicator(0, false);
-//
-//            var customTextInd = new RingProgressIndicator(0.5, false);
-//            customTextInd.setMinSize(75, 75);
-//            customTextInd.setStringConverter(new StringConverter<>() {
-//                @Override
-//                public String toString(Double progress) {
-//                    return (int) Math.ceil(progress * 100) + "°";
-//                }
-//
-//                @Override
-//                public Double fromString(String progress) {
-//                    return 0d;
-//                }
-//            });
-//
-//            var reverseInd = new RingProgressIndicator(0.0, true);
-//            reverseInd.setMinSize(150, 150);
-//
-//            var reverseLabel = new Label("0%");
-//            reverseLabel.getStyleClass().add(Styles.TITLE_4);
-//
-//            var reverseBtn = new Button("start");
-//            reverseBtn.getStyleClass().addAll(
-//                    Styles.BUTTON_CIRCLE, Styles.FLAT
-//            );
-//            reverseBtn.disableProperty().bind(
-//                    reverseInd.progressProperty().greaterThan(0.0)
-//            );
-//            reverseBtn.setOnAction(evt1 -> {
-//                var task = new Task<Void>() {
-//                    @Override
-//                    protected Void call() throws Exception {
-//                        PauseTransition pause = new PauseTransition(Duration.seconds(1));
-//                        int steps = 0;
-//                        for (int i = 60; i >= steps; i--) {
-//                            Thread.sleep(100);
-//                            updateProgress(i, steps);
-//                            updateMessage(i + "%");
-//                        }
-//                        return null;
-//                    }
-//                };
-//
-//                // reset properties, so we can start a new task
-//                task.setOnSucceeded(evt2 -> {
-//                    reverseInd.progressProperty().unbind();
-//                    reverseLabel.textProperty().unbind();
-//                    reverseInd.setProgress(0.0);
-//                    reverseLabel.setText("0%");
-//                });
-//
-//                reverseInd.progressProperty().bind(task.progressProperty().multiply(-1).add(1));
-//                reverseLabel.textProperty().bind(task.messageProperty());
-//
-//                new Thread(task).start();
-//            });
-//
-//            var reverseGraphic = new VBox(10, reverseLabel, reverseBtn);
-//            reverseGraphic.setAlignment(Pos.CENTER);
-//            reverseInd.setGraphic(reverseGraphic);
-//            centerPane.getChildren().add(reverseInd);
-
-
             // instantiate a topBar
             Image topBar = new Image("topBar.png");
             // set topBar
@@ -135,41 +70,87 @@ public class DepositTwoController
             rectangle.setWidth(rightPane.getWidth() * 0.7);
             AnchorPane.setBottomAnchor(rectangle, 0.0);
             AnchorPane.setRightAnchor(rectangle, 0.0);
-            rightPane.getChildren().add(rectangle);
+            bottomPane.getChildren().add(rectangle);
 
-            // create button
-            var normalBtnOne = new Button("wait");
 
+            //waiting window
+
+
+            Rectangle whiteRect = new Rectangle();
+            whiteRect.setFill(Color.rgb(255, 255, 255));
+            whiteRect.setArcHeight(40.0);
+            whiteRect.setArcWidth(40.0);
+            whiteRect.setHeight(centerPane.getHeight() * 0.15);
+            whiteRect.setWidth(centerPane.getWidth() * 0.7);
+
+            //set text
+            Text text = new Text("Please Input Your Cash");
+            text.setStyle("""
+                -fx-font-size: 20px;
+                -fx-font-weight: bold;
+                -fx-text-fill: black;
+                -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.2), 9, 0, 0, 0);
+                -fx-background-color:#0550AE;
+                -fx-highlight-text-fill:#FFF8C5;
+                -fx-highlight-fill:#FAE17D ;
+                   \s""");
+
+            //waiting timer
+            Timeline animation;
+            AtomicReference<String> S = new AtomicReference<>("");
+            AtomicInteger tmp = new AtomicInteger(60);
+            Label label = new Label("60s");
+            label.setFont(javafx.scene.text.Font.font(20));
+            animation = new Timeline(new KeyFrame(Duration.millis(1000), _ -> {
+                int currentValue = tmp.get();
+                if (currentValue > 0)
+                {
+                    tmp.getAndDecrement();
+                    S.set(tmp + "s");
+                    label.setText(S.get());
+                } else {
+                    DepositThreeController DepositThree = new DepositThreeController();
+                    primaryStage.getScene().setRoot(DepositThree.pane(primaryStage,user,currency));
+                }
+
+            }));
+            animation.setCycleCount(Timeline.INDEFINITE);
+            animation.play();
+            VBox textBox = new VBox(50);
+            textBox.getChildren().addAll(text,label);
+            textBox.setAlignment(Pos.CENTER);
+            centerPane.getChildren().addAll(whiteRect,textBox);
+            VBox.setMargin(text, new Insets(-100, 0, 10, 0)); // 向上偏移靠近顶部
+            VBox.setMargin(label, new Insets(10, 0, 0, 0));
 
             // set button
-            normalBtnOne.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
+            var normalBtn = new Button("jump");
+            DepositThreeController DepositThree = new DepositThreeController();
+            normalBtn.setOnAction(_ ->
+            {
+                animation.stop();
+                primaryStage.getScene().setRoot(DepositThree.pane(primaryStage,user,currency));
+            });
 
-            leftPane.getChildren().addAll(normalBtnOne);
 
+            normalBtn.setFont(Font.font("Inter", FontWeight.BOLD, FontPosture.REGULAR, 20));
+            normalBtn.setStyle("-fx-text-fill: #033D8B;");
+            leftPane.getChildren().add(normalBtn);
 
 
             //set listener
             basePane.widthProperty().addListener((_, _, _) ->
             {
                 rectangle.setWidth(primaryStage.getWidth() * 0.5);
-                normalBtnOne.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
-
-                AnchorPane.setLeftAnchor(normalBtnOne, primaryStage.getWidth() * 0.05);
-
-
-
+                whiteRect.setWidth(primaryStage.getWidth() * 0.3);
             });
             basePane.heightProperty().addListener((_, _, _) ->
             {
                 rectangle.setHeight(primaryStage.getHeight() * 0.1);
-                AnchorPane.setBottomAnchor(normalBtnOne, primaryStage.getHeight() * 0.55);
-
-
+                whiteRect.setHeight(primaryStage.getHeight() * 0.3);
             });
 
             return basePane;
         }
-
-
     }
 
