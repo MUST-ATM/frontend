@@ -3,6 +3,7 @@ package com.must.atm.mustatm.Controller;
 import atlantafx.base.controls.ModalPane;
 import com.must.atm.mustatm.Base.StatusBase;
 import com.must.atm.mustatm.Base.UserBase;
+import com.must.atm.mustatm.Service.AccountServiceImpl;
 import com.must.atm.mustatm.Service.CameraServiceImpl;
 import com.must.atm.mustatm.Service.VerificationServiceImpl;
 import com.must.atm.mustatm.Template.NoticePane;
@@ -170,13 +171,19 @@ public class VerificationPageController
 
                 progressBar.setProgress(progressBar.getProgress()+(int) t.getSource().getValue() / 100.0);
                 CameraServiceImpl cameraService = new CameraServiceImpl();
-                //cameraService.capture();
+                try
+                {
+                    cameraService.capture();
+                } catch (IOException e)
+                {
+                    throw new RuntimeException(e);
+                }
                 if (progressBar.getProgress() < 0.5)
                 {
                     try
                     {
                         VerificationServiceImpl verificationService = new VerificationServiceImpl();
-                        var username = verificationService.faceRecognition("src/main/resources/pictureOfMust.png");
+                        var username = verificationService.faceRecognition("src/main/resources/capture.jpg");
                         if (username != null)
                         {
                             user.setFaceId(username);
@@ -207,9 +214,11 @@ public class VerificationPageController
                         try
                         {
                             VerificationServiceImpl verificationService = new VerificationServiceImpl();
-                            status.setFaceAntiSpoofing(verificationService.faceAntiSpoofing("src/main/resources/pictureOfMust.png"));
+                            AccountServiceImpl accountService = new AccountServiceImpl();
+                            status.setFaceAntiSpoofing(verificationService.faceAntiSpoofing("src/main/resources/capture.jpg"));
                             if (status.getFaceAntiSpoofing())
                             {
+                                user.setUserId((accountService.getUserId(user.getFaceId())));
                                 progressBar.setProgress(1);
                                 service.cancel();
                                 progressBox.getChildren().removeAll();

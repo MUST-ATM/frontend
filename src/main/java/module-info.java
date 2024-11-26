@@ -12,5 +12,7 @@ module com.must.atm.mustatm {
     requires java.desktop;
     opens com.must.atm.mustatm.Controller to javafx.fxml;
     exports com.must.atm.mustatm.Controller;
+    exports com.must.atm.mustatm.Base;
+    exports com.must.atm.mustatm.Service.Type;
 
 }

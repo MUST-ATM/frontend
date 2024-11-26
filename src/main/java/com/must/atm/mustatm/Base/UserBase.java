@@ -1,7 +1,5 @@
 package com.must.atm.mustatm.Base;
 
-import com.must.atm.mustatm.Service.Type.cardType;
-
 /**
  * @author bywang
  */

@@ -29,7 +29,7 @@ public class CameraServiceImpl implements CameraService
             try(OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage())
             {
                 IplImage img = converter.convert(frame);
-                opencv_imgcodecs.cvSaveImage("src/main/resources/233.jpg", img);
+                opencv_imgcodecs.cvSaveImage("src/main/resources/capture.jpg", img);
                 grabber.stop();
             }
         }
