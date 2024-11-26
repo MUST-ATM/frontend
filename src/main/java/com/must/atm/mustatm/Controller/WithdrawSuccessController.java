@@ -81,8 +81,8 @@ public class WithdrawSuccessController {
         MainPageController mainPageController = new MainPageController();
         btnContinue.setOnAction(_ -> primaryStage.getScene().setRoot(withdrawStateOneController.pane(primaryStage,user)));
         btnExist.setOnAction(_ -> primaryStage.getScene().setRoot(mainPageController.pane(primaryStage)));
-        // set button
-        // add button to panes
+
+        // add button
         rightPane.getChildren().add(btnContinue);
         leftPane.getChildren().add(btnExist);
         // use ButtonStyle set button's style

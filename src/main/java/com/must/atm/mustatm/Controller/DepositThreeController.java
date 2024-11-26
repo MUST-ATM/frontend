@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 import static com.must.atm.mustatm.Template.GetStyle.*;
 
-/**
+/**create deposit preview pane
  * @author 13318
  */
 public class DepositThreeController

@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 import static com.must.atm.mustatm.Template.GetStyle.getButtonStyle;
 
-/**
+/**create Deposit menu pane
  * @author 13318
  */
 public class DepositStateOneController

@@ -13,8 +13,8 @@ import javafx.stage.Stage;
 
 import static com.must.atm.mustatm.Template.GetStyle.*;
 
-/**
- * A class which can generate the withdraw-success page
+/**A class which can generate the deposit fail page
+ * @author 13318
  */
 public class DepositFailController
 {
@@ -78,8 +78,8 @@ public class DepositFailController
         MainPageController mainPageController = new MainPageController();
         btnContinue.setOnAction(_ -> primaryStage.getScene().setRoot(DepositOne.pane(primaryStage,user)));
         btnExist.setOnAction(_ -> primaryStage.getScene().setRoot(mainPageController.pane(primaryStage)));
-        // set button
-        // add button to panes
+
+        // add button
         rightPane.getChildren().add(btnContinue);
         leftPane.getChildren().add(btnExist);
         // use ButtonStyle set button's style

@@ -67,8 +67,8 @@ public class WithdrawStateOneController
         btnOtherAccount.setOnAction(_ -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage, user, cardType.CNY)));
         btnMopAccount.setOnAction(_ -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage, user,cardType.MOP)));
         btnHkdAccount.setOnAction(_ -> primaryStage.getScene().setRoot(withdrawTwo.pane(primaryStage, user,cardType.HKD)));
-        // set button
-        // add button to panes
+
+        // add button
         leftPane.getChildren().addAll(btnOtherAccount, btnMopAccount, btnHkdAccount);
         rightPane.getChildren().add(btnReturn);
         // use ButtonStyle set button's style

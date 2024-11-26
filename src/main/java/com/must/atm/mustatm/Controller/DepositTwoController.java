@@ -23,7 +23,7 @@ import javafx.util.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-/**
+/**create deposit waiting pane
  * @author 13318
  */
 public class DepositTwoController

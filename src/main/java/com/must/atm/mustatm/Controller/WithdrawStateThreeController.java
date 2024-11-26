@@ -23,7 +23,8 @@ import static com.must.atm.mustatm.Template.GetStyle.*;
 import static com.must.atm.mustatm.Template.NoticePane.textPane;
 
 /**
- * A class which ca ngenerate the third withdraw page
+ * A class which ca generate the third withdraw page
+ * @author jingye
  */
 public class WithdrawStateThreeController
 {
@@ -76,9 +77,6 @@ public class WithdrawStateThreeController
         //set text
         var withdrawText = textPane("Your Withdraw Is:");
         middlePane.getChildren().add(withdrawText);
-        //set text filed
-        //need input from service
-        //here need an input
 
         // create button
         var btnReturn = new Button("RETURN");
@@ -123,7 +121,7 @@ public class WithdrawStateThreeController
         var newBalanceText = textPane("Balance will be:");
         middlePane.getChildren().add(newBalanceText);
         var newBalance = currentBalance-withdrawBalance;
-        var newBalancePreviewText = new TextField(newBalance+" " + currency.toString());
+        var newBalancePreviewText = new TextField(newBalance+" " + currency);
         newBalancePreviewText.setEditable(false);
         newBalancePreviewText.setStyle(getTextFieldStyle());
         middlePane.getChildren().add(newBalancePreviewText);
@@ -165,7 +163,6 @@ public class WithdrawStateThreeController
         //success wait time
         PauseTransition pause = new PauseTransition(Duration.seconds(5));
         PauseTransition noTime = new PauseTransition(Duration.seconds(0.02));
-//        Text FailText = new Text("Please input a number in correct format");
         // start pause
         aboutModalPane.toFront();
         noTime.play();
@@ -173,7 +170,6 @@ public class WithdrawStateThreeController
         {
             pause.play();
             aboutModalPane.setPersistent(true);
-//            aboutPane.getChildren().add(FailText);
             aboutModalPane.show(failed);
 
             System.out.println("aboutDialogOpenBtn");

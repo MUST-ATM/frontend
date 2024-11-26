@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 import static com.must.atm.mustatm.Template.GetStyle.getButtonStyle;
 
-/**
+/**create function page
  * @author DOVAKIIN
  */
 public class FunctionPageController

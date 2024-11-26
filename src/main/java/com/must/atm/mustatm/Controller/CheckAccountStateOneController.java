@@ -17,7 +17,7 @@ import static com.must.atm.mustatm.Template.GetStyle.getButtonStyle;
 
 /**
  * A class which can generate the first check account page
- * @author bywang
+ * @author bywang,jingye
  */
 public class CheckAccountStateOneController
 {
@@ -65,8 +65,8 @@ public class CheckAccountStateOneController
         btnOtherAccount.setOnAction(_ -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage,user, cardType.CNY)));
         btnMopAccount.setOnAction(_ -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage,user, cardType.MOP)));
         btnHkdAccount.setOnAction(_ -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage,user, cardType.HKD)));
-        // set button
-        // add button to panes
+
+        // add button
         leftPane.getChildren().addAll(btnOtherAccount, btnMopAccount, btnHkdAccount);
         rightPane.getChildren().add(btnReturn);
         // use ButtonStyle set button's style

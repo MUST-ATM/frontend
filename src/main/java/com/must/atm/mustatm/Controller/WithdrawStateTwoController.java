@@ -22,7 +22,7 @@ import static com.must.atm.mustatm.Template.GetStyle.*;
 
 /**
  * A class which can generate the second withdraw page
- * @author bywang
+ * @author bywang,jingye
  */
 public class WithdrawStateTwoController
 {
@@ -73,8 +73,8 @@ public class WithdrawStateTwoController
         middlePane.getChildren().add(withDrawRectangle);
 
         var btnConfirm = new Button("CONFIRM");
-        // set button
-        // add button to panes
+
+        // add button
         rightPane.getChildren().add(btnConfirm);
         // use ButtonStyle set button's style
         btnConfirm.setStyle(getButtonStyle());
@@ -96,7 +96,6 @@ public class WithdrawStateTwoController
             primaryStage.getScene().setRoot(withdrawThree.pane(primaryStage, user,currency,Double.parseDouble(withDraw.getText())));
         });
 
-
         //set text
         Text text = new Text("Balance:");
         text.setStyle(getTextStyle());
@@ -105,7 +104,6 @@ public class WithdrawStateTwoController
         Text textInputBar = new Text("Withdraw:");
         textInputBar.setStyle(getTextStyle());
         middlePane.getChildren().add(textInputBar);
-
 
         basePane.widthProperty().addListener((_, _, _) ->
         {
@@ -139,7 +137,6 @@ public class WithdrawStateTwoController
             AnchorPane.setBottomAnchor(textInputBar, primaryStage.getHeight() * 0.25);
 
         });
-
 
         return basePane;
     }
