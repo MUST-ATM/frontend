@@ -30,7 +30,6 @@ public class WithdrawStateTwoController
     public Pane pane(Stage primaryStage, UserBase user, cardType currency)
     {
         BorderPane basePane = new BorderPane();
-        ActionService actionService = new ActionServiceImpl();
         //set background
         basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
 
@@ -92,9 +91,7 @@ public class WithdrawStateTwoController
         withDraw.setStyle(getTextFieldStyleTwo());
         WithdrawStateThreeController withdrawThree = new WithdrawStateThreeController();
         btnConfirm.setOnAction(_ ->
-        {
-            primaryStage.getScene().setRoot(withdrawThree.pane(primaryStage, user,currency,Double.parseDouble(withDraw.getText())));
-        });
+                primaryStage.getScene().setRoot(withdrawThree.pane(primaryStage, user,currency,Double.parseDouble(withDraw.getText()))));
 
         //set text
         Text text = new Text("Balance:");

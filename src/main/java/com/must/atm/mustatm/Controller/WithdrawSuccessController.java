@@ -1,7 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
 import com.must.atm.mustatm.Base.UserBase;
-import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -61,7 +60,6 @@ public class WithdrawSuccessController {
         rectangleMid.setFill(Color.rgb(45, 164, 78));
         middlePane.getChildren().add(rectangleMid);
 
-        GetStyle getStyle = new GetStyle();
         rectangleMid.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 30, 0, 7, 7);");
         //set text
         Text text = new Text("WITHDRAWAL");
