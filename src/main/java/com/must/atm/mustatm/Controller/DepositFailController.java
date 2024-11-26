@@ -1,7 +1,7 @@
 package com.must.atm.mustatm.Controller;
 
 
-import com.must.atm.mustatm.Template.GetStyle;
+import com.must.atm.mustatm.Base.UserBase;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,12 +11,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import static com.must.atm.mustatm.Template.GetStyle.*;
+
 /**
  * A class which can generate the withdraw-success page
  */
 public class DepositFailController
 {
-    public Pane pane(Stage primaryStage){
+    public Pane pane(Stage primaryStage, UserBase user){
         BorderPane basePane = new BorderPane();
         //set background
         basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
@@ -57,15 +59,14 @@ public class DepositFailController
         rectangleMid.setFill(Color.rgb(207, 34, 46));
         middlePane.getChildren().add(rectangleMid);
 
-        GetStyle getStyle = new GetStyle();
         rectangleMid.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 30, 0, 7, 7);");
         //set text
         Text text = new Text("DEPOSIT");
-        text.setStyle(getStyle.getTextStyle());
-        text.setStyle(getStyle.getTextStyleBig());
+        text.setStyle(getTextStyle());
+        text.setStyle(getTextStyleBig());
         middlePane.getChildren().add(text);
         Text textTwo = new Text("FAIL");
-        textTwo.setStyle(getStyle.getTextStyleBig());
+        textTwo.setStyle(getTextStyleBig());
         middlePane.getChildren().add(textTwo);
 
 
@@ -75,15 +76,15 @@ public class DepositFailController
         // set button action
         DepositStateOneController DepositOne = new DepositStateOneController();
         MainPageController mainPageController = new MainPageController();
-        btnContinue.setOnAction(_ -> primaryStage.getScene().setRoot(DepositOne.pane(primaryStage)));
+        btnContinue.setOnAction(_ -> primaryStage.getScene().setRoot(DepositOne.pane(primaryStage,user)));
         btnExist.setOnAction(_ -> primaryStage.getScene().setRoot(mainPageController.pane(primaryStage)));
         // set button
         // add button to panes
         rightPane.getChildren().add(btnContinue);
         leftPane.getChildren().add(btnExist);
         // use ButtonStyle set button's style
-        btnContinue.setStyle(getStyle.getButtonStyle());
-        btnExist.setStyle(getStyle.getButtonStyle());
+        btnContinue.setStyle(getButtonStyle());
+        btnExist.setStyle(getButtonStyle());
 
         //set listener
         basePane.widthProperty().addListener((_, _, _) ->

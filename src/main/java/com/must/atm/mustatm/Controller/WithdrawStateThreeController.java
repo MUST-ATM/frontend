@@ -1,9 +1,12 @@
 package com.must.atm.mustatm.Controller;
 
 import atlantafx.base.controls.ModalPane;
-import com.must.atm.mustatm.Template.GetStyle;
+import com.must.atm.mustatm.Base.UserBase;
+import com.must.atm.mustatm.Service.AccountServiceImpl;
+import com.must.atm.mustatm.Service.ActionServiceImpl;
+import com.must.atm.mustatm.Service.Type.cardType;
+import com.must.atm.mustatm.Template.NoticePane;
 import javafx.animation.PauseTransition;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -11,15 +14,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+
+import static com.must.atm.mustatm.Template.GetStyle.*;
+import static com.must.atm.mustatm.Template.NoticePane.textPane;
 
 /**
  * A class which ca ngenerate the third withdraw page
  */
-public class WithdrawStateThreeController {
-    public Pane pane(Stage primaryStage){
+public class WithdrawStateThreeController
+{
+    public Pane pane(Stage primaryStage, UserBase user, cardType currency,double withdrawBalance)
+    {
 
         StackPane underBasePane = new StackPane();
         BorderPane basePane = new BorderPane();
@@ -63,145 +72,100 @@ public class WithdrawStateThreeController {
         rectangleMid.setFill(Color.rgb(5, 80, 174));
         middlePane.getChildren().add(rectangleMid);
 
-        GetStyle getStyle = new GetStyle();
         rectangleMid.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 30, 0, 7, 7);");
         //set text
-        Text text = new Text("Your Withdraw Is:");
-        text.setStyle(getStyle.getTextStyle());
-        middlePane.getChildren().add(text);
-        Text textTwo = new Text("Balance will be:");
-        textTwo.setStyle(getStyle.getTextStyle());
-        text.setStyle(getStyle.getTextStyle());
-        middlePane.getChildren().add(textTwo);
-
+        var withdrawText = textPane("Your Withdraw Is:");
+        middlePane.getChildren().add(withdrawText);
         //set text filed
-        //need unput from service
+        //need input from service
         //here need an input
-        String Withdraw =getInput();
-        var withdraw = new TextField(Withdraw);
-        withdraw.setEditable(false);
-        withdraw.setStyle(getStyle.getTextFieldStyle());
-        middlePane.getChildren().add(withdraw);
-
-        String Balance = getInputTwo();
-        var balance = new TextField(Balance);
-        balance.setEditable(false);
-        balance.setStyle(getStyle.getTextFieldStyle());
-        middlePane.getChildren().add(balance);
 
         // create button
         var btnReturn = new Button("RETURN");
         var btnConfirm = new Button("CONFIRM");
         // set button action
-        WithdrawStateOneController withdrawOneController = new WithdrawStateOneController();
-        WithdrawSuccessController withdrawSuccessController = new WithdrawSuccessController();
-        btnReturn.setOnAction(e -> primaryStage.getScene().setRoot(withdrawOneController.pane(primaryStage)));
-        btnConfirm.setOnAction(e -> primaryStage.getScene().setRoot(withdrawSuccessController.pane(primaryStage)));
-        // set button
-        // add button to panes
+        WithdrawStateOneController withdrawOne = new WithdrawStateOneController();
+        WithdrawSuccessController withdrawSuccess = new WithdrawSuccessController();
+        btnReturn.setOnAction(_ -> primaryStage.getScene().setRoot(withdrawOne.pane(primaryStage,user)));
+
+        ModalPane aboutModalPane = new ModalPane();
+
         rightPane.getChildren().add(btnReturn);
         leftPane.getChildren().add(btnConfirm);
         // use ButtonStyle set button's style
-        btnReturn.setStyle(getStyle.getButtonStyle());
-        btnConfirm.setStyle(getStyle.getButtonStyle());
+        btnReturn.setStyle(getButtonStyle());
+        btnConfirm.setStyle(getButtonStyle());
+
+        NoticePane noticePane = new NoticePane(primaryStage);
+        var failedText = new ArrayList<String>();
+        failedText.add("WITHDRAWAL FAILED");
 
 
-        //create dialog
-        VBox sceneRoot = new VBox();
-        ModalPane aboutModalPane = new ModalPane();
-        StackPane aboutPane = new StackPane();
-        aboutModalPane.setId("aboutModal");
-        Dialog aboutDialog = new Dialog(0,0);
-        aboutDialog.getChildren().add(aboutPane);
-        aboutDialog.setStyle("-fx-background-color: rgba(255,255,255, 0.0);");
-        Rectangle rectangleTwo = new Rectangle();
-        rectangleTwo.setFill(Color.rgb(207, 34, 46));
-        rectangleTwo.setArcHeight(20);
-        rectangleTwo.setArcWidth(20);
-        aboutPane.getChildren().add(rectangleTwo);
-        VBox textBox = new VBox();
-        Text TopText = new Text("WITHDRAWAL FAILED");
-        textBox.setSpacing(30);
-        textBox.setAlignment(Pos.CENTER);
-        TopText.setStyle(getStyle.getTextStyleBig());
-        textBox.getChildren().add(TopText);
-        aboutPane.getChildren().add(textBox);
+        AccountServiceImpl accountService = new AccountServiceImpl();
+        var currentBalance = accountService.getBalance(user.getUserId(),currency);
+        var currentBalancePreviewText = new TextField(withdrawBalance + " " + currency.toString());
+        currentBalancePreviewText.setEditable(false);
+        currentBalancePreviewText.setStyle(getTextFieldStyle());
+        middlePane.getChildren().add(currentBalancePreviewText);
 
-        if(getInputWarningInuputWrong()){
-            underBasePane.getChildren().addAll(sceneRoot, aboutModalPane);
-            Text FailText = new Text("Please input an number in correct format");
-            FailText.setStyle(getStyle.getTextStyle());
-            textBox.getChildren().add(FailText);
-            callDialog( aboutModalPane, aboutDialog, aboutPane, primaryStage, withdrawOneController);
-        }else
-        if(getInputWarningDepositionWrong()){
-            underBasePane.getChildren().addAll(sceneRoot, aboutModalPane);
-            Text FailText = new Text("Do not have enough deposit");
-            FailText.setStyle(getStyle.getTextStyle());
-            textBox.getChildren().add(FailText);
-            callDialog( aboutModalPane, aboutDialog, aboutPane, primaryStage, withdrawOneController);
+        if(withdrawBalance > currentBalance)
+        {
+            underBasePane.getChildren().addAll(aboutModalPane);
+            failedText.add("Do not have enough deposit");
+            callDialog(aboutModalPane, noticePane.failed(textPane(failedText)), primaryStage, user);
         }
-
-
-
-
+        ActionServiceImpl actionService = new ActionServiceImpl();
+        btnConfirm.setOnAction(_ ->
+                {
+                    actionService.withdraw(user.getUserId(), currency,withdrawBalance);
+                    primaryStage.getScene().setRoot(withdrawSuccess.pane(primaryStage,user));
+                });
+        var newBalanceText = textPane("Balance will be:");
+        middlePane.getChildren().add(newBalanceText);
+        var newBalance = currentBalance-withdrawBalance;
+        var newBalancePreviewText = new TextField(newBalance+" " + currency.toString());
+        newBalancePreviewText.setEditable(false);
+        newBalancePreviewText.setStyle(getTextFieldStyle());
+        middlePane.getChildren().add(newBalancePreviewText);
 
 
         //set listener
-        underBasePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        underBasePane.widthProperty().addListener((_, _, _) ->
         {
-            rectangleTwo.setWidth(primaryStage.getWidth() * 0.5);
-            rectangle.setWidth(primaryStage.getWidth() * 0.5);
+
             rectangleMid.setWidth(primaryStage.getWidth() * 0.45);
-            withdraw.setPrefWidth(primaryStage.getWidth() * 0.40);
-            balance.setPrefWidth(primaryStage.getWidth() * 0.40);
-            middlePane.setLeftAnchor(rectangleMid, primaryStage.getWidth() * 0.02);
-            middlePane.setLeftAnchor(text, primaryStage.getWidth() * 0.03);
-            middlePane.setLeftAnchor(textTwo, primaryStage.getWidth() * 0.03);
-            middlePane.setLeftAnchor(withdraw, primaryStage.getWidth() * 0.03);
-            middlePane.setLeftAnchor(balance, primaryStage.getWidth() * 0.03);
+            currentBalancePreviewText.setPrefWidth(primaryStage.getWidth() * 0.40);
+            newBalancePreviewText.setPrefWidth(primaryStage.getWidth() * 0.40);
+            AnchorPane.setLeftAnchor(rectangleMid, primaryStage.getWidth() * 0.02);
+            AnchorPane.setLeftAnchor(newBalancePreviewText, primaryStage.getWidth() * 0.03);
+            AnchorPane.setLeftAnchor(newBalanceText, primaryStage.getWidth() * 0.03);
+            AnchorPane.setLeftAnchor(withdrawText, primaryStage.getWidth() * 0.03);
+            AnchorPane.setLeftAnchor(currentBalancePreviewText, primaryStage.getWidth() * 0.03);
             btnReturn.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
             btnConfirm.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
-            leftPane.setLeftAnchor(btnConfirm, primaryStage.getWidth() * 0.05);
-            rightPane.setRightAnchor(btnReturn, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(btnReturn, primaryStage.getWidth() * 0.05);
+            AnchorPane.setRightAnchor(btnConfirm, primaryStage.getWidth() * 0.05);
         });
-        underBasePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        underBasePane.heightProperty().addListener((_, _, _) ->
         {
-            rectangleTwo.setHeight(primaryStage.getHeight() * 0.4);
-            rectangle.setHeight(primaryStage.getHeight() * 0.1);
             rectangleMid.setHeight(primaryStage.getHeight() * 0.4);
-            middlePane.setBottomAnchor(rectangleMid, primaryStage.getHeight() * 0.15);
-            middlePane.setBottomAnchor(text, primaryStage.getHeight() * 0.48);
-            middlePane.setBottomAnchor(textTwo, primaryStage.getHeight() * 0.31);
-            middlePane.setBottomAnchor(withdraw, primaryStage.getHeight() * 0.40);
-            middlePane.setBottomAnchor(balance, primaryStage.getHeight() * 0.23);
-            leftPane.setBottomAnchor(btnConfirm, primaryStage.getHeight() * 0.35);
-            rightPane.setBottomAnchor(btnReturn, primaryStage.getHeight() * 0.35);
+            AnchorPane.setBottomAnchor(rectangleMid, primaryStage.getHeight() * 0.15);
+            AnchorPane.setBottomAnchor(withdrawText, primaryStage.getHeight() * 0.48);
+            AnchorPane.setBottomAnchor(newBalanceText, primaryStage.getHeight() * 0.31);
+            AnchorPane.setBottomAnchor(currentBalancePreviewText, primaryStage.getHeight() * 0.40);
+            AnchorPane.setBottomAnchor(newBalancePreviewText, primaryStage.getHeight() * 0.23);
+            AnchorPane.setBottomAnchor(btnReturn, primaryStage.getHeight() * 0.35);
+            AnchorPane.setBottomAnchor(btnConfirm, primaryStage.getHeight() * 0.35);
         });
 
         return underBasePane;
     }
-    private String getInput(){
-        String withdraw ="114514 MOP";
-
-        return withdraw;
-    }
-    private String getInputTwo(){
-        String balance ="114000 MOP";
-
-        return balance;
-    }
-    private Boolean getInputWarningInuputWrong(){
-        return false;
-    }
-    private Boolean getInputWarningDepositionWrong(){
-        return false;
-    }
-    private void callDialog(ModalPane aboutModalPane,Dialog aboutDialog,StackPane aboutPane,Stage primaryStage,WithdrawStateOneController withdrawOneController){
+    private void callDialog(ModalPane aboutModalPane, StackPane failed, Stage primaryStage, UserBase user)
+    {
         //success wait time
         PauseTransition pause = new PauseTransition(Duration.seconds(5));
         PauseTransition noTime = new PauseTransition(Duration.seconds(0.02));
-//        Text FailText = new Text("Please input an number in correct format");
+//        Text FailText = new Text("Please input a number in correct format");
         // start pause
         aboutModalPane.toFront();
         noTime.play();
@@ -210,7 +174,7 @@ public class WithdrawStateThreeController {
             pause.play();
             aboutModalPane.setPersistent(true);
 //            aboutPane.getChildren().add(FailText);
-            aboutModalPane.show(aboutDialog);
+            aboutModalPane.show(failed);
 
             System.out.println("aboutDialogOpenBtn");
         });
@@ -218,28 +182,11 @@ public class WithdrawStateThreeController {
         {
             aboutModalPane.hide(false);
             aboutModalPane.setPersistent(true);
-            primaryStage.getScene().setRoot(withdrawOneController.pane(primaryStage));
+            WithdrawStateOneController withdrawStateOne = new WithdrawStateOneController();
+            primaryStage.getScene().setRoot(withdrawStateOne.pane(primaryStage,user));
             System.out.println("OK");
         });
-
-
-
     }
-    private static class Dialog extends VBox
-    {
-        /**
-         * @param width Dialog width
-         * @param height Dialog height
-         */
-        public Dialog(int width, int height)
-        {
-            super();
 
-            setSpacing(10);
-            setAlignment(Pos.CENTER);
-            setMinSize(width, height);
-            setMaxSize(width, height);
-            setStyle("-fx-background-color: -color-bg-default;");
-        }
-    }
+
 }

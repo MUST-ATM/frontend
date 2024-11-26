@@ -3,11 +3,14 @@ package com.must.atm.mustatm.Template;
 /**
  * A class which can provide css style to the component
  *
+ * @author bywang
  */
- public class GetStyle {
+ public class GetStyle
+{
 
-    public String getButtonStyle() {
-        var style = """
+    public static String getButtonStyle()
+    {
+        return """
 
                 -fx-background-color: white;
                 -fx-border-color: transparent;
@@ -15,33 +18,33 @@ package com.must.atm.mustatm.Template;
                 -fx-font-size: 30px;
                 -fx-font-weight: bold;
      
-                    """;
-        return style;
+                """;
     }
-    public String getTextStyle() {
-        var style = """
+    public static String getTextStyle()
+    {
+        return """
 
                -fx-font-size: 35px;
                 -fx-font-weight: bold;
                 -fx-fill: white;
                 -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 3, 3);
      
-                    """;
-        return style;
+               """;
     }
-    public String getTextStyleBig() {
-        var style = """
+    public static String getTextStyleBig()
+    {
+        return """
 
                -fx-font-size: 45px;
                 -fx-font-weight: bold;
                 -fx-fill: white;
                 -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 3, 3);
      
-                    """;
-        return style;
+               """;
     }
-     public String getTextFieldStyle() {
-         var style = """
+     public static String getTextFieldStyle()
+     {
+         return """
 
                 -fx-font-size: 35px;
                 -fx-font-weight: bold;
@@ -51,11 +54,11 @@ package com.must.atm.mustatm.Template;
                 -fx-highlight-text-fill:#FFF8C5;
                 -fx-highlight-fill:#FAE17D ;
      
-                    """;
-         return style;
+                """;
      }
-    public String getTextFieldStyleTwo() {
-        var style = """
+    public static String getTextFieldStyleTwo()
+    {
+        return """
 
                 -fx-font-size: 35px;
                 -fx-font-weight: bold;
@@ -65,7 +68,6 @@ package com.must.atm.mustatm.Template;
                 -fx-highlight-text-fill:#FFF8C5;
                 -fx-highlight-fill:#FAE17D ;
      
-                    """;
-        return style;
+                """;
     }
 }

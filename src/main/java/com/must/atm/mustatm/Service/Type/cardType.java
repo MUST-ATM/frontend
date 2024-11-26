@@ -8,5 +8,5 @@ public enum cardType
 {
     HKD,
     MOP,
-    OTHER
+    CNY
 }

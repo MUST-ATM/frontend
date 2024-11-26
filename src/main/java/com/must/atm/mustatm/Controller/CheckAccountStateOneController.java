@@ -1,6 +1,7 @@
 package com.must.atm.mustatm.Controller;
 
-import com.must.atm.mustatm.Template.GetStyle;
+import com.must.atm.mustatm.Base.UserBase;
+import com.must.atm.mustatm.Service.Type.cardType;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,11 +13,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import static com.must.atm.mustatm.Template.GetStyle.getButtonStyle;
+
 /**
  * A class which can generate the first check account page
+ * @author bywang
  */
-public class CheckAccountStateOneController {
-    public Pane pane(Stage primaryStage)
+public class CheckAccountStateOneController
+{
+    public Pane pane(Stage primaryStage,UserBase user)
     {
         BorderPane basePane = new BorderPane();
         //set background
@@ -55,42 +60,41 @@ public class CheckAccountStateOneController {
 
         // set button action
         FunctionPageController functionPage = new FunctionPageController();
-        btnReturn.setOnAction(e -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage)));
+        btnReturn.setOnAction(_ -> primaryStage.getScene().setRoot(functionPage.pane(primaryStage, user)));
         CheckAccountStateTwoController checkAccountTwo = new CheckAccountStateTwoController();
-        btnOtherAccount.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage)));
-        btnMopAccount.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage)));
-        btnHkdAccount.setOnAction(e -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage)));
+        btnOtherAccount.setOnAction(_ -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage,user, cardType.CNY)));
+        btnMopAccount.setOnAction(_ -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage,user, cardType.MOP)));
+        btnHkdAccount.setOnAction(_ -> primaryStage.getScene().setRoot(checkAccountTwo.pane(primaryStage,user, cardType.HKD)));
         // set button
         // add button to panes
         leftPane.getChildren().addAll(btnOtherAccount, btnMopAccount, btnHkdAccount);
         rightPane.getChildren().add(btnReturn);
         // use ButtonStyle set button's style
-        GetStyle getStyle = new GetStyle();
-        btnOtherAccount.setStyle(getStyle.getButtonStyle());
-        btnMopAccount.setStyle(getStyle.getButtonStyle());
-        btnHkdAccount.setStyle(getStyle.getButtonStyle());
-        btnReturn.setStyle(getStyle.getButtonStyle());
+        btnOtherAccount.setStyle(getButtonStyle());
+        btnMopAccount.setStyle(getButtonStyle());
+        btnHkdAccount.setStyle(getButtonStyle());
+        btnReturn.setStyle(getButtonStyle());
 
         //set listener
-        basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        basePane.widthProperty().addListener((_, _, _) ->
         {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             btnOtherAccount.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
             btnMopAccount.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
             btnHkdAccount.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
             btnReturn.setPrefSize(primaryStage.getWidth() * 0.3, primaryStage.getHeight() * 0.1);
-            leftPane.setLeftAnchor(btnOtherAccount, primaryStage.getWidth() * 0.05);
-            leftPane.setLeftAnchor(btnMopAccount, primaryStage.getWidth() * 0.05);
-            leftPane.setLeftAnchor(btnHkdAccount, primaryStage.getWidth() * 0.05);
-            rightPane.setRightAnchor(btnReturn, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(btnOtherAccount, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(btnMopAccount, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(btnHkdAccount, primaryStage.getWidth() * 0.05);
+            AnchorPane.setRightAnchor(btnReturn, primaryStage.getWidth() * 0.05);
         });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        basePane.heightProperty().addListener((_, _, _) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
-            leftPane.setBottomAnchor(btnOtherAccount, primaryStage.getHeight() * 0.55);
-            leftPane.setBottomAnchor(btnMopAccount, primaryStage.getHeight() * 0.35);
-            leftPane.setBottomAnchor(btnHkdAccount, primaryStage.getHeight() * 0.15);
-            rightPane.setBottomAnchor(btnReturn, primaryStage.getHeight() * 0.35);
+            AnchorPane.setBottomAnchor(btnOtherAccount, primaryStage.getHeight() * 0.55);
+            AnchorPane.setBottomAnchor(btnMopAccount, primaryStage.getHeight() * 0.35);
+            AnchorPane.setBottomAnchor(btnHkdAccount, primaryStage.getHeight() * 0.15);
+            AnchorPane.setBottomAnchor(btnReturn, primaryStage.getHeight() * 0.35);
         });
 
         return basePane;

@@ -1,5 +1,6 @@
 package com.must.atm.mustatm.Controller;
 
+import com.must.atm.mustatm.Base.UserBase;
 import com.must.atm.mustatm.Template.GetStyle;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -12,11 +13,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import static com.must.atm.mustatm.Template.GetStyle.*;
 /**
  * A class which can generate the withdraw-success page
+ * @author  Jingye,bywang
  */
 public class WithdrawSuccessController {
-    public Pane pane(Stage primaryStage){
+    public Pane pane(Stage primaryStage, UserBase user){
         BorderPane basePane = new BorderPane();
         //set background
         basePane.setStyle("-fx-background-color:linear-gradient(to bottom,#AFB8C1,#8C959F) ;");
@@ -61,11 +65,11 @@ public class WithdrawSuccessController {
         rectangleMid.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 30, 0, 7, 7);");
         //set text
         Text text = new Text("WITHDRAWAL");
-        text.setStyle(getStyle.getTextStyle());
-        text.setStyle(getStyle.getTextStyleBig());
+        text.setStyle(getTextStyle());
+        text.setStyle(getTextStyleBig());
         middlePane.getChildren().add(text);
         Text textTwo = new Text("SUCCESSFUL");
-        textTwo.setStyle(getStyle.getTextStyleBig());
+        textTwo.setStyle(getTextStyleBig());
         middlePane.getChildren().add(textTwo);
 
 
@@ -75,42 +79,42 @@ public class WithdrawSuccessController {
         // set button action
         WithdrawStateOneController withdrawStateOneController = new WithdrawStateOneController();
         MainPageController mainPageController = new MainPageController();
-        btnContinue.setOnAction(e -> primaryStage.getScene().setRoot(withdrawStateOneController.pane(primaryStage)));
-        btnExist.setOnAction(e -> primaryStage.getScene().setRoot(mainPageController.pane(primaryStage)));
+        btnContinue.setOnAction(_ -> primaryStage.getScene().setRoot(withdrawStateOneController.pane(primaryStage,user)));
+        btnExist.setOnAction(_ -> primaryStage.getScene().setRoot(mainPageController.pane(primaryStage)));
         // set button
         // add button to panes
         rightPane.getChildren().add(btnContinue);
         leftPane.getChildren().add(btnExist);
         // use ButtonStyle set button's style
-        btnContinue.setStyle(getStyle.getButtonStyle());
-        btnExist.setStyle(getStyle.getButtonStyle());
+        btnContinue.setStyle(getButtonStyle());
+        btnExist.setStyle(getButtonStyle());
 
         //set listener
-        basePane.widthProperty().addListener((obs, oldVal, newVal) ->
+        basePane.widthProperty().addListener((_, _, _) ->
         {
             rectangle.setWidth(primaryStage.getWidth() * 0.5);
             rectangleMid.setWidth(primaryStage.getWidth() * 0.45);
 
-            middlePane.setLeftAnchor(rectangleMid, primaryStage.getWidth() * 0.02);
-            middlePane.setLeftAnchor(text, primaryStage.getWidth() * 0.05);
-            middlePane.setLeftAnchor(textTwo, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(rectangleMid, primaryStage.getWidth() * 0.02);
+            AnchorPane.setLeftAnchor(text, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(textTwo, primaryStage.getWidth() * 0.05);
 
             btnContinue.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
             btnExist.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
-            leftPane.setLeftAnchor(btnExist, primaryStage.getWidth() * 0.05);
-            rightPane.setRightAnchor(btnContinue, primaryStage.getWidth() * 0.05);
+            AnchorPane.setLeftAnchor(btnExist, primaryStage.getWidth() * 0.05);
+            AnchorPane.setRightAnchor(btnContinue, primaryStage.getWidth() * 0.05);
         });
-        basePane.heightProperty().addListener((obs, oldVal, newVal) ->
+        basePane.heightProperty().addListener((_, _, _) ->
         {
             rectangle.setHeight(primaryStage.getHeight() * 0.1);
             rectangleMid.setHeight(primaryStage.getHeight() * 0.4);
-            middlePane.setBottomAnchor(rectangleMid, primaryStage.getHeight() * 0.15);
-            middlePane.setBottomAnchor(text, primaryStage.getHeight() * 0.45);
-            middlePane.setBottomAnchor(textTwo, primaryStage.getHeight() * 0.38);
+            AnchorPane.setBottomAnchor(rectangleMid, primaryStage.getHeight() * 0.15);
+            AnchorPane.setBottomAnchor(text, primaryStage.getHeight() * 0.45);
+            AnchorPane.setBottomAnchor(textTwo, primaryStage.getHeight() * 0.38);
 
 
-            leftPane.setBottomAnchor(btnExist, primaryStage.getHeight() * 0.35);
-            rightPane.setBottomAnchor(btnContinue, primaryStage.getHeight() * 0.35);
+            AnchorPane.setBottomAnchor(btnExist, primaryStage.getHeight() * 0.35);
+            AnchorPane.setBottomAnchor(btnContinue, primaryStage.getHeight() * 0.35);
         });
 
         return basePane;
