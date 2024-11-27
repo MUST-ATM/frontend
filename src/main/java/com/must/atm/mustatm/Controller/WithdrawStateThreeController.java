@@ -139,8 +139,8 @@ public class WithdrawStateThreeController
             AnchorPane.setLeftAnchor(newBalanceText, primaryStage.getWidth() * 0.03);
             AnchorPane.setLeftAnchor(withdrawText, primaryStage.getWidth() * 0.03);
             AnchorPane.setLeftAnchor(currentBalancePreviewText, primaryStage.getWidth() * 0.03);
-            btnReturn.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
             btnConfirm.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
+            btnReturn.setPrefSize(primaryStage.getWidth() * 0.2, primaryStage.getHeight() * 0.1);
             AnchorPane.setLeftAnchor(btnReturn, primaryStage.getWidth() * 0.05);
             AnchorPane.setRightAnchor(btnConfirm, primaryStage.getWidth() * 0.05);
         });
@@ -152,8 +152,8 @@ public class WithdrawStateThreeController
             AnchorPane.setBottomAnchor(newBalanceText, primaryStage.getHeight() * 0.31);
             AnchorPane.setBottomAnchor(currentBalancePreviewText, primaryStage.getHeight() * 0.40);
             AnchorPane.setBottomAnchor(newBalancePreviewText, primaryStage.getHeight() * 0.23);
-            AnchorPane.setBottomAnchor(btnReturn, primaryStage.getHeight() * 0.35);
             AnchorPane.setBottomAnchor(btnConfirm, primaryStage.getHeight() * 0.35);
+            AnchorPane.setBottomAnchor(btnReturn, primaryStage.getHeight() * 0.35);
         });
 
         return underBasePane;

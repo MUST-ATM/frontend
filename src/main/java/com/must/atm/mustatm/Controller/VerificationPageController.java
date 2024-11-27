@@ -171,13 +171,7 @@ public class VerificationPageController
 
                 progressBar.setProgress(progressBar.getProgress()+(int) t.getSource().getValue() / 100.0);
                 CameraServiceImpl cameraService = new CameraServiceImpl();
-                try
-                {
-                    cameraService.capture();
-                } catch (IOException e)
-                {
-                    throw new RuntimeException(e);
-                }
+                //cameraService.capture();
                 if (progressBar.getProgress() < 0.5)
                 {
                     try

@@ -2,6 +2,7 @@ package com.must.atm.mustatm.Controller;
 
 
 import com.must.atm.mustatm.Base.UserBase;
+import com.must.atm.mustatm.Service.AccountServiceImpl;
 import com.must.atm.mustatm.Service.ActionServiceImpl;
 import com.must.atm.mustatm.Service.Type.cardType;
 import javafx.scene.control.Button;
@@ -69,11 +70,7 @@ public class DepositThreeController
         // set button action
         DepositSuccessController success = new DepositSuccessController();
         ActionServiceImpl actionService = new ActionServiceImpl();
-        btnConfirm.setOnAction( _->
-        {
-            actionService.deposit(user.getUserId(),currency,1000);
-            primaryStage.getScene().setRoot(success.pane(primaryStage,user));
-        });
+
 
         // set button
         btnConfirm.setStyle(getButtonStyle());
@@ -100,8 +97,13 @@ public class DepositThreeController
         textTwo.setStyle(getTextStyle());
         text.setStyle(getTextStyle());
         middlePane.getChildren().add(textTwo);
-        var newDeposit = actionService.deposit(user.getUserId(),currency,deposit);
-        var balance = new TextField(newDeposit + currency.toString());
+        AccountServiceImpl accountService = new AccountServiceImpl();
+        var balance = new TextField(accountService.getBalance(user.getUserId(),currency) + deposit + currency.toString());
+        btnConfirm.setOnAction( _->
+        {
+            actionService.deposit(user.getUserId(),currency,deposit);
+            primaryStage.getScene().setRoot(success.pane(primaryStage,user));
+        });
         balance.setEditable(false);
         balance.setStyle(getTextFieldStyle());
         middlePane.getChildren().add(balance);
