@@ -37,7 +37,7 @@ import static com.must.atm.mustatm.Template.NoticePane.textPane;
 public class VerificationPageController
 {
     private VBox progressBox = new VBox();
-
+    private final String TEST_IMAGE = "src/main/resources/live.jpg";
     /**
      * show fail page
      * @param basePane the base stack pane
@@ -171,19 +171,13 @@ public class VerificationPageController
 
                 progressBar.setProgress(progressBar.getProgress()+(int) t.getSource().getValue() / 100.0);
                 CameraServiceImpl cameraService = new CameraServiceImpl();
-                try
-                {
-                    cameraService.capture();
-                } catch (IOException e)
-                {
-                    throw new RuntimeException(e);
-                }
+                //cameraService.capture();
                 if (progressBar.getProgress() < 0.5)
                 {
                     try
                     {
                         VerificationServiceImpl verificationService = new VerificationServiceImpl();
-                        var username = verificationService.faceRecognition("src/main/resources/capture.jpg");
+                        var username = verificationService.faceRecognition(TEST_IMAGE);
                         if (username != null)
                         {
                             user.setFaceId(username);
@@ -215,7 +209,7 @@ public class VerificationPageController
                         {
                             VerificationServiceImpl verificationService = new VerificationServiceImpl();
                             AccountServiceImpl accountService = new AccountServiceImpl();
-                            status.setFaceAntiSpoofing(verificationService.faceAntiSpoofing("src/main/resources/capture.jpg"));
+                            status.setFaceAntiSpoofing(verificationService.faceAntiSpoofing(TEST_IMAGE));
                             if (status.getFaceAntiSpoofing())
                             {
                                 user.setUserId((accountService.getUserId(user.getFaceId())));

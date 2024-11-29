@@ -60,7 +60,7 @@ public class ActionServiceImpl implements ActionService
         NetworkServiceImpl networkService = new NetworkServiceImpl();
         try
         {
-            var result = networkService.sendJson("/account/balance/change", "{\"userId\":"+userId+",\"currency\":\""+cardType+"\",\"amount\":"+amount+"}");
+            var result = networkService.sendJson("/account/balance/change", "{\"user_id\":"+userId+",\"currency\":\""+cardType+"\",\"amount\":"+amount+"}");
             if(result.statusCode() != 200)
             {
                 throw new RuntimeException("Set balance failed");
