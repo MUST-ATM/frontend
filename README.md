@@ -6,8 +6,8 @@ This is the SE251 Project. The project is about building an ATM system for MUST 
 ### The system has three parts:
 
 - Frontend
-- Backend
-- face verification module
+- [Backend](https://github.com/MUST-ATM/backend)
+- [face verification module](https://github.com/MUST-ATM/face_module)
 
 ## Frontend About
 This is the frontend part of the MUST ATM system. It is a Fullstack application that is built using Java.
