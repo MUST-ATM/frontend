@@ -20,10 +20,12 @@ Hope you will never have to use JavaFX.
 
 BTW, It's works on my machine.
 
+Oh, actually, JavaCV is still quite tricky when accessing my camera, I always ran and prayed, but not always work.
 ## Requirements
 - Java 22
 - JavaFX 22
 - Gradle 8.8
+- JavaCV
 - Backend Part
 - Face Verification Module
 
