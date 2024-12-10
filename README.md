@@ -1,4 +1,5 @@
 # MUST ATM Frontend 
+![image](https://github.com/user-attachments/assets/5d6f6e42-55cd-42d6-92b9-25fe937f6e22)
 
 ## About Project
 This is the SE251 Project. The project is about building an ATM system for MUST University. The system is built using Java and JavaFX.
