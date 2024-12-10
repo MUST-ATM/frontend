@@ -31,7 +31,8 @@ BTW, It's works on my machine.
 2. Open the project in your favourite IDE, preferably IntelliJ IDEA
 3. Run the project by gradle
 4. Enjoy
-
+## UI design
+![img](https://tupian.li/images/2024/11/29/67497b6969fc8.png)
 ## License
 
 Distributed under the MIT License.
