@@ -2,7 +2,7 @@
 ![image](https://github.com/user-attachments/assets/5d6f6e42-55cd-42d6-92b9-25fe937f6e22)
 
 ## About Project
-This is the SE251 Project. The project is about building an ATM system for M.U.S.T. The system is built using Java and JavaFX.
+This is the SE251/SE460 Project. The project is about building an ATM system for M.U.S.T. The system is built using Java and JavaFX.
 
 The project is a smart ATM system that can recognize the user's face and provide a personalized service. 
 ### The system has three parts:
